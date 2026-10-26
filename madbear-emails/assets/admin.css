@@ -1,0 +1,18 @@
+.mbear-wrap .mbear-nav{display:flex;gap:4px;margin:12px 0 18px;border-bottom:1px solid #ccd0d4;padding-bottom:8px}
+.mbear-nav-item{padding:6px 14px;text-decoration:none;border:1px solid transparent;border-radius:3px 3px 0 0;color:#2271b1}
+.mbear-nav-item.mbear-active{background:#fff;border-color:#ccd0d4;border-bottom-color:#fff;font-weight:600;color:#1d2327}
+.mbear-card{background:#fff;border:1px solid #ccd0d4;padding:16px 20px;margin:0 0 16px;max-width:1100px}
+.mbear-hint{color:#50575e;font-style:italic}
+.mbear-call{margin-top:12px}
+.mbear-call .mbear-err{color:#b32d2e}
+.mbear-call table{margin-top:10px}
+.mbear-log{margin-top:12px;background:#f6f7f7;border:1px solid #dcdcde;padding:10px;max-height:300px;overflow:auto;font-family:Consolas,Monaco,monospace;font-size:12px}
+.mbear-log p{margin:.2em 0}
+.mbear-counters{display:flex;gap:24px;margin:10px 0}
+.mbear-counters>div{text-align:center}
+.mbear-num{display:block;font-size:26px;font-weight:600}
+.mbear-green{color:#007017}.mbear-red{color:#b32d2e}.mbear-orange{color:#bd8600}
+.mbear-status{padding:2px 8px;border-radius:10px;background:#f0f0f1;font-size:12px}
+.mbear-status-running{background:#d5f0d9}.mbear-status-paused,.mbear-status-quota_paused{background:#fbe6cd}
+.mbear-status-completed{background:#d5e6f0}.mbear-status-error{background:#f6c6c4}
+.mbear-status-sent{background:#d5f0d9}.mbear-status-unknown,.mbear-status-sending{background:#fbe6cd}
