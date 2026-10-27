@@ -573,18 +573,18 @@ const DB = {
 };
 
 const crumbMap = {
-  settings: "Settings",
-  guide: "How to Use",
-  sheets: "Select Sheet",
-  compose: "Compose Campaign",
+  settings: "Настройки",
+  guide: "Как пользоваться",
+  sheets: "Выбрать таблицу",
+  compose: "Создать кампанию",
   sending: "Sending...",
   results: "Results",
-  followup: "Follow-up Campaign",
-  followupsending: "Sending Follow-up...",
-  followupresults: "Follow-up Results",
-  drip: "Drip Sequence",
-  dripsending: "Sending Step...",
-  dripresults: "Drip Results"
+  followup: "Дожимная кампания",
+  followupsending: "Отправка дожима...",
+  followupresults: "Результаты дожима",
+  drip: "Drip-последовательность",
+  dripsending: "Отправка шага...",
+  dripresults: "Результаты drip"
 };
 
 document.addEventListener("DOMContentLoaded", init);
@@ -711,7 +711,7 @@ function init() {
 
 async function api(action, payload) {
   if (!S.scriptUrl) {
-    return { ok: false, error: "No Apps Script URL is set. Open Settings first." };
+    return { ok: false, error: "URL Apps Script не задан. Сначала откройте настройки." };
   }
 
   try {
@@ -732,7 +732,7 @@ async function api(action, payload) {
       if (!response.ok) {
         throw new Error("Request failed with status " + response.status + ".");
       }
-      throw new Error("The Apps Script response was not valid JSON. Re-deploy the web app and re-authorize it.");
+      throw new Error("Ответ Apps Script не является корректным JSON. Переразверните веб-приложение и авторизуйте его заново.");
     }
 
     if (!response.ok) {
@@ -743,7 +743,7 @@ async function api(action, payload) {
   } catch (error) {
     return {
       ok: false,
-      error: error && error.message ? error.message : "Could not reach the Apps Script web app."
+      error: error && error.message ? error.message : "Не удалось связаться с веб-приложением Apps Script."
     };
   }
 }
@@ -755,7 +755,7 @@ function billingRequest(type, extra) {
         resolve({ ok: false, error: chrome.runtime.lastError.message });
         return;
       }
-      resolve(response || { ok: false, error: "No billing response." });
+      resolve(response || { ok: false, error: "Нет ответа от системы тарифов." });
     });
   });
 }
@@ -771,7 +771,7 @@ async function ensureCompatibleBackend() {
   if (!S.scriptUrl) {
     return {
       ok: false,
-      error: "Add your own Apps Script Web App URL in Settings before using campaigns."
+      error: "Добавьте URL своего веб-приложения Apps Script в настройках, чтобы использовать кампании."
     };
   }
   const res = await api("getBackendInfo");
@@ -801,7 +801,7 @@ async function ensureFollowUpBackend() {
   if (!S.scriptUrl) {
     return {
       ok: false,
-      error: "Add your own Apps Script Web App URL in Settings before using follow-up campaigns.",
+      error: "Добавьте URL своего веб-приложения Apps Script в настройках, чтобы использовать дожимные кампании.",
       needsBackendUpdate: false
     };
   }
@@ -1015,7 +1015,7 @@ function dbDonut(delivered, errors, skipped) {
     offset += dash;
   });
   out += '<text x="' + cx + '" y="' + (cy + 4) + '" text-anchor="middle" font-size="18" font-weight="700" fill="var(--db-ink)" font-family="var(--db-sans)">' + pct + '%</text>';
-  out += '<text x="' + cx + '" y="' + (cy + 20) + '" text-anchor="middle" font-size="10" fill="var(--db-muted)" font-family="var(--db-mono)">DELIVERED</text>';
+  out += '<text x="' + cx + '" y="' + (cy + 20) + '" text-anchor="middle" font-size="10" fill="var(--db-muted)" font-family="var(--db-mono)">ДОСТАВЛЕНО</text>';
   out += '</svg>';
   return out;
 }
@@ -1045,7 +1045,7 @@ function dbSendingBanner() {
     out += esc(b.label || 'Отправка кампании…');
     if (b.campName) out += ' <span style="font-weight:400;color:var(--db-muted)">· ' + esc(b.campName) + '</span>';
   } else if (isDone) {
-    out += '<span style="color:var(--db-green);font-weight:700">' + (b.sent || 0) + ' sent</span>';
+    out += '<span style="color:var(--db-green);font-weight:700">' + (b.sent || 0) + ' отправлено</span>';
     if (b.errors > 0) out += ' <span style="color:var(--db-red);font-weight:500">· ' + b.errors + ' failed</span>';
     if (b.campName) out += ' <span style="font-weight:400;color:var(--db-muted)">· ' + esc(b.campName) + '</span>';
   } else {
@@ -1173,7 +1173,7 @@ function dbComposeModal() {
       out += dbIcon('users', 13) + ' Или отправьте напрямую вашим контактам <span style="color:var(--db-green);font-size:11px;font-weight:600;background:var(--db-green-tint);padding:2px 7px;border-radius:20px;margin-left:4px">Таблица не нужна</span>';
       out += '</div>';
       out += '<div style="display:flex;flex-direction:column;gap:6px">';
-      // "All contacts" button
+      // "Все контакты" button
       out += '<button class="db-sheet-row" data-action="db-compose-pick-contacts-all" style="border-color:var(--db-green-soft)">';
       out += '<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:6px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center">' + dbIcon('users', 12) + '</span><span style="font-weight:500;color:var(--db-ink)">Все контакты</span></span>';
       out += '<span style="font-size:11px;color:var(--db-muted)">' + modalContacts.length + ' получатель' + (modalContacts.length > 1 ? 'ев' : (modalContacts.length === 1 ? '' : 'ев')) + '</span>';
@@ -1218,7 +1218,7 @@ function dbComposeModal() {
     // Merge fields from sheet headers (or defaults)
     var mergeFields = form.sheetHeaders && form.sheetHeaders.length > 0
       ? form.sheetHeaders
-      : ["FirstName", "LastName", "Email", "Company", "Name"];
+      : ["FirstName", "LastName", "Email", "Company", "Имя"];
 
     out += '<div class="db-modal-head">';
     out += '<div><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">' + t('db.compose.composeTitle') + '</h3>';
@@ -1275,7 +1275,7 @@ function dbComposeModal() {
 
     // ── Merge Field Chips ─────────────────────────────────────
     out += '<div>';
-    out += '<div class="db-field-label" style="margin-bottom:6px">Merge fields <span style="color:var(--db-muted);font-size:11px">— click to insert at cursor</span></div>';
+    out += '<div class="db-field-label" style="margin-bottom:6px">Merge fields <span style="color:var(--db-muted);font-size:11px">— нажмите, чтобы вставить в курсор</span></div>';
     out += '<div style="display:flex;flex-wrap:wrap;gap:5px">';
     mergeFields.forEach(function(mf) {
       out += '<button class="db-chip" data-action="db-compose-insert-tag" data-tag="' + escAttr(mf) + '" style="font-family:var(--db-mono);font-size:11.5px;background:var(--db-surface2);border:1px solid var(--db-line);border-radius:6px;padding:3px 8px;cursor:pointer;color:var(--db-ink2)">{{' + esc(mf) + '}}</button>';
@@ -1307,7 +1307,7 @@ function dbComposeModal() {
     var attachList = form.attachments || [];
     attachList.forEach(function(att, ai) {
       out += '<span style="display:flex;align-items:center;gap:5px;background:var(--db-surface2);border:1px solid var(--db-line);border-radius:7px;padding:4px 8px;font-size:12px;color:var(--db-ink2)">';
-      out += dbIcon('upload', 12) + ' ' + esc(att.name || 'file') + ' ';
+      out += dbIcon('upload', 12) + ' ' + esc(att.name || 'файл') + ' ';
       out += '<button data-action="db-compose-remove-attachment" data-index="' + ai + '" style="background:none;border:none;cursor:pointer;color:var(--db-muted);padding:0;line-height:1">' + dbIcon('x', 11) + '</button>';
       out += '</span>';
     });
@@ -1392,7 +1392,7 @@ function dbFollowUpModal() {
   var step = DB.followUpStep || "compose";
   var campId = DB.followUpCampId;
   var camp = (S.history || []).find(function(c) { return c.id === campId; }) || {};
-  var campName = camp.name || camp.sheetName || "Campaign";
+  var campName = camp.name || camp.sheetName || "Кампания";
   var isPremium = true;
 
   var out = '<div class="db-modal-backdrop">';
@@ -1513,7 +1513,7 @@ function dbFollowUpModal() {
     out += '</div>';
     out += '<div class="db-modal-body" style="text-align:center;padding:28px 24px">';
     out += '<div style="font-size:48px;margin-bottom:14px">' + (allOk ? '✅' : '⚠️') + '</div>';
-    out += '<div style="font-size:26px;font-weight:800;color:var(--db-green);margin-bottom:4px">' + (res.sent || 0) + ' sent</div>';
+    out += '<div style="font-size:26px;font-weight:800;color:var(--db-green);margin-bottom:4px">' + (res.sent || 0) + ' отправлено</div>';
     if (res.threaded) out += '<div style="font-size:13px;color:var(--db-muted);margin-top:4px">' + res.threaded + ' отправлено цепочкой ответов</div>';
     if (res.errors > 0) out += '<div style="font-size:13px;color:var(--db-red);margin-top:6px">' + res.errors + ' ошибок</div>';
     out += '<div style="font-size:13px;color:var(--db-muted);margin-top:10px">Дожим для: ' + esc(campName) + '</div>';
@@ -1544,7 +1544,7 @@ function dbResultsModal() {
   out += '<div class="db-modal" style="width:680px">';
 
   out += '<div class="db-modal-head">';
-  out += '<div><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">' + esc(camp.name || camp.sheetName || 'Campaign') + '</h3>';
+  out += '<div><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">' + esc(camp.name || camp.sheetName || 'Кампания') + '</h3>';
   out += '<p style="font-size:12.5px;color:var(--db-muted);margin:2px 0 0">' + esc(camp.subject || '') + ' · ' + esc(camp.date || '') + '</p></div>';
   out += '<button class="db-btn ghost sm" data-action="db-results-close">' + dbIcon('x', 14) + '</button>';
   out += '</div>';
@@ -1554,10 +1554,10 @@ function dbResultsModal() {
   // Stat row
   out += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px">';
   [
-    { label: 'Total sent',    value: total,  color: 'var(--db-ink)' },
-    { label: 'Delivered',     value: sent,   color: 'var(--db-green)' },
-    { label: 'Errors',        value: errors, color: errors > 0 ? 'var(--db-red)' : 'var(--db-muted)' },
-    { label: 'Delivery rate', value: rate + (rate !== '—' ? '%' : ''), color: rateColor },
+    { label: 'Всего отправлено',    value: total,  color: 'var(--db-ink)' },
+    { label: 'Доставлено',     value: sent,   color: 'var(--db-green)' },
+    { label: 'Ошибки',        value: errors, color: errors > 0 ? 'var(--db-red)' : 'var(--db-muted)' },
+    { label: 'Доставляемость', value: rate + (rate !== '—' ? '%' : ''), color: rateColor },
   ].forEach(function(s) {
     out += '<div style="background:var(--db-bg);border-radius:10px;padding:12px 14px;text-align:center">';
     out += '<div style="font-size:22px;font-weight:800;color:' + s.color + ';font-variant-numeric:tabular-nums">' + s.value + '</div>';
@@ -1568,15 +1568,15 @@ function dbResultsModal() {
 
   // Campaign info card
   out += '<div style="background:var(--db-bg);border-radius:10px;padding:12px 14px;font-size:12.5px;display:flex;flex-direction:column;gap:6px">';
-  if (camp.sheetName) out += '<div><span style="color:var(--db-muted);width:90px;display:inline-block">Sheet</span><span style="color:var(--db-ink)">' + esc(camp.sheetName) + '</span></div>';
-  if (camp.subject)   out += '<div><span style="color:var(--db-muted);width:90px;display:inline-block">Subject</span><span style="color:var(--db-ink)">' + esc(camp.subject) + '</span></div>';
-  if (camp.date)      out += '<div><span style="color:var(--db-muted);width:90px;display:inline-block">Sent on</span><span style="color:var(--db-ink)">' + esc(camp.date) + '</span></div>';
+  if (camp.sheetName) out += '<div><span style="color:var(--db-muted);width:90px;display:inline-block">Таблица</span><span style="color:var(--db-ink)">' + esc(camp.sheetName) + '</span></div>';
+  if (camp.subject)   out += '<div><span style="color:var(--db-muted);width:90px;display:inline-block">Тема</span><span style="color:var(--db-ink)">' + esc(camp.subject) + '</span></div>';
+  if (camp.date)      out += '<div><span style="color:var(--db-muted);width:90px;display:inline-block">Отправлено</span><span style="color:var(--db-ink)">' + esc(camp.date) + '</span></div>';
   out += '</div>';
 
   // Per-recipient results table (if available)
   if (results.length > 0) {
     out += '<div>';
-    out += '<div class="db-field-label" style="margin-bottom:8px">Per-recipient results</div>';
+    out += '<div class="db-field-label" style="margin-bottom:8px">Результаты по получателям</div>';
     out += '<div style="max-height:240px;overflow-y:auto;border-radius:10px;overflow:hidden">';
     out += '<table class="db-table" style="margin:0"><thead><tr><th>Email</th><th>Статус</th><th>Подробности</th></tr></thead><tbody>';
     results.forEach(function(r) {
@@ -1691,7 +1691,7 @@ async function dbOpenFollowUpModal(campaignId) {
   _followUpModalOpening = true;
   try {
     var campaign = (S.history || []).find(function(c) { return c.id === campaignId; });
-    if (!campaign) { S.error = "Campaign not found."; render(); return; }
+    if (!campaign) { S.error = "Кампания не найдена."; render(); return; }
 
     S.followUpNeedsBackendUpdate = false;
     S.followUpCampaignId = campaignId;
@@ -1753,15 +1753,15 @@ async function dbDoFollowUpFromModal(isTest) {
   if (delay)  S.followUpDelayMs  = Math.max(0, parseInt(delay.value, 10) || 500);
 
   var campaign = (S.history || []).find(function(c) { return c.id === DB.followUpCampId; });
-  if (!campaign) { S.error = "Original campaign not found."; render(); return; }
+  if (!campaign) { S.error = "Исходская кампания не найдена."; render(); return; }
 
-  if (!S.followUpSubject.trim()) { S.error = "Add a subject before sending."; render(); return; }
-  if (!S.followUpBody.trim())    { S.error = "Write your follow-up message before sending."; render(); return; }
-  if (isTest && !S.followUpTestEmail) { S.error = "Enter a test email first."; render(); return; }
+  if (!S.followUpSubject.trim()) { S.error = "Укажите тему перед отправкой."; render(); return; }
+  if (!S.followUpBody.trim())    { S.error = "Напишите сообщение дожима перед отправкой."; render(); return; }
+  if (isTest && !S.followUpTestEmail) { S.error = "Сначала укажите тестовый email."; render(); return; }
 
   var selectedEmails = S.followUpRecipients.filter(function(r) { return r.selected; }).map(function(r) { return r.email; });
   if (!isTest && S.followUpRecipientsLoaded && selectedEmails.length === 0) {
-    S.error = "Select at least one recipient before sending."; render(); return;
+    S.error = "Перед отправкой выберите хотя бы одного получателя."; render(); return;
   }
 
   DB.followUpStep = "sending";
@@ -1828,7 +1828,7 @@ async function dbDoFollowUpFromModal(isTest) {
       DB.followUpResult = { sent: sent, errors: errors, threaded: threaded, isTest: isTest };
       render();
     } else {
-      var errMsg = res.error || "Follow-up failed.";
+      var errMsg = res.error || "Ошибка дожима.";
       if (errMsg.indexOf("Unknown action") !== -1 || errMsg.indexOf("sendFollowUp") !== -1) {
         S.error = "Your backend is outdated and doesn't support follow-up yet. Please redeploy the latest backend code.";
       } else {
@@ -1838,7 +1838,7 @@ async function dbDoFollowUpFromModal(isTest) {
       render();
     }
   } catch(e) {
-    S.error = e.message || "Follow-up failed";
+    S.error = e.message || "Ошибка дожима";
     DB.followUpStep = "compose";
     render();
   }
@@ -1852,12 +1852,12 @@ async function dbComposeConnectSheet() {
   var customName = (document.getElementById("dbCampName") || {}).value || form.name || "";
 
   if (!S.scriptUrl) {
-    S.error = "Add a backend in Settings first.";
+    S.error = "Сначала добавьте бэкенд в настройках.";
     render();
     return;
   }
   if (!rawUrl.trim()) {
-    S.error = "Paste a Google Sheets URL or ID first.";
+    S.error = "Сначала вставьте URL или ID таблицы Google Sheets.";
     render();
     return;
   }
@@ -1872,7 +1872,7 @@ async function dbComposeConnectSheet() {
     return;
   }
 
-  DB.composeSendingProgress = "Connecting to sheet…";
+  DB.composeSendingProgress = "Подключение к таблице…";
   DB.composeStep = "sending";
   S.error = null;
   render();
@@ -1949,7 +1949,7 @@ async function dbComposeConnectSheet() {
     var res = results[0], dataRes = results[1];
 
     if (!res.ok) {
-      S.error = res.error || "Could not access the spreadsheet. Check the URL and sharing settings.";
+      S.error = res.error || "Не удалось открыть таблицу. Проверьте URL и настройки доступа.";
       DB.composeStep = "sheet";
       render();
       return;
@@ -1981,7 +1981,7 @@ async function dbComposeConnectSheet() {
 // ── Start campaign from contacts (no sheet needed) ────────────────
 function startCampaignFromContactsGroup(groupName) {
   if (!S.scriptUrl) {
-    S.error = "Add a backend in Settings first before sending a campaign.";
+    S.error = "Сначала добавьте бэкенд в настройках, затем отправляйте кампанию.";
     render();
     return;
   }
@@ -1994,12 +1994,12 @@ function startCampaignFromContactsGroup(groupName) {
   if (targets.length === 0) {
     S.error = groupName
       ? 'No contacts in group "' + groupName + '".'
-      : 'No contacts found. Add contacts first.';
+      : 'Контакты не найдены. Сначала добавьте контакты.';
     render();
     return;
   }
 
-  var headers = ['Name', 'Email', 'FirstName', 'LastName', 'Group', 'Tags'];
+  var headers = ['Имя', 'Email', 'FirstName', 'LastName', 'Группа', 'Теги'];
   var cfKeys = [];
   targets.forEach(function(c) {
     Object.keys(c.customFields || {}).forEach(function(k) {
@@ -2023,7 +2023,7 @@ function startCampaignFromContactsGroup(groupName) {
     rows.push(row);
   });
 
-  var campLabel = groupName ? ('"' + groupName + '" group') : 'All contacts';
+  var campLabel = groupName ? ('"' + groupName + '" group') : 'Все контакты';
 
   DB.showComposeModal = true;
   DB.composeStep = "compose";
@@ -2063,7 +2063,7 @@ function startCampaignFromContactsGroup(groupName) {
 
 function startCampaignFromContacts(tag) {
   if (!S.scriptUrl) {
-    S.error = "Add a backend in Settings first before sending a campaign.";
+    S.error = "Сначала добавьте бэкенд в настройках, затем отправляйте кампанию.";
     render();
     return;
   }
@@ -2077,14 +2077,14 @@ function startCampaignFromContacts(tag) {
   if (targets.length === 0) {
     S.error = tag
       ? 'No contacts found with tag "' + tag + '".'
-      : 'No contacts found. Add contacts first.';
+      : 'Контакты не найдены. Сначала добавьте контакты.';
     render();
     return;
   }
 
   // Build inlineData in the format the backend expects:
   // Row 0 = headers, rows 1..N = data rows
-  var headers = ['Name', 'Email', 'FirstName', 'LastName', 'Tags'];
+  var headers = ['Имя', 'Email', 'FirstName', 'LastName', 'Теги'];
 
   // Collect all custom field keys across all contacts
   var cfKeys = [];
@@ -2109,7 +2109,7 @@ function startCampaignFromContacts(tag) {
     rows.push(row);
   });
 
-  var campLabel = tag ? ('"' + tag + '" contacts') : 'All contacts';
+  var campLabel = tag ? ('"' + tag + '" contacts') : 'Все контакты';
 
   // Open compose modal at the compose step with inlineData pre-loaded
   DB.showComposeModal = true;
@@ -2175,33 +2175,33 @@ async function dbSendCampaignFromModal(isTest) {
   if (testEl)    form.testEmail = testEl.value.trim();
 
   if (!S.scriptUrl) {
-    S.error = "No backend configured. Add one in Settings.";
+    S.error = "Бэкенд не настроен. Добавьте его в настройках.";
     render();
     return;
   }
   if (!form.subject.trim()) {
-    S.error = "Please enter a subject line.";
+    S.error = "Пожалуйста, укажите тему письма.";
     render();
     return;
   }
   var isContactsCampaign = !!(form.isContactsCampaign && form.inlineData);
 
   if (!isContactsCampaign && !form.sheetId) {
-    S.error = "No spreadsheet connected.";
+    S.error = "Таблица не подключена.";
     render();
     return;
   }
   if (isTest && !form.testEmail) {
-    S.error = "Enter a test email address first.";
+    S.error = "Сначала укажите тестовый email-адрес.";
     render();
     return;
   }
 
   // Close compose modal and show inline sending banner
   DB.composeStep = "sending";
-  DB.composeSendingProgress = isTest ? "Sending test email…" : "Preparing campaign…";
+  DB.composeSendingProgress = isTest ? "Отправка тестового письма…" : "Подготовка кампании…";
   DB.showComposeModal = false;
-  DB.sendingBanner = { status: "sending", label: isTest ? "Sending test email…" : "Sending campaign…", campName: form.name || form.sheetName || "" };
+  DB.sendingBanner = { status: "sending", label: isTest ? "Отправка тестового письма…" : "Отправка кампании…", campName: form.name || form.sheetName || "" };
   S.error = null;
   render();
 
@@ -2230,7 +2230,7 @@ async function dbSendCampaignFromModal(isTest) {
       config.inlineData = form.inlineData;
     }
 
-    DB.composeSendingProgress = isTest ? "Sending test…" : "Sending campaign via backend…";
+    DB.composeSendingProgress = isTest ? "Тестовая отправка…" : "Отправка кампании через бэкенд…";
     render();
 
     var res = await api("sendMerge", { config: config });
@@ -2253,7 +2253,7 @@ async function dbSendCampaignFromModal(isTest) {
           name:           campaignName,
           subject:        form.subject,
           sheetId:        isContactsCampaign ? "" : form.sheetId,
-          sheetName:      isContactsCampaign ? (form.contactGroup ? '"' + form.contactGroup + '" group' : form.contactTag ? '"' + form.contactTag + '" contacts' : 'Contacts') : form.sheetName,
+          sheetName:      isContactsCampaign ? (form.contactGroup ? '"' + form.contactGroup + '" group' : form.contactTag ? '"' + form.contactTag + '" contacts' : 'Контакты') : form.sheetName,
           sheetTab:       isContactsCampaign ? "" : (form.sheetTab || ""),
           inlineData:     isContactsCampaign ? form.inlineData : null,
           total:          sent + errors,
@@ -2282,7 +2282,7 @@ async function dbSendCampaignFromModal(isTest) {
 
       DB.composeStep   = "sheet";
       DB.composeResult = { sent: sent, errors: errors, isTest: isTest };
-      DB.sendingBanner = { status: "done", sent: sent, errors: errors, campName: (isTest ? "[Test] " : "") + (form.name || form.sheetName || "Campaign") };
+      DB.sendingBanner = { status: "done", sent: sent, errors: errors, campName: (isTest ? "[Test] " : "") + (form.name || form.sheetName || "Кампания") };
       // Auto-dismiss the banner after 8 seconds
       setTimeout(function() {
         if (DB.sendingBanner && DB.sendingBanner.status === "done") {
@@ -2292,11 +2292,11 @@ async function dbSendCampaignFromModal(isTest) {
       }, 8000);
       render();
     } else {
-      throw new Error(res.error || "Backend returned an error");
+      throw new Error(res.error || "Бэкенд вернул ошибку");
     }
 
   } catch(e) {
-    DB.sendingBanner = { status: "error", label: e.message || "Send failed", campName: form.name || form.sheetName || "" };
+    DB.sendingBanner = { status: "error", label: e.message || "Отправка не удалась", campName: form.name || form.sheetName || "" };
     DB.composeStep = "sheet";
     render();
   }
@@ -2475,7 +2475,7 @@ function dbOverviewPanel() {
       var rate = c.total > 0 ? (((c.total - (c.errors||0)) / c.total) * 100).toFixed(1) : '—';
       var rateColor = parseFloat(rate) >= 97 ? 'var(--db-green)' : parseFloat(rate) >= 93 ? 'var(--db-amber)' : 'var(--db-red)';
       out += '<tr>';
-      out += '<td><div style="display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:var(--db-green3)"></span><span style="font-weight:500;color:var(--db-ink)">' + esc(c.name || c.sheetName || 'Campaign') + '</span></div></td>';
+      out += '<td><div style="display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:var(--db-green3)"></span><span style="font-weight:500;color:var(--db-ink)">' + esc(c.name || c.sheetName || 'Кампания') + '</span></div></td>';
       out += '<td class="mono" style="color:var(--db-muted)">' + esc(c.date || '') + '</td>';
       out += '<td class="mono" style="text-align:right">' + (c.total||0).toLocaleString() + '</td>';
       out += '<td class="mono" style="text-align:right;font-weight:600;color:' + rateColor + '">' + rate + '%</td>';
@@ -2583,10 +2583,10 @@ function dbCampaignsPanel() {
 
   // Search + filter bar
   out += '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px">';
-  out += '<div class="db-field" style="flex:1;max-width:380px">' + dbIcon('search') + '<input placeholder="Search campaigns…" id="dbCampSearch" value="' + escAttr(q) + '"/></div>';
+  out += '<div class="db-field" style="flex:1;max-width:380px">' + dbIcon('search') + '<input placeholder="Поиск кампаний…" id="dbCampSearch" value="' + escAttr(q) + '"/></div>';
   out += '<div class="db-seg">';
   ['all','sent','followup','drip'].forEach(function(f){
-    var label = f === 'all' ? 'All' : f === 'sent' ? 'One-off' : f === 'followup' ? 'Follow-ups' : 'Drips';
+    var label = f === 'all' ? 'Все' : f === 'sent' ? 'One-off' : f === 'followup' ? 'Follow-ups' : 'Drips';
     out += '<button class="' + (filter === f ? 'active' : '') + '" data-action="db-campaign-filter" data-filter="' + f + '">' + label + ' ' + (counts[f]||0) + '</button>';
   });
   out += '</div></div>';
@@ -2596,25 +2596,25 @@ function dbCampaignsPanel() {
     out += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:9px 14px;background:var(--db-blue-soft);border:1.5px solid var(--db-blue);border-radius:10px">';
     out += '<span style="font-size:12.5px;font-weight:600;color:var(--db-blue)">' + selCount + ' campaign' + (selCount === 1 ? '' : 's') + ' selected</span>';
     out += '<span style="flex:1"></span>';
-    out += '<button class="db-btn ghost sm" data-action="db-camp-select-none" style="font-size:12px">Deselect all</button>';
+    out += '<button class="db-btn ghost sm" data-action="db-camp-select-none" style="font-size:12px">Снять выделение</button>';
     out += '<button class="db-btn sm" data-action="db-camp-delete-selected" style="font-size:12px;background:var(--db-red,#ef4444);color:#fff;border-color:transparent">' + dbIcon('trash', 13) + ' Delete ' + selCount + ' selected</button>';
     out += '</div>';
   }
 
   out += '<div class="db-card elev" style="padding:0;overflow:hidden">';
   out += '<table class="db-table"><thead><tr>';
-  out += '<th style="padding-left:16px;width:36px"><input type="checkbox" data-action="db-camp-select-all-filtered" ' + (allFilteredSelected ? 'checked' : '') + ' title="Select all" style="accent-color:var(--db-green);cursor:pointer"/></th>';
-  out += '<th>Campaign</th><th>Tags</th><th>Date</th>';
-  out += '<th style="text-align:right">Sent</th><th style="text-align:right">Errors</th>';
-  out += '<th style="text-align:right">Rate</th><th style="text-align:right;padding-right:20px">Actions</th>';
+  out += '<th style="padding-left:16px;width:36px"><input type="checkbox" data-action="db-camp-select-all-filtered" ' + (allFilteredSelected ? 'checked' : '') + ' title="Выбрать все" style="accent-color:var(--db-green);cursor:pointer"/></th>';
+  out += '<th>Кампания</th><th>Теги</th><th>Дата</th>';
+  out += '<th style="text-align:right">Отправлено</th><th style="text-align:right">Ошибки</th>';
+  out += '<th style="text-align:right">Дост.</th><th style="text-align:right;padding-right:20px">Действия</th>';
   out += '</tr></thead><tbody>';
 
   if (filtered.length === 0) {
-    out += '<tr><td colspan="8"><div class="db-empty"><div style="font-size:28px;opacity:0.5;margin-bottom:8px">📭</div>No campaigns match your filters.</div></td></tr>';
+    out += '<tr><td colspan="8"><div class="db-empty"><div style="font-size:28px;opacity:0.5;margin-bottom:8px">📭</div>Ни одна кампания не соответствует фильтрам.</div></td></tr>';
   } else {
     filtered.forEach(function(c) {
       var isSelected = !!sel[c.id];
-      var name = c.name || c.sheetName || 'Campaign';
+      var name = c.name || c.sheetName || 'Кампания';
       var ctype = c.type || 'sent';
       var iconName = ctype === 'drip' ? 'activity' : ctype === 'followup' ? 'reply' : 'send';
       var bgColor = ctype === 'drip' ? 'var(--db-blue-soft)' : ctype === 'followup' ? 'var(--db-amber-soft)' : 'var(--db-green-tint)';
@@ -2637,7 +2637,7 @@ function dbCampaignsPanel() {
       out += '<td class="mono" style="text-align:right">' + sent.toLocaleString() + '</td>';
       out += '<td class="mono" style="text-align:right;color:' + (errors > 30 ? 'var(--db-red)' : 'var(--db-muted)') + '">' + errors + '</td>';
       out += '<td class="mono" style="text-align:right;font-weight:600;color:' + rateColor + '">' + rate + (rate !== '—' ? '%' : '') + '</td>';
-      out += '<td style="text-align:right;padding-right:20px"><div class="db-row-actions"><button title="Просмотр" data-action="db-view-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('eye',14) + '</button><button title="Duplicate" data-action="db-duplicate-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('copy',14) + '</button><button title="Follow-up" data-action="db-followup-from-id" data-id="' + escAttr(c.id||'') + '" data-prefetch-followup="' + escAttr(c.id||'') + '">' + dbIcon('reply',14) + '</button><button title="Delete" data-action="db-camp-delete-one" data-id="' + escAttr(c.id||'') + '" style="color:var(--db-red,#ef4444)">' + dbIcon('trash',14) + '</button></div></td>';
+      out += '<td style="text-align:right;padding-right:20px"><div class="db-row-actions"><button title="Просмотр" data-action="db-view-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('eye',14) + '</button><button title="Duplicate" data-action="db-duplicate-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('copy',14) + '</button><button title="Follow-up" data-action="db-followup-from-id" data-id="' + escAttr(c.id||'') + '" data-prefetch-followup="' + escAttr(c.id||'') + '">' + dbIcon('reply',14) + '</button><button title="Удалить" data-action="db-camp-delete-one" data-id="' + escAttr(c.id||'') + '" style="color:var(--db-red,#ef4444)">' + dbIcon('trash',14) + '</button></div></td>';
       out += '</tr>';
     });
   }
@@ -2665,14 +2665,14 @@ function dbAnalyticsPanel() {
   out += '</div>';
 
   out += '<div class="db-stat-grid">';
-  out += dbStatCard('Total sent', totalSent.toLocaleString(), 'send', '', 'all time', [200,280,260,320,300,360,340,420,400,480]);
-  out += dbStatCard('Total errors', totalErrors, 'x', '', (totalSent>0 ? ((totalErrors/totalSent)*100).toFixed(2)+'% error rate' : ''), [40,38,32,30,28,26,22,20,18,18]);
-  out += dbStatCard('Delivery rate', rate, 'check', '', 'среднее по отрасли 95.1%', [96,96,97,97,97,98,98,98,98,98], rate !== '—' ? '%' : '');
-  out += dbStatCard('Avg / campaign', avgPerDay, 'activity', '', 'per campaign', [600,640,680,720,700,740,720,760,740,780]);
+  out += dbStatCard('Всего отправлено', totalSent.toLocaleString(), 'send', '', 'all time', [200,280,260,320,300,360,340,420,400,480]);
+  out += dbStatCard('Всего ошибок', totalErrors, 'x', '', (totalSent>0 ? ((totalErrors/totalSent)*100).toFixed(2)+'% error rate' : ''), [40,38,32,30,28,26,22,20,18,18]);
+  out += dbStatCard('Доставляемость', rate, 'check', '', 'среднее по отрасли 95.1%', [96,96,97,97,97,98,98,98,98,98], rate !== '—' ? '%' : '');
+  out += dbStatCard('Средн. / кампания', avgPerDay, 'activity', '', 'per campaign', [600,640,680,720,700,740,720,760,740,780]);
   out += '</div>';
 
   out += '<div class="db-card elev db-mt">';
-  out += '<div class="db-card-head"><div><h3 class="db-card-title">Send volume</h3><p class="db-card-sub">Daily delivery — last 7 days</p></div></div>';
+  out += '<div class="db-card-head"><div><h3 class="db-card-title">Объём отправок</h3><p class="db-card-sub">Ежедневная доставка — последние 7 дней</p></div></div>';
   out += dbBarChart(last7);
   out += '</div>';
 
@@ -2680,15 +2680,15 @@ function dbAnalyticsPanel() {
 
   // Status distribution
   out += '<div class="db-card elev">';
-  out += '<div class="db-card-head"><div><h3 class="db-card-title">Status distribution</h3><p class="db-card-sub">All-time outcomes</p></div></div>';
+  out += '<div class="db-card-head"><div><h3 class="db-card-title">Распределение статусов</h3><p class="db-card-sub">Результаты за всё время</p></div></div>';
   out += '<div style="display:flex;gap:18px;align-items:center">';
   out += dbDonut(delivered, totalErrors, totalSkipped);
   out += '<div style="flex:1;display:flex;flex-direction:column;gap:12px">';
   var total = totalSent || 1;
   [
-    {label:'Delivered', val:delivered,    pct:(delivered/total*100).toFixed(2), color:'var(--db-green)'},
-    {label:'Errors',    val:totalErrors,  pct:(totalErrors/total*100).toFixed(2), color:'var(--db-red)'},
-    {label:'Skipped',   val:totalSkipped, pct:(totalSkipped/total*100).toFixed(2), color:'var(--db-amber)'},
+    {label:'Доставлено', val:delivered,    pct:(delivered/total*100).toFixed(2), color:'var(--db-green)'},
+    {label:'Ошибки',    val:totalErrors,  pct:(totalErrors/total*100).toFixed(2), color:'var(--db-red)'},
+    {label:'Пропущено',   val:totalSkipped, pct:(totalSkipped/total*100).toFixed(2), color:'var(--db-amber)'},
   ].forEach(function(s){
     out += '<div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--db-ink2)"><span style="width:8px;height:8px;border-radius:50%;background:' + s.color + '"></span>' + esc(s.label) + '</span><span style="font-family:var(--db-mono);font-size:12px;color:var(--db-muted)">' + s.pct + '%</span></div>';
     out += '<div class="db-progress"><div class="fill" style="width:' + Math.min(parseFloat(s.pct), 100) + '%;background:' + s.color + '"></div></div>';
@@ -2699,17 +2699,17 @@ function dbAnalyticsPanel() {
   // Per-campaign table
   out += '<div class="db-card elev" style="padding:0;overflow:hidden">';
   out += '<div style="padding:18px 20px 8px;display:flex;justify-content:space-between;align-items:center">';
-  out += '<div><h3 class="db-card-title">Per-campaign breakdown</h3><p class="db-card-sub">Sent, errors, and delivery rate</p></div>';
+  out += '<div><h3 class="db-card-title">Разбивка по кампаниям</h3><p class="db-card-sub">Отправлено, ошибки и доставляемость</p></div>';
   out += '</div>';
-  out += '<table class="db-table"><thead><tr><th style="padding-left:20px">Campaign</th><th style="text-align:right">Sent</th><th style="text-align:right">Errors</th><th style="text-align:right;padding-right:20px">Rate</th></tr></thead><tbody>';
+  out += '<table class="db-table"><thead><tr><th style="padding-left:20px">Кампания</th><th style="text-align:right">Отправлено</th><th style="text-align:right">Ошибки</th><th style="text-align:right;padding-right:20px">Дост.</th></tr></thead><tbody>';
   if (campaigns.length === 0) {
-    out += '<tr><td colspan="4"><div class="db-empty">No data yet.</div></td></tr>';
+    out += '<tr><td colspan="4"><div class="db-empty">Данных пока нет.</div></td></tr>';
   } else {
     campaigns.slice(0, 8).forEach(function(c){
       var s = c.total || 0, e = c.errors || 0;
       var r = s > 0 ? ((s-e)/s*100).toFixed(1) : '—';
       var rc = parseFloat(r) >= 97 ? 'var(--db-green)' : parseFloat(r) >= 93 ? 'var(--db-amber)' : 'var(--db-red)';
-      out += '<tr><td style="padding-left:20px;font-weight:500;color:var(--db-ink)">' + esc(c.name||c.sheetName||'Campaign') + '</td>';
+      out += '<tr><td style="padding-left:20px;font-weight:500;color:var(--db-ink)">' + esc(c.name||c.sheetName||'Кампания') + '</td>';
       out += '<td class="mono" style="text-align:right">' + s.toLocaleString() + '</td>';
       out += '<td class="mono" style="text-align:right;color:' + (e>30?'var(--db-red)':'var(--db-muted)') + '">' + e + '</td>';
       out += '<td class="mono" style="text-align:right;padding-right:20px;font-weight:600;color:' + rc + '">' + r + (r!=='—'?'%':'') + '</td></tr>';
@@ -2748,7 +2748,7 @@ function contactsParseCustomFields(str) {
 
 function contactsParseCSV(text) {
   var lines = text.split(/\r?\n/).filter(function(l) { return l.trim().length > 0; });
-  if (lines.length < 2) return { error: 'CSV must have at least a header row and one data row.', rows: [] };
+  if (lines.length < 2) return { error: 'CSV-файл должен содержать как минимум строку заголовка и одну строку данных.', rows: [] };
   var headers = lines[0].split(',').map(function(h) { return h.trim().replace(/^"|"$/g, '').trim().toLowerCase(); });
   var emailIdx = headers.findIndex(function(h) { return h === 'email' || h === 'email address'; });
   if (emailIdx === -1) return { error: 'CSV must have an "Email" column.', rows: [] };
@@ -2867,18 +2867,18 @@ function dbContactsPanel() {
     out += '<div><label class="db-field-label">' + t('db.contacts.formGroup') + '</label>';
     if (allGroups.length > 0) {
       // Show select dropdown with existing groups + option to type custom
-      out += '<div class="db-field"><select id="ctFormGroup" style="width:100%;background:transparent;border:none;outline:none;color:inherit;cursor:pointer"><option value="">— No group —</option>';
+      out += '<div class="db-field"><select id="ctFormGroup" style="width:100%;background:transparent;border:none;outline:none;color:inherit;cursor:pointer"><option value="">— Без группы —</option>';
       allGroups.forEach(function(g){ out += '<option value="' + escAttr(g) + '"' + (formGroup === g ? ' selected' : '') + '>' + esc(g) + ' (' + (groupCounts[g]||0) + ')</option>'; });
       out += '<option value="__new__">+ Create new group…</option>';
       out += '</select></div>';
       // Custom group name input (shown when __new__ selected)
       if (formGroup && !allGroups.includes(formGroup)) {
-        out += '<div class="db-field" id="ctFormGroupCustomWrap" style="margin-top:6px"><input id="ctFormGroupCustom" type="text" placeholder="New group name" value="' + escAttr(formGroup) + '"/></div>';
+        out += '<div class="db-field" id="ctFormGroupCustomWrap" style="margin-top:6px"><input id="ctFormGroupCustom" type="text" placeholder="Новое название группы" value="' + escAttr(formGroup) + '"/></div>';
       } else {
-        out += '<div class="db-field" id="ctFormGroupCustomWrap" style="margin-top:6px;display:none"><input id="ctFormGroupCustom" type="text" placeholder="New group name" value=""/></div>';
+        out += '<div class="db-field" id="ctFormGroupCustomWrap" style="margin-top:6px;display:none"><input id="ctFormGroupCustom" type="text" placeholder="Новое название группы" value=""/></div>';
       }
     } else {
-      out += '<div class="db-field"><input id="ctFormGroup" type="text" placeholder="Type a group name…" value="' + escAttr(formGroup) + '"/></div>';
+      out += '<div class="db-field"><input id="ctFormGroup" type="text" placeholder="Введите название группы…" value="' + escAttr(formGroup) + '"/></div>';
     }
     out += '</div>';
     out += '<div><label class="db-field-label">' + t('db.contacts.formTags') + '</label>';
@@ -2913,20 +2913,20 @@ function dbContactsPanel() {
     out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">';
     out += '<div style="display:flex;align-items:center;gap:10px">';
     out += '<span style="width:32px;height:32px;border-radius:8px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center">' + dbIcon('users', 15) + '</span>';
-    out += '<div><div style="font-weight:700;font-size:14px;color:var(--db-ink)">Manage Groups</div><div style="font-size:11.5px;color:var(--db-muted)">Create and organize contact groups</div></div>';
+    out += '<div><div style="font-weight:700;font-size:14px;color:var(--db-ink)">Управление группами</div><div style="font-size:11.5px;color:var(--db-muted)">Создание и управление группами контактов</div></div>';
     out += '</div>';
     out += '<button class="db-btn ghost sm" data-action="db-groups-toggle">' + dbIcon('x', 13) + '</button>';
     out += '</div>';
 
     // Create new group form
     out += '<div style="display:flex;gap:8px;margin-bottom:16px;align-items:center">';
-    out += '<div class="db-field" style="flex:1"><input id="grpNewName" type="text" placeholder="New group name (e.g. VIP Clients, Newsletter)" value="' + escAttr(DB.groupAddName || '') + '"/></div>';
+    out += '<div class="db-field" style="flex:1"><input id="grpNewName" type="text" placeholder="Новое название группы (например, VIP-клиенты, Рассылка)" value="' + escAttr(DB.groupAddName || '') + '"/></div>';
     out += '<button class="db-btn primary" data-action="db-group-create" style="white-space:nowrap">' + dbIcon('plus', 13) + ' Create Group</button>';
     out += '</div>';
 
     // Existing groups list
     if (allGroups.length === 0) {
-      out += '<div style="text-align:center;padding:16px;color:var(--db-muted);font-size:13px">No groups yet. Create your first group above.</div>';
+      out += '<div style="text-align:center;padding:16px;color:var(--db-muted);font-size:13px">Групп пока нет. Создайте первую группу выше.</div>';
     } else {
       out += '<div style="display:flex;flex-direction:column;gap:6px">';
       allGroups.forEach(function(g) {
@@ -2937,9 +2937,9 @@ function dbContactsPanel() {
         out += '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--db-surface2);border-radius:9px;border:1px solid var(--db-line)">';
         out += '<span style="width:28px;height:28px;border-radius:7px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center;font-size:12px;font-weight:700">' + esc(g[0].toUpperCase()) + '</span>';
         if (isRenaming) {
-          out += '<div class="db-field" style="flex:1"><input id="grpRenameInp" type="text" value="' + escAttr(DB.groupEditName || g) + '" placeholder="Group name"/></div>';
-          out += '<button class="db-btn primary sm" data-action="db-group-rename-save" data-id="' + escAttr(gId) + '" data-old="' + escAttr(g) + '" style="font-size:12px">Save</button>';
-          out += '<button class="db-btn ghost sm" data-action="db-group-rename-cancel" style="font-size:12px">Cancel</button>';
+          out += '<div class="db-field" style="flex:1"><input id="grpRenameInp" type="text" value="' + escAttr(DB.groupEditName || g) + '" placeholder="Название группы"/></div>';
+          out += '<button class="db-btn primary sm" data-action="db-group-rename-save" data-id="' + escAttr(gId) + '" data-old="' + escAttr(g) + '" style="font-size:12px">Сохранить</button>';
+          out += '<button class="db-btn ghost sm" data-action="db-group-rename-cancel" style="font-size:12px">Отмена</button>';
         } else {
           out += '<div style="flex:1"><div style="font-weight:600;font-size:13.5px;color:var(--db-ink)">' + esc(g) + '</div><div style="font-size:11.5px;color:var(--db-muted)">' + cnt + ' contact' + (cnt !== 1 ? 's' : '') + '</div></div>';
           out += '<button class="db-btn secondary sm" data-action="db-contacts-start-campaign-group" data-group="' + escAttr(g) + '" style="font-size:12px">' + dbIcon('send', 12) + ' Send campaign</button>';
@@ -2957,15 +2957,15 @@ function dbContactsPanel() {
 
   // Search + filter bar
   out += '<div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;flex-wrap:wrap">';
-  out += '<div class="db-field" style="flex:1;min-width:280px">' + dbIcon('search') + '<input id="contactSearchInp" placeholder="Search by name, email, tag, or group…" value="' + escAttr(q) + '"/></div>';
+  out += '<div class="db-field" style="flex:1;min-width:280px">' + dbIcon('search') + '<input id="contactSearchInp" placeholder="Поиск по имени, email, тегу или группе…" value="' + escAttr(q) + '"/></div>';
   out += '</div>';
 
   // Group filter (if there are groups)
   if (allGroups.length > 0) {
     out += '<div style="margin-bottom:8px">';
-    out += '<div style="font-size:11px;font-weight:700;color:var(--db-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Groups</div>';
+    out += '<div style="font-size:11px;font-weight:700;color:var(--db-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Группы</div>';
     out += '<div class="db-seg" style="flex-wrap:wrap">';
-    out += '<button class="' + (groupFilter==='all'?'active':'') + '" data-action="db-contact-group-filter" data-filter="all">All</button>';
+    out += '<button class="' + (groupFilter==='all'?'active':'') + '" data-action="db-contact-group-filter" data-filter="all">Все</button>';
     allGroups.forEach(function(g){
       out += '<button class="' + (groupFilter===g?'active':'') + '" data-action="db-contact-group-filter" data-filter="' + escAttr(g) + '">' + esc(g) + ' <span style="opacity:0.6">' + (groupCounts[g]||0) + '</span></button>';
     });
@@ -2975,7 +2975,7 @@ function dbContactsPanel() {
   // Tag filter
   if (allTags.length > 0) {
     out += '<div style="margin-bottom:14px">';
-    if (allGroups.length > 0) out += '<div style="font-size:11px;font-weight:700;color:var(--db-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Tags</div>';
+    if (allGroups.length > 0) out += '<div style="font-size:11px;font-weight:700;color:var(--db-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Теги</div>';
     out += '<div class="db-seg">';
     out += '<button class="' + (tagFilter==='all'?'active':'') + '" data-action="db-contact-filter" data-filter="all">All ' + contacts.length + '</button>';
     allTags.forEach(function(tag){
@@ -2988,15 +2988,15 @@ function dbContactsPanel() {
 
   // Table
   out += '<div class="db-card elev" style="padding:0;overflow:hidden">';
-  out += '<table class="db-table"><thead><tr><th style="padding-left:20px">Contact</th><th>Group</th><th>Tags</th><th>Status</th><th>Added</th><th style="text-align:right;padding-right:20px">Actions</th></tr></thead><tbody>';
+  out += '<table class="db-table"><thead><tr><th style="padding-left:20px">Контакт</th><th>Группа</th><th>Теги</th><th>Статус</th><th>Добавлен</th><th style="text-align:right;padding-right:20px">Действия</th></tr></thead><tbody>';
 
   if (filtered.length === 0) {
-    out += '<tr><td colspan="6"><div class="db-empty"><div style="font-size:28px;opacity:0.5;margin-bottom:8px">👤</div>' + (contacts.length === 0 ? 'No contacts yet. Import a CSV or add one manually.' : 'No contacts match your search.') + '</div></td></tr>';
+    out += '<tr><td colspan="6"><div class="db-empty"><div style="font-size:28px;opacity:0.5;margin-bottom:8px">👤</div>' + (contacts.length === 0 ? 'Контактов пока нет. Импортируйте CSV или добавьте вручную.' : 'Ни один контакт не соответствует запросу.') + '</div></td></tr>';
   } else {
     filtered.forEach(function(c) {
       var status = c.status || 'active';
       var statusVariant = status === 'active' ? 'green' : status === 'bounced' ? 'red' : 'amber';
-      var statusLabel = status === 'active' ? 'Active' : status === 'bounced' ? 'Bounced' : 'Unsubscribed';
+      var statusLabel = status === 'active' ? 'Активна' : status === 'bounced' ? 'Bounced' : 'Unsubscribed';
       var initials = (c.name||'').split(/[\s@.]/).filter(Boolean).slice(0,2).map(function(s){return s[0].toUpperCase();}).join('') || (c.email||'?')[0].toUpperCase();
       var avatarColors = ['linear-gradient(135deg,#0f5132,#2f8a5e)','linear-gradient(135deg,#1e5fa6,#4d8fc9)','linear-gradient(135deg,#b88523,#d8a847)','linear-gradient(135deg,#7a3e8f,#a266bf)'];
       var hash = 0; (c.name||c.email||'').split('').forEach(function(ch){hash=(hash*31+ch.charCodeAt(0))>>>0;});
@@ -3014,9 +3014,9 @@ function dbContactsPanel() {
       out += '<td><span class="db-pill ' + statusVariant + '"><span class="dot"></span>' + statusLabel + '</span></td>';
       out += '<td class="mono" style="color:var(--db-muted)">' + esc(c.addedAt ? new Date(c.addedAt).toLocaleDateString() : (c.createdAt ? new Date(c.createdAt).toLocaleDateString() : '')) + '</td>';
       out += '<td style="text-align:right;padding-right:20px"><div class="db-row-actions">';
-      out += '<button title="Send campaign" data-action="db-contact-send" data-id="' + escAttr(c.id) + '">' + dbIcon('send',14) + '</button>';
+      out += '<button title="Отправить кампанию" data-action="db-contact-send" data-id="' + escAttr(c.id) + '">' + dbIcon('send',14) + '</button>';
       out += '<button title="Edit" data-action="db-contact-edit" data-id="' + escAttr(c.id) + '">' + dbIcon('edit',14) + '</button>';
-      out += '<button title="Delete" class="danger" data-action="db-contact-delete" data-id="' + escAttr(c.id) + '">' + dbIcon('trash',14) + '</button>';
+      out += '<button title="Удалить" class="danger" data-action="db-contact-delete" data-id="' + escAttr(c.id) + '">' + dbIcon('trash',14) + '</button>';
       out += '</div></td>';
       out += '</tr>';
     });
@@ -3032,7 +3032,7 @@ function dbContactsPanel() {
   out += '<div class="db-card elev db-mt" style="display:flex;align-items:center;justify-content:space-between;gap:14px">';
   out += '<div style="display:flex;align-items:center;gap:14px">';
   out += '<span style="width:42px;height:42px;border-radius:11px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center">' + dbIcon('send',18) + '</span>';
-  out += '<div><div style="font-weight:600;font-size:14px;color:var(--db-ink)">Send campaign to filtered contacts</div><div style="font-size:12px;color:var(--db-muted);margin-top:2px">Use your list as recipients — no Google Sheet needed.</div></div>';
+  out += '<div><div style="font-weight:600;font-size:14px;color:var(--db-ink)">Отправить кампанию отфильтрованным контактам</div><div style="font-size:12px;color:var(--db-muted);margin-top:2px">Используйте ваш список как получателей — Google Таблица не нужна.</div></div>';
   out += '</div>';
   var tagForCampaign = tagFilter !== 'all' ? tagFilter : '';
   out += '<button class="db-btn primary" data-action="db-contacts-start-campaign" data-tag="' + escAttr(tagForCampaign) + '">' + t('db.contacts.newCamp') + ' ' + dbIcon('arrow',12) + '</button>';
@@ -3047,7 +3047,7 @@ function dbContactsPanel() {
     if (DB.contactImportPreview && DB.contactImportPreview.length > 0) {
       var prev = DB.contactImportPreview;
       out += '<div style="font-weight:600;font-size:13px;margin-bottom:10px;color:var(--db-ink)">' + dbIcon('upload',14) + ' Import preview — ' + prev.length + ' contacts</div>';
-      out += '<table class="db-table" style="margin-bottom:12px"><thead><tr><th>Name</th><th>Email</th><th>Group</th><th>Tags</th></tr></thead><tbody>';
+      out += '<table class="db-table" style="margin-bottom:12px"><thead><tr><th>Имя</th><th>Email</th><th>Группа</th><th>Теги</th></tr></thead><tbody>';
       prev.slice(0,5).forEach(function(p){
         out += '<tr><td>' + esc(p.name||'') + '</td><td style="font-family:var(--db-mono);font-size:12px">' + esc(p.email||'') + '</td>';
         out += '<td>' + esc(p.group||'') + '</td><td>' + esc((p.tags||[]).join(', ')) + '</td></tr>';
@@ -3056,7 +3056,7 @@ function dbContactsPanel() {
       out += '</tbody></table>';
       out += '<div style="display:flex;gap:8px">';
       out += '<button class="db-btn primary" data-action="db-contacts-confirm-import">' + dbIcon('check') + ' Import ' + prev.length + ' contacts</button>';
-      out += '<button class="db-btn ghost" data-action="db-contacts-cancel-import">Cancel</button>';
+      out += '<button class="db-btn ghost" data-action="db-contacts-cancel-import">Отмена</button>';
       out += '</div>';
     }
     out += '</div>';
@@ -3105,14 +3105,14 @@ function dbDripsPanel() {
   var out = '';
   out += '<div class="db-page-head">';
   out += '<div><h1 class="db-page-title">' + t('db.drip.title') + '</h1>';
-  out += '<p class="db-page-sub">Per-campaign drip sequences · schedule automated follow-up steps</p></div>';
+  out += '<p class="db-page-sub">Drip-цепочки по кампаниям · планируйте автоматические шаги дожима</p></div>';
   out += '</div>';
 
   if (!isPremium) {
     out += '<div class="db-card elev" style="text-align:center;padding:48px 40px">';
     out += '<div style="font-size:30px;margin-bottom:14px">✦</div>';
-    out += '<div style="font-weight:700;font-size:18px;color:var(--db-ink);margin-bottom:8px">Drip sequences require Premium</div>';
-    out += '<p style="color:var(--db-muted);font-size:13px;max-width:400px;margin:0 auto 18px">Upgrade to set up multi-step automated follow-up sequences for each of your campaigns.</p>';
+    out += '<div style="font-weight:700;font-size:18px;color:var(--db-ink);margin-bottom:8px">Drip-последовательности требуют тариф Premium</div>';
+    out += '<p style="color:var(--db-muted);font-size:13px;max-width:400px;margin:0 auto 18px">Обновите тариф, чтобы настраивать многошаговые автоматические цепочки дожима для каждой кампании.</p>';
     out += '<button class="db-btn primary" data-action="db-nav" data-tab="billing">Доступно бесплатно</button>';
     out += '</div>';
     return out;
@@ -3120,11 +3120,11 @@ function dbDripsPanel() {
 
   // ── Campaign selector ──────────────────────────────────────────
   out += '<div class="db-card elev" style="padding:16px 20px;margin-bottom:16px">';
-  out += '<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--db-muted);text-transform:uppercase;margin-bottom:10px">Select campaign to configure drip</div>';
+  out += '<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--db-muted);text-transform:uppercase;margin-bottom:10px">Выберите кампанию для настройки drip</div>';
   if (sentCampaigns.length === 0) {
     out += '<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--db-gold-tint);border:1px solid var(--db-gold);border-radius:10px">';
     out += dbIcon('info', 14);
-    out += '<span style="font-size:13px;color:var(--db-ink)">Send your first campaign to start adding drip sequences to it.</span>';
+    out += '<span style="font-size:13px;color:var(--db-ink)">Отправьте первую кампанию, чтобы добавлять к ней drip-цепочки.</span>';
     out += '</div>';
   } else {
     out += '<div style="display:flex;flex-wrap:wrap;gap:8px">';
@@ -3138,7 +3138,7 @@ function dbDripsPanel() {
       out += 'background:' + (isActive ? 'var(--db-green-tint)' : 'var(--db-bg)') + ';';
       out += 'color:' + (isActive ? 'var(--db-green)' : 'var(--db-ink)') + ';';
       out += 'display:flex;align-items:center;gap:8px;max-width:220px">';
-      out += '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(c.name||c.sheetName||'Campaign') + '</span>';
+      out += '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(c.name||c.sheetName||'Кампания') + '</span>';
       if (hasSteps) {
         out += '<span style="background:var(--db-blue-soft);color:var(--db-blue);border-radius:20px;font-size:10px;padding:1px 6px;font-weight:700;flex-shrink:0">' + campStepsForC.length + ' steps</span>';
       }
@@ -3164,7 +3164,7 @@ function dbDripsPanel() {
   // LEFT: step list for this campaign
   out += '<div class="db-card elev" style="padding:0;overflow:hidden">';
   out += '<div style="padding:14px 18px;border-bottom:1px solid var(--db-line-soft);display:flex;align-items:center;justify-content:space-between">';
-  out += '<div><h3 class="db-card-title" style="margin:0">Steps for this campaign</h3>';
+  out += '<div><h3 class="db-card-title" style="margin:0">Шаги этой кампании</h3>';
   out += '<p class="db-card-sub" style="margin:2px 0 0">' + campSteps.length + ' steps configured · click to edit</p></div>';
   out += '<button class="db-btn primary sm" data-action="db-drip-add-step" data-campid="' + escAttr(selCampId) + '">' + dbIcon('plus',12) + ' Add step</button>';
   out += '</div>';
@@ -3172,7 +3172,7 @@ function dbDripsPanel() {
   if (campSteps.length === 0) {
     out += '<div style="padding:32px;text-align:center">';
     out += '<div style="font-size:28px;margin-bottom:10px">📭</div>';
-    out += '<div style="font-weight:600;font-size:14px;color:var(--db-ink);margin-bottom:6px">No steps yet</div>';
+    out += '<div style="font-weight:600;font-size:14px;color:var(--db-ink);margin-bottom:6px">Шагов пока нет</div>';
     out += '<p style="font-size:12.5px;color:var(--db-muted);margin:0 auto 16px;max-width:220px">Add follow-up steps to automatically send to this campaign\'s recipients.</p>';
     out += '<button class="db-btn primary sm" data-action="db-drip-add-step" data-campid="' + escAttr(selCampId) + '">' + dbIcon('plus',12) + ' Add first step</button>';
     out += '</div>';
@@ -3181,7 +3181,7 @@ function dbDripsPanel() {
     campSteps.forEach(function(step, i) {
       var isSelStep = i === selStepIdx;
       var statusColor = step.status === 'sent' ? 'var(--db-green)' : step.status === 'scheduled' ? 'var(--db-blue)' : 'var(--db-muted)';
-      var statusLabel = step.status === 'sent' ? 'Sent' : step.status === 'scheduled' ? 'Scheduled' : 'Draft';
+      var statusLabel = step.status === 'sent' ? 'Отправлено' : step.status === 'scheduled' ? 'Scheduled' : 'Draft';
       var statusIcon = step.status === 'sent' ? '✓' : step.status === 'scheduled' ? '⏰' : '○';
       out += '<div data-action="db-drip-edit-step" data-campid="' + escAttr(selCampId) + '" data-stepidx="' + i + '" style="';
       out += 'display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;';
@@ -3190,23 +3190,23 @@ function dbDripsPanel() {
       // Step number circle
       out += '<div style="width:28px;height:28px;border-radius:50%;background:' + (isSelStep ? 'var(--db-green)' : 'var(--db-surface2)') + ';color:' + (isSelStep ? '#fff' : 'var(--db-muted)') + ';display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0">' + (i+1) + '</div>';
       out += '<div style="flex:1;min-width:0">';
-      out += '<div style="font-size:13px;font-weight:600;color:var(--db-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (step.subject ? esc(step.subject) : '<em style="color:var(--db-muted);font-style:italic">No subject yet</em>') + '</div>';
+      out += '<div style="font-size:13px;font-weight:600;color:var(--db-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (step.subject ? esc(step.subject) : '<em style="color:var(--db-muted);font-style:italic">Тема не указана</em>') + '</div>';
       out += '<div style="font-size:11.5px;color:var(--db-muted);margin-top:2px">';
       out += dbIcon('clock',10) + ' Day +' + (step.delayDays||3);
       if (step.scheduledAt) out += ' · ' + dbIcon('calendar',10) + ' ' + new Date(step.scheduledAt).toLocaleDateString() + ' ' + new Date(step.scheduledAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
       out += '</div></div>';
       out += '<span style="font-size:10px;font-weight:700;color:' + statusColor + ';background:' + statusColor.replace(')','-soft)').replace('var(--db-','var(--db-') + ';padding:2px 7px;border-radius:20px;flex-shrink:0;border:1px solid ' + statusColor + '">' + statusIcon + ' ' + statusLabel + '</span>';
-      out += '<button data-action="db-drip-delete-step" data-campid="' + escAttr(selCampId) + '" data-stepidx="' + i + '" style="background:none;border:none;cursor:pointer;color:var(--db-muted);padding:4px;border-radius:5px;flex-shrink:0;font-size:14px" title="Delete step" onclick="event.stopPropagation()">✕</button>';
+      out += '<button data-action="db-drip-delete-step" data-campid="' + escAttr(selCampId) + '" data-stepidx="' + i + '" style="background:none;border:none;cursor:pointer;color:var(--db-muted);padding:4px;border-radius:5px;flex-shrink:0;font-size:14px" title="Удалить шаг" onclick="event.stopPropagation()">✕</button>';
       out += '</div>';
     });
     out += '</div>';
 
     // Timeline preview at bottom
     out += '<div style="padding:12px 18px;border-top:1px solid var(--db-line-soft);background:var(--db-bg)">';
-    out += '<div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--db-muted);text-transform:uppercase;margin-bottom:8px">Sequence timeline</div>';
+    out += '<div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--db-muted);text-transform:uppercase;margin-bottom:8px">Таймлайн последовательности</div>';
     out += '<div style="display:flex;align-items:center;gap:0">';
     // Campaign start
-    out += '<div style="text-align:center;flex-shrink:0"><div style="width:10px;height:10px;border-radius:50%;background:var(--db-green);margin:0 auto 4px"></div><div style="font-size:10px;color:var(--db-green);font-weight:600">Day 0</div><div style="font-size:10px;color:var(--db-muted)">Campaign</div></div>';
+    out += '<div style="text-align:center;flex-shrink:0"><div style="width:10px;height:10px;border-radius:50%;background:var(--db-green);margin:0 auto 4px"></div><div style="font-size:10px;color:var(--db-green);font-weight:600">День 0</div><div style="font-size:10px;color:var(--db-muted)">Кампания</div></div>';
     var cumDay = 0;
     campSteps.forEach(function(step, i) {
       cumDay += (step.delayDays || 3);
@@ -3224,12 +3224,12 @@ function dbDripsPanel() {
   if (!selStep) {
     out += '<div style="padding:40px;text-align:center;color:var(--db-muted)">';
     out += '<div style="font-size:28px;margin-bottom:10px">✏️</div>';
-    out += (campSteps.length === 0 ? '<p>Add your first step on the left to start configuring it.</p>' : '<p>Select a step on the left to edit it.</p>');
+    out += (campSteps.length === 0 ? '<p>Добавьте первый шаг слева, чтобы начать его настройку.</p>' : '<p>Выберите шаг слева, чтобы отредактировать его.</p>');
     out += '</div>';
   } else {
     out += '<div style="padding:14px 18px;border-bottom:1px solid var(--db-line-soft);display:flex;align-items:center;justify-content:space-between">';
     out += '<div><h3 class="db-card-title" style="margin:0">Edit Step ' + (selStepIdx+1) + '</h3>';
-    out += '<p class="db-card-sub" style="margin:2px 0 0">Follow-up for: ' + esc(selCamp.name||selCamp.sheetName||'Campaign') + '</p></div>';
+    out += '<p class="db-card-sub" style="margin:2px 0 0">Follow-up for: ' + esc(selCamp.name||selCamp.sheetName||'Кампания') + '</p></div>';
     var stColor = selStep.status==='sent'?'var(--db-green)':selStep.status==='scheduled'?'var(--db-blue)':'var(--db-muted)';
     out += '<span style="font-size:11px;font-weight:700;color:' + stColor + ';border:1px solid ' + stColor + ';padding:3px 8px;border-radius:20px">' + (selStep.status==='sent'?'✓ Sent':selStep.status==='scheduled'?'⏰ Scheduled':'○ Draft') + '</span>';
     out += '</div>';
@@ -3240,21 +3240,21 @@ function dbDripsPanel() {
     out += '<div>';
     out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">' + dbIcon('calendar',12) + ' Schedule send (optional)</label>';
     out += '<input id="dripStepSchedule_' + selStepIdx + '" type="datetime-local" value="' + escAttr(selStep.scheduledAt ? selStep.scheduledAt.slice(0,16) : '') + '" onchange="(function(el,idx){var btn=document.getElementById(\'dripSendBtn_\'+idx);if(!btn)return;var isFuture=el.value&&new Date(el.value)>new Date();if(isFuture){btn.innerHTML=\'⏰ Schedule\';var unsBtn=document.querySelector(\'[data-action=db-drip-unschedule]\');if(!unsBtn){var d=document.createElement(\'button\');d.className=\'db-btn secondary\';d.setAttribute(\'data-action\',\'db-drip-unschedule\');d.setAttribute(\'data-campid\',btn.getAttribute(\'data-campid\'));d.setAttribute(\'data-stepidx\',idx);d.innerHTML=\'✕ Remove schedule\';btn.parentNode.insertBefore(d,btn.nextSibling);}}else{btn.innerHTML=\'↗ Schedule now\';var unsBtn2=document.querySelector(\'[data-action=db-drip-unschedule]\');if(unsBtn2)unsBtn2.remove();}})(this,' + selStepIdx + ')" style="padding:8px 10px;border:1.5px solid var(--db-line);border-radius:8px;background:var(--db-surface2);color:var(--db-ink);font-size:13px;font-family:var(--db-sans);width:100%;box-sizing:border-box">';
-    out += '<div style="font-size:11.5px;color:var(--db-muted);margin-top:4px">Leave blank to send manually. Set a date/time to schedule this step automatically.</div>';
+    out += '<div style="font-size:11.5px;color:var(--db-muted);margin-top:4px">Оставьте пустым для ручной отправки. Укажите дату/время, чтобы шаг отправился автоматически.</div>';
     out += '</div>';
 
     // Subject
     out += '<div>';
-    out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">Subject line</label>';
+    out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">Тема письма</label>';
     out += '<input id="dripStepSubject_' + selStepIdx + '" type="text" placeholder="Re: ' + escAttr(selCamp.subject||'your email') + '" value="' + escAttr(selStep.subject||'') + '" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1.5px solid var(--db-line);border-radius:8px;background:var(--db-surface2);color:var(--db-ink);font-size:13px;font-family:var(--db-sans)">';
     out += '</div>';
 
     // Merge field chips
     var dripMergeFields = (selCamp.sheetHeaders && selCamp.sheetHeaders.length > 0)
       ? selCamp.sheetHeaders
-      : ['FirstName', 'LastName', 'Email', 'Name', 'Company'];
+      : ['FirstName', 'LastName', 'Email', 'Имя', 'Company'];
     out += '<div>';
-    out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">Merge fields <span style="font-weight:400;font-size:11px;color:var(--db-muted)">— click to insert at cursor</span></label>';
+    out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">Merge fields <span style="font-weight:400;font-size:11px;color:var(--db-muted)">— нажмите, чтобы вставить в курсор</span></label>';
     out += '<div style="display:flex;flex-wrap:wrap;gap:5px">';
     dripMergeFields.forEach(function(mf) {
       out += '<button class="db-chip" data-action="db-drip-insert-tag" data-tag="' + escAttr(mf) + '" data-stepidx="' + selStepIdx + '" style="font-family:var(--db-mono);font-size:11.5px;background:var(--db-surface2);border:1px solid var(--db-line);border-radius:6px;padding:3px 8px;cursor:pointer;color:var(--db-ink2)">{{' + esc(mf) + '}}</button>';
@@ -3264,7 +3264,7 @@ function dbDripsPanel() {
 
     // Body
     out += '<div>';
-    out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">Email body</label>';
+    out += '<label style="font-size:12px;font-weight:600;color:var(--db-ink);display:block;margin-bottom:5px">Текст письма</label>';
     out += '<textarea id="dripStepBody_' + selStepIdx + '" placeholder="Hi {{FirstName}},\n\nJust following up on my previous email…\n\nBest," style="width:100%;box-sizing:border-box;min-height:140px;padding:10px 12px;border:1.5px solid var(--db-line);border-radius:8px;background:var(--db-surface2);color:var(--db-ink);font-size:13px;font-family:var(--db-sans);resize:vertical">' + esc(selStep.body||'') + '</textarea>';
     out += '<div style="font-size:11.5px;color:var(--db-muted);margin-top:4px">Use {{merge}} tokens to personalize · e.g. {{FirstName}}, {{Company}}</div>';
     out += '</div>';
@@ -3297,8 +3297,8 @@ function dbDripsPanel() {
   var campDripHistory = dripHistory.filter(function(h){ return h.parentId === selCampId; });
   if (campDripHistory.length > 0) {
     out += '<div class="db-card elev db-mt">';
-    out += '<div class="db-card-head"><div><h3 class="db-card-title">Drip send history for this campaign</h3><p class="db-card-sub">' + campDripHistory.length + ' step sends</p></div></div>';
-    out += '<table class="db-table"><thead><tr><th>Date</th><th>Step</th><th style="text-align:right">Sent</th><th style="text-align:right">Errors</th></tr></thead><tbody>';
+    out += '<div class="db-card-head"><div><h3 class="db-card-title">Истор отправок drip для этой кампании</h3><p class="db-card-sub">' + campDripHistory.length + ' step sends</p></div></div>';
+    out += '<table class="db-table"><thead><tr><th>Дата</th><th>Шаг</th><th style="text-align:right">Отправлено</th><th style="text-align:right">Ошибки</th></tr></thead><tbody>';
     campDripHistory.slice(0, 10).forEach(function(h){
       out += '<tr><td class="mono" style="color:var(--db-muted);font-size:11.5px">' + esc(h.date||'') + '</td>';
       out += '<td style="color:var(--db-ink2)">' + esc(h.name||'') + '</td>';
@@ -3363,21 +3363,21 @@ function dbSettingsPanel() {
     out += '<div style="display:flex;align-items:center;gap:14px">';
     out += '<div style="width:36px;height:36px;border-radius:50%;background:var(--db-green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0">1</div>';
     out += '<div>';
-    out += '<div style="font-size:13px;font-weight:700;color:var(--db-ink);margin-bottom:2px">Get the Apps Script code</div>';
-    out += '<div style="font-size:12px;color:var(--db-muted)">Copy and paste it into a new Google Apps Script project — takes 2 minutes.</div>';
+    out += '<div style="font-size:13px;font-weight:700;color:var(--db-ink);margin-bottom:2px">Получить код Apps Script</div>';
+    out += '<div style="font-size:12px;color:var(--db-muted)">Скопируйте и вставьте его в новый проект Google Apps Script — это займёт 2 минуты.</div>';
     out += '</div></div>';
     out += '<button class="db-btn primary" id="copyScriptBtn" data-action="copy-backend-code" style="flex-shrink:0">' + dbIcon('copy') + ' Copy script code</button>';
     out += '</div></div>';
 
     // What is a backend — rich explanation
     out += '<div class="db-card elev" style="margin-bottom:14px">';
-    out += '<h3 class="db-card-title" style="margin-bottom:6px">What is a backend?</h3>';
-    out += '<p style="font-size:13px;color:var(--db-ink2);line-height:1.6;margin-bottom:12px">A <b>backend</b> is a small script you deploy to your own Google account using Google Apps Script. It acts as a private bridge between Madbear and your Gmail inbox — Madbear sends your emails <i>through your own Gmail account</i>, not through any third-party server. This means your sender reputation, your email history, and your data all stay completely under your control.</p>';
+    out += '<h3 class="db-card-title" style="margin-bottom:6px">Что такое бэкенд?</h3>';
+    out += '<p style="font-size:13px;color:var(--db-ink2);line-height:1.6;margin-bottom:12px">A <b>backend</b> is a small script you deploy to your own Google account using Google Apps Script. It acts as a private bridge between Madbear and your Gmail inbox — Madbear sends your emails <i>через ваш собственный Gmail-аккаунт</i>, not through any third-party server. This means your sender reputation, your email history, and your data all stay completely under your control.</p>';
     out += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px">';
     [
-      ['No third-party servers', 'Emails go directly from your Gmail. Nothing passes through Madbear\'s servers.'],
-      ['Your sender reputation', 'Because you send from your own Gmail, replies and trust stay with your account.'],
-      ['Multiple accounts', 'Add several backends to rotate across Gmail accounts and increase daily volume.'],
+      ['Без сторонних серверов', 'Emails go directly from your Gmail. Nothing passes through Madbear\'s servers.'],
+      ['Ваша репутация отправителя', 'Так как вы отправляете со своего Gmail, ответы и репутация остаются у вашего аккаунта.'],
+      ['Несколько аккаунтов', 'Добавьте несколько бэкендов, чтобы ротировать Gmail-аккаунты и увеличивать дневной объём отправки.'],
     ].forEach(function(item){
       out += '<div style="padding:12px 14px;background:var(--db-bg);border:1px solid var(--db-line-soft);border-radius:10px">';
       out += '<div style="font-weight:600;font-size:13px;color:var(--db-ink);margin-bottom:4px">' + item[0] + '</div>';
@@ -3388,9 +3388,9 @@ function dbSettingsPanel() {
 
     // Connected backends
     out += '<div class="db-card elev" style="margin-bottom:14px">';
-    out += '<div class="db-card-head"><div><h3 class="db-card-title">Connected backends</h3><p class="db-card-sub">' + backends.length + ' Gmail account' + (backends.length!==1?'s':'') + ' connected</p></div></div>';
+    out += '<div class="db-card-head"><div><h3 class="db-card-title">Подключённые бэкенды</h3><p class="db-card-sub">' + backends.length + ' Gmail account' + (backends.length!==1?'s':'') + ' connected</p></div></div>';
     if (backends.length === 0) {
-      out += '<div style="padding:24px;text-align:center;color:var(--db-muted);font-size:13px">No backends connected yet. Add one using the form below.</div>';
+      out += '<div style="padding:24px;text-align:center;color:var(--db-muted);font-size:13px">Бэкенды ещё не подключены. Добавьте новый через форму ниже.</div>';
     } else {
       out += '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:4px">';
       backends.forEach(function(b, i){
@@ -3398,11 +3398,11 @@ function dbSettingsPanel() {
         var email = typeof b === 'object' ? (b.email||url) : url;
         var isActive = url === S.scriptUrl;
         out += '<div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--db-bg);border:1px solid var(--db-line-soft);border-radius:10px">';
-        out += '<div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px"><span style="font-weight:600;color:var(--db-ink);font-size:13.5px">' + esc(email) + '</span>' + (isActive ? '<span class="db-pill green"><span class="dot"></span>Active</span>' : '') + '</div>';
+        out += '<div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px"><span style="font-weight:600;color:var(--db-ink);font-size:13.5px">' + esc(email) + '</span>' + (isActive ? '<span class="db-pill green"><span class="dot"></span>Активна</span>' : '') + '</div>';
         out += '<div style="font-family:var(--db-mono);font-size:11px;color:var(--db-muted)">' + esc(url.substring(0,70) + (url.length>70?'…':'')) + '</div></div>';
         out += '<div style="display:flex;gap:6px">';
-        if (!isActive) out += '<button class="db-btn secondary sm" data-action="select-backend" data-index="' + i + '">Set active</button>';
-        out += '<button class="db-btn danger sm" data-action="remove-backend" data-index="' + i + '">Remove</button>';
+        if (!isActive) out += '<button class="db-btn secondary sm" data-action="select-backend" data-index="' + i + '">Сделать активным</button>';
+        out += '<button class="db-btn danger sm" data-action="remove-backend" data-index="' + i + '">Удалить</button>';
         out += '</div></div>';
       });
       out += '</div>';
@@ -3411,11 +3411,11 @@ function dbSettingsPanel() {
 
     // Add backend form
     out += '<div class="db-card elev">';
-    out += '<h3 class="db-card-title" style="margin-bottom:4px">Add a new backend</h3>';
+    out += '<h3 class="db-card-title" style="margin-bottom:4px">Добавить новый бэкенд</h3>';
     out += '<p style="font-size:12.5px;color:var(--db-muted);margin-bottom:14px">Deploy the Apps Script to your Google account, then paste the Web App URL here. The label helps you identify which Gmail account this is.</p>';
     out += '<div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:flex-end">';
-    out += '<div><span class="db-field-label">Gmail account (label)</span><div class="db-field">' + dbIcon('mail') + '<input id="backendEmailInput" placeholder="you@gmail.com"/></div></div>';
-    out += '<div><span class="db-field-label">Apps Script Web App URL</span><div class="db-field">' + dbIcon('globe') + '<input id="urlInput" placeholder="https://script.google.com/macros/s/…/exec"/></div></div>';
+    out += '<div><span class="db-field-label">Gmail-аккаунт (метка)</span><div class="db-field">' + dbIcon('mail') + '<input id="backendEmailInput" placeholder="you@gmail.com"/></div></div>';
+    out += '<div><span class="db-field-label">URL веб-приложения Apps Script</span><div class="db-field">' + dbIcon('globe') + '<input id="urlInput" placeholder="https://script.google.com/macros/s/…/exec"/></div></div>';
     out += '<button class="db-btn primary" data-action="add-backend">' + dbIcon('plus') + ' Add backend</button>';
     out += '</div></div>';
   }
@@ -3424,74 +3424,74 @@ function dbSettingsPanel() {
   if (tab === 'guide') {
     var guides = [
       {
-        num:'01', t:'Set up your first backend',
+        num:'01', t:'Настройте первый бэкенд',
         intro:'Before you can send any emails, you need to connect a Gmail account via Google Apps Script. This takes about 5 minutes and only needs to be done once per Gmail account.',
         steps:[
-          'Go to <a href="https://script.google.com" target="_blank" style="color:var(--db-green)">script.google.com</a> and click <b>New project</b>.',
-          'Delete the placeholder code, then paste the Madbear Apps Script code. (You can find the script code by clicking <b>Get script code</b> in the Backends tab above.)',
-          'Click <b>Deploy → New deployment</b>. Set type to <b>Web app</b>. Set "Execute as" to <b>Me</b> and "Who has access" to <b>Anyone</b>.',
-          'Click <b>Deploy</b>, then copy the <b>Web App URL</b> it gives you (starts with https://script.google.com/macros/s/).',
-          'Go to <b>Settings → Backends</b> and paste the URL in the "Apps Script Web App URL" field. Add your Gmail as the label. Click <b>Add backend</b>.',
-          'The backend will appear in your connected list. It is now active and ready to send emails through that Gmail account.',
+          'Go to <a href="https://script.google.com" target="_blank" style="color:var(--db-green)">script.google.com</a> and click <b>Новый проект</b>.',
+          'Delete the placeholder code, then paste the Madbear Apps Script code. (You can find the script code by clicking <b>Получить код скрипта</b> in the Backends tab above.)',
+          'Click <b>Развернуть → Новое развертывание</b>. Set type to <b>Веб-приложение</b>. Set "Выполнять от имени" to <b>Me</b> and "Кто имеет доступ" to <b>Все</b>.',
+          'Click <b>Развернуть</b>, then copy the <b>URL веб-приложения</b> it gives you (starts with https://script.google.com/macros/s/).',
+          'Go to <b>Настройки → Бэкенды</b> and paste the URL in the "URL веб-приложения Apps Script" field. Add your Gmail as the label. Click <b>Добавить бэкенд</b>.',
+          'Бэкенд появится в списке подключённых. Он активен и готов отправлять письма через этот Gmail-аккаунт.',
         ]
       },
       {
-        num:'02', t:'Send your first campaign',
+        num:'02', t:'Отправьте свою первую кампанию',
         intro:'A campaign is a batch of emails sent to a list of contacts. You can personalize each email with merge fields like {{FirstName}}.',
         steps:[
           'Click <b>+ New campaign</b> in the top right of any page.',
-          'Give your campaign a name (internal only) and write your <b>Subject line</b>. Use {{FirstName}} or other merge fields in the subject if you want.',
-          'In the <b>Recipients</b> field, paste email addresses separated by commas or newlines — or select a saved contact list.',
+          'Give your campaign a name (internal only) and write your <b>Тема письма</b>. Use {{FirstName}} or other merge fields in the subject if you want.',
+          'В поле <b>Получатели</b> вставьте email-адреса через запятую или с новой строки — или выберите сохранённый список контактов.',
           'Write your email body. Use merge fields like <b>{{FirstName}}</b>, <b>{{LastName}}</b>, <b>{{Email}}</b>, or any custom field from your contact CSV.',
-          'Set a <b>daily send limit</b> (how many emails per day) and a <b>delay</b> in seconds between each send to avoid Gmail rate limits.',
-          'Click <b>Start sending</b>. The campaign runs in the background — you can close the popup and it will continue.',
+          'Set a <b>дневной лимит отправки</b> (how many emails per day) and a <b>задержка</b> in seconds between each send to avoid Gmail rate limits.',
+          'Click <b>Начать отправку</b>. The campaign runs in the background — you can close the popup and it will continue.',
         ]
       },
       {
-        num:'03', t:'Import contacts from a CSV',
+        num:'03', t:'Импорт контактов из CSV',
         intro:'Import your contact list from any spreadsheet or CRM export. Madbear reads standard CSV files with flexible column mapping.',
         steps:[
-          'Go to <b>Contacts</b> in the left sidebar.',
-          'Click <b>Import CSV</b> and select your file. Your CSV needs at least one column with email addresses.',
-          'In the import dialog, map your CSV columns to Madbear fields: Email, FirstName, LastName, Tags, and any custom fields.',
-          'The <b>Tags</b> column lets you group contacts. Use values like "leads", "customers", "vip" — separate multiple tags with a pipe character (|).',
-          'Click <b>Import</b>. Contacts are saved immediately and available in any campaign\'s recipient picker.',
-          'Duplicate emails are automatically skipped. You can re-import updated CSVs without creating duplicates.',
+          'Go to <b>Контакты</b> in the left sidebar.',
+          'Click <b>Импорт CSV</b> and select your file. Your CSV needs at least one column with email addresses.',
+          'В диалоге импорта сопоставьте столбцы CSV с полями Madbear: Email, FirstName, LastName, Tags и любыми своими полями.',
+          'The <b>Теги</b> column lets you group contacts. Use values like "leads", "customers", "vip" — separate multiple tags with a pipe character (|).',
+          'Click <b>Импорт</b>. Contacts are saved immediately and available in any campaign\'s recipient picker.',
+          'Дубликаты адресов автоматически пропускаются. Можно повторно импортировать обновлённые CSV без создания дубликатов.',
         ]
       },
       {
-        num:'04', t:'Set up a drip sequence',
+        num:'04', t:'Настроить drip-цепочку',
         intro:'A drip sequence automatically sends follow-up emails to contacts after a campaign. Great for onboarding, nurture, or re-engagement flows.',
         steps:[
-          'Go to <b>Drip sequences</b> in the left sidebar and click <b>Edit drip flow</b>.',
+          'Go to <b>Drip-последовательности</b> in the left sidebar and click <b>Изменить цепочку drip</b>.',
           'Each step is a follow-up email. Add steps with the <b>+ Add step</b> button.',
-          'For each step, set: the <b>delay in days</b> after the previous step, a <b>subject line</b>, and the <b>email body</b>.',
-          'Toggle individual steps on or off with the switch on the left. Disabled steps are skipped but kept for later.',
+          'For each step, set: the <b>задержка в днях</b> after the previous step, a <b>тема письма</b>, and the <b>текст письма</b>.',
+          'Включайте и отключайте отдельные шаги переключателем слева. Отключённые шаги пропускаются, но сохраняются на будущее.',
           'When you send a campaign, the drip sequence picks up automatically — contacts receive follow-ups on the schedule you defined.',
-          'Contacts who reply to any email are automatically removed from the remaining drip steps.',
+          'Контакты, ответившие на любое письмо, автоматически исключаются из оставшихся шагов drip.',
         ]
       },
       {
-        num:'05', t:'Understand your analytics',
-        intro:'Madbear tracks every send in real time. Here is what each metric means and how to read your dashboard.',
+        num:'05', t:'Понимайте свою аналитику',
+        intro:'Madbear отслеживает каждую отправку в реальном времени. Вот что означает каждая метрика и как читать вашу панель.',
         steps:[
-          '<b>Delivered</b> — Gmail accepted the email and sent it. This is the count of successful sends.',
-          '<b>Errors</b> — Gmail rejected the send. Common causes: daily quota exceeded, invalid email address, backend script error, or network timeout.',
-          '<b>Skipped</b> — The contact was in the list but Madbear did not attempt to send. Reasons: already emailed in a previous run, address is on the unsubscribe list, or filtered out by a tag rule.',
-          '<b>Delivery rate</b> = Delivered ÷ (Delivered + Errors). Skipped contacts are not counted in the rate — they were never attempted.',
-          'The <b>Analytics</b> page shows a 7-day send volume chart and a per-campaign breakdown table with all four metrics for each campaign.',
+          '<b>Доставлено</b> — Gmail accepted the email and sent it. This is the count of successful sends.',
+          '<b>Ошибки</b> — Gmail rejected the send. Common causes: daily quota exceeded, invalid email address, backend script error, or network timeout.',
+          '<b>Пропущено</b> — The contact was in the list but Madbear did not attempt to send. Reasons: already emailed in a previous run, address is on the unsubscribe list, or filtered out by a tag rule.',
+          '<b>Доставляемость</b> = Delivered ÷ (Delivered + Errors). Skipped contacts are not counted in the rate — they were never attempted.',
+          'The <b>Аналитика</b> page shows a 7-day send volume chart and a per-campaign breakdown table with all four metrics for each campaign.',
           'If you see a high error rate, check your backend is still deployed and your Gmail has not hit its daily sending quota (500/day for personal Gmail, 2,000/day for Workspace).',
         ]
       },
       {
-        num:'06', t:'Export your data',
-        intro:'You can export everything from Madbear at any time — contacts, campaigns, analytics, and your full configuration backup.',
+        num:'06', t:'Экспорт ваших данных',
+        intro:'Вы можете в любой момент экспортировать из Madbear всё — контакты, кампании, аналитику и полную резервную копию настроек.',
         steps:[
-          'On the <b>Campaigns</b> page, click the <b>Export</b> button in the top right. Choose between CSV (spreadsheet-compatible) or full JSON backup.',
-          'On the <b>Contacts</b> page, click <b>Export</b> to download all contacts with their names, emails, and tags as a CSV.',
-          'For a <b>full backup</b> of everything — campaigns, contacts, settings, history — click the <b>Export all data</b> option. This creates a JSON file you can re-import later.',
+          'On the <b>Кампании</b> page, click the <b>Экспорт</b> button in the top right. Choose between CSV (spreadsheet-compatible) or full JSON backup.',
+          'On the <b>Контакты</b> page, click <b>Экспорт</b> to download all contacts with their names, emails, and tags as a CSV.',
+          'For a <b>полная резервная копия</b> of everything — campaigns, contacts, settings, history — click the <b>Экспортировать все данные</b> option. This creates a JSON file you can re-import later.',
           'The JSON backup includes: all campaigns and their status, your full contact list, send history, drip sequence configuration, and account settings.',
-          'To restore from a backup, go to Settings and use the <b>Import backup</b> option (available in the Backends tab).',
+          'To restore from a backup, go to Settings and use the <b>Импорт резервной копии</b> option (available in the Backends tab).',
           'Export regularly if you are running large campaigns — it is your safety net if you ever need to switch browsers or reinstall the extension.',
         ]
       },
@@ -3537,17 +3537,17 @@ function dbSettingsPanel() {
 
     // What you can do
     out += '<div class="db-card elev" style="margin-bottom:14px">';
-    out += '<h3 class="db-card-title" style="margin-bottom:14px">What you can do with Madbear</h3>';
+    out += '<h3 class="db-card-title" style="margin-bottom:14px">Что можно делать с Madbear</h3>';
     out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
     [
-      ['Send mass email campaigns', 'Compose once, send to hundreds or thousands. Each email is sent individually from your Gmail — not as a bulk blast — so it lands in the primary inbox, not promotions.'],
-      ['Personalize every email', 'Use merge fields like {{FirstName}}, {{Company}}, or any column from your CSV. Every recipient gets a message that feels written just for them.'],
-      ['Automate follow-ups with drips', 'Set up multi-step drip sequences that send follow-up emails automatically on a schedule. Contacts who reply are removed from the sequence automatically.'],
-      ['Import and manage contacts', 'Import contact lists from any CSV. Tag and segment your contacts. Filter by tag when sending so you always reach the right audience.'],
-      ['Track delivery in real time', 'See exactly how many emails were delivered, errored, or skipped per campaign. Full analytics with 7-day send charts and per-campaign breakdowns.'],
-      ['Use multiple Gmail accounts', 'Connect several Gmail or Workspace accounts as backends. Rotate between them to increase daily send volume and avoid quota limits.'],
-      ['Keep your data private', 'Everything is stored locally in your browser. No account required, no cloud sync, no data leaving your machine. You own all of it.'],
-      ['Export everything anytime', 'Export contacts, campaigns, history, and full configuration backups. Re-import them anytime to restore or migrate.'],
+      ['Массовые email-рассылки', 'Compose once, send to hundreds or thousands. Each email is sent individually from your Gmail — not as a bulk blast — so it lands in the primary inbox, not promotions.'],
+      ['Персонализируйте каждое письмо', 'Use merge fields like {{FirstName}}, {{Company}}, or any column from your CSV. Every recipient gets a message that feels written just for them.'],
+      ['Автоматизируйте дожимы цепочками drip', 'Set up multi-step drip sequences that send follow-up emails automatically on a schedule. Contacts who reply are removed from the sequence automatically.'],
+      ['Импорт и управление контактами', 'Import contact lists from any CSV. Tag and segment your contacts. Filter by tag when sending so you always reach the right audience.'],
+      ['Отслеживайте доставку в реальном времени', 'See exactly how many emails were delivered, errored, or skipped per campaign. Full analytics with 7-day send charts and per-campaign breakdowns.'],
+      ['Используйте несколько Gmail-аккаунтов', 'Connect several Gmail or Workspace accounts as backends. Rotate between them to increase daily send volume and avoid quota limits.'],
+      ['Ваши данные остаются у вас', 'Everything is stored locally in your browser. No account required, no cloud sync, no data leaving your machine. You own all of it.'],
+      ['Экспортируйте всё в любой момент', 'Экспортируйте контакты, кампании, историю и полные резервные копии настроек. Импортруйте их в любой момент для восстановления или переноса.'],
     ].forEach(function(item){
       out += '<div style="padding:14px 16px;background:var(--db-bg);border:1px solid var(--db-line-soft);border-radius:10px">';
       out += '<div style="font-weight:600;font-size:13px;color:var(--db-ink);margin-bottom:5px">' + item[0] + '</div>';
@@ -3558,11 +3558,11 @@ function dbSettingsPanel() {
 
     // Built by
     out += '<div class="db-card elev">';
-    out += '<h3 class="db-card-title" style="margin-bottom:8px">Built by Madbear Creative Agency</h3>';
+    out += '<h3 class="db-card-title" style="margin-bottom:8px">Разработано Madbear Creative Agency</h3>';
     out += '<p style="font-size:13px;color:var(--db-ink2);line-height:1.6;margin-bottom:14px">Madbear Emails was built internally by Madbear Creative Agency to solve a simple problem: sending personalized outreach at scale without paying for Mailchimp, HubSpot, or similar tools — and without losing control of sender identity. It started as an internal tool and grew into a full-featured extension used by the whole team.</p>';
     out += '<p style="font-size:13px;color:var(--db-ink2);line-height:1.6;margin-bottom:14px">The extension is built on top of Google Apps Script, which means it works with any Gmail or Google Workspace account out of the box. No OAuth apps to approve, no API keys to manage — just a script you deploy in 5 minutes and a dashboard that runs entirely in your browser.</p>';
     out += '<div style="display:flex;gap:8px">';
-    out += '<button class="db-btn secondary" data-action="db-export-all">Export all data</button>';
+    out += '<button class="db-btn secondary" data-action="db-export-all">Экспортировать все данные</button>';
     out += '</div></div>';
   }
 
@@ -3590,7 +3590,7 @@ function mbCSV(rows) {
 
 function mbExportContactsCSV() {
   var contacts = S.contacts || [];
-  var rows = [['Name','Email','Tags','Custom Fields']];
+  var rows = [['Имя','Email','Теги','Свои поля']];
   contacts.forEach(function(c) {
     var cf = Object.keys(c.customFields || {}).map(function(k){ return k+'='+c.customFields[k]; }).join('; ');
     rows.push([c.name||'', c.email||'', (c.tags||[]).join('|'), cf]);
@@ -3600,7 +3600,7 @@ function mbExportContactsCSV() {
 
 function mbExportCampaignsCSV() {
   var camps = S.campaigns || S.history || [];
-  var rows = [['Campaign Name','Type','Subject','Status','Total Sent','Delivered','Errors','Rate (%)','Date','Parent Campaign']];
+  var rows = [['Название кампании','Type','Тема','Статус','Всего отправлено','Доставлено','Ошибки','Дост. (%)','Дата','Родительская кампания']];
   camps.forEach(function(c) {
     var delivered = (c.total||0) - (c.errors||0);
     var rate = (c.total||0) > 0 ? ((delivered / (c.total||0)) * 100).toFixed(1) : '';
@@ -3621,19 +3621,19 @@ function mbExportAnalyticsCSV() {
   // Per-campaign breakdown
   var rows = [['=== SUMMARY ===','','','','','']];
   rows.push(['Metric','Value','','','','']);
-  rows.push(['Total emails sent', totalSent,'','','','']);
-  rows.push(['Total delivered', delivered,'','','','']);
-  rows.push(['Total errors', totalErrors,'','','','']);
-  rows.push(['Delivery rate (%)', rate,'','','','']);
-  rows.push(['Total campaigns', hist.length,'','','','']);
+  rows.push(['Всего писем отправлено', totalSent,'','','','']);
+  rows.push(['Всего доставлено', delivered,'','','','']);
+  rows.push(['Всего ошибок', totalErrors,'','','','']);
+  rows.push(['Доставляемость (%)', rate,'','','','']);
+  rows.push(['Всего кампаний', hist.length,'','','','']);
   var followups = hist.filter(function(c){ return c.type === 'followup'; }).length;
   var drips = hist.filter(function(c){ return c.type === 'drip'; }).length;
-  rows.push(['One-off campaigns', hist.length - followups - drips,'','','','']);
-  rows.push(['Follow-up campaigns', followups,'','','','']);
-  rows.push(['Drip steps sent', drips,'','','','']);
+  rows.push(['Разовые кампании', hist.length - followups - drips,'','','','']);
+  rows.push(['Дожимные кампании', followups,'','','','']);
+  rows.push(['Шагов drip отправлено', drips,'','','','']);
   rows.push(['','','','','','']);
   rows.push(['=== PER-CAMPAIGN BREAKDOWN ===','','','','','']);
-  rows.push(['Campaign','Type','Date','Sent','Errors','Rate (%)']);
+  rows.push(['Кампания','Type','Дата','Отправлено','Ошибки','Дост. (%)']);
   hist.forEach(function(c) {
     var del = (c.total||0) - (c.errors||0);
     var r = (c.total||0) > 0 ? ((del / (c.total||0)) * 100).toFixed(1) : '—';
@@ -3644,7 +3644,7 @@ function mbExportAnalyticsCSV() {
 
 function mbExportHistoryCSV() {
   var hist = S.history || [];
-  var rows = [['Campaign','Email','Status','Timestamp','Error']];
+  var rows = [['Кампания','Email','Статус','Timestamp','Error']];
   hist.forEach(function(h) {
     (h.log || []).forEach(function(entry) {
       rows.push([h.name||'', entry.email||'', entry.status||'', entry.ts||'', entry.error||'']);
@@ -3903,16 +3903,16 @@ function mbExportXLSX() {
 
     // Row 5: KPI header
     merges.push(mergeCell(5,0,5,7));
-    r(5, [cell(5,0,'KEY PERFORMANCE INDICATORS',5,'s')]);
+    r(5, [cell(5,0,'КЛЮЧЕВЫЕ МЕТРИКИ',5,'s')]);
 
     // Rows 6-7: KPI numbers (3 per row, cols 0,2,4 + labels below)
     var kpis = [
-      { label:'Emails Sent',          value: totalSent.toLocaleString() },
-      { label:'Delivered',            value: delivered.toLocaleString() },
-      { label:'Delivery Rate',        value: delivRate + '%' },
-      { label:'Total Campaigns',      value: (history.length).toString() },
-      { label:'Contacts',             value: contacts.length.toString() },
-      { label:'Errors',               value: totalErrors.toLocaleString() },
+      { label:'Писем отправлено',          value: totalSent.toLocaleString() },
+      { label:'Доставлено',            value: delivered.toLocaleString() },
+      { label:'Доставляемость',        value: delivRate + '%' },
+      { label:'Всего кампаний',      value: (history.length).toString() },
+      { label:'Контакты',             value: contacts.length.toString() },
+      { label:'Ошибки',               value: totalErrors.toLocaleString() },
     ];
     // 6 KPIs across 6 cols (A-F) number row 6, label row 7
     for (var k = 0; k < 6; k++) {
@@ -3928,7 +3928,7 @@ function mbExportXLSX() {
 
     // Row 9: Activity section header
     merges.push(mergeCell(9,0,9,7));
-    r(9, [cell(9,0,'SEND ACTIVITY — LAST 7 DAYS',5,'s')]);
+    r(9, [cell(9,0,'АКТИВНОСТЬ ОТПРАВКИ — ПОСЛЕДНИЕ 7 ДНЕЙ',5,'s')]);
 
     // Row 10: day headers
     var last7 = [];
@@ -3960,10 +3960,10 @@ function mbExportXLSX() {
 
     // Row 14: Recent Campaigns header
     merges.push(mergeCell(14,0,14,7));
-    r(14, [cell(14,0,'RECENT CAMPAIGNS',5,'s')]);
+    r(14, [cell(14,0,'ПОСЛЕДНИЕ КАМПАНИИ',5,'s')]);
 
     // Row 15: table headers
-    var campCols = ['Campaign','Type','Date','Sent','Errors','Delivery Rate','Status','Tags'];
+    var campCols = ['Кампания','Type','Дата','Отправлено','Ошибки','Доставляемость','Статус','Теги'];
     r(15, campCols.map(function(h,i){ return cell(15,i,h,6,'s'); }));
 
     // Rows 16+: data
@@ -4016,7 +4016,7 @@ function mbExportXLSX() {
     ]));
     rows.push(row(3,[]));
 
-    var headers = ['Campaign Name','Type','Status','Tags','Date','Sent','Errors','Delivery Rate','Follow-ups / Drip'];
+    var headers = ['Название кампании','Type','Статус','Теги','Дата','Отправлено','Ошибки','Доставляемость','Дожимы / Drip'];
     rows.push(row(4, headers.map(function(h,i){ return cell(4,i,h,6,'s'); })));
 
     history.forEach(function(c,i) {
@@ -4065,7 +4065,7 @@ function mbExportXLSX() {
     ]));
     rows.push(row(3,[]));
 
-    var headers = ['Name','Email','Group','Tags','Status','Added Date','Last Campaign'];
+    var headers = ['Имя','Email','Группа','Теги','Статус','Дата добавления','Последняя кампания'];
     rows.push(row(4, headers.map(function(h,i){ return cell(4,i,h,6,'s'); })));
 
     contacts.forEach(function(c,i){
@@ -4073,7 +4073,7 @@ function mbExportXLSX() {
       var alt = i%2===0?8:7;
       var isActive = !c.unsubscribed && !c.inactive;
       var statusSty = isActive ? 9 : 10;
-      var statusLbl = c.unsubscribed ? 'Unsubscribed' : c.inactive ? 'Inactive' : 'Active';
+      var statusLbl = c.unsubscribed ? 'Unsubscribed' : c.inactive ? 'Inactive' : 'Активна';
       rows.push(row(rn,[
         cell(rn,0,c.name||'',alt,'s'),
         cell(rn,1,c.email||'',alt,'s'),
@@ -4096,23 +4096,23 @@ function mbExportXLSX() {
     merges.push(mergeCell(1,0,1,5));
     rows.push(row(1,[cell(1,0,'ANALYTICS DASHBOARD',2,'s')]));
     merges.push(mergeCell(2,0,2,5));
-    rows.push(row(2,[cell(2,0,'In-depth performance metrics for all campaigns',4,'s')]));
+    rows.push(row(2,[cell(2,0,'Подробные метрики эффективности всех кампаний',4,'s')]));
     rows.push(row(3,[]));
 
     // KPI summary block
     merges.push(mergeCell(4,0,4,5));
-    rows.push(row(4,[cell(4,0,'SUMMARY METRICS',5,'s')]));
+    rows.push(row(4,[cell(4,0,'ИТОГОВЫЕ МЕТРИКИ',5,'s')]));
 
     var summaryPairs = [
-      ['Total Emails Sent', totalSent],
-      ['Total Delivered',   delivered],
-      ['Total Errors',      totalErrors],
-      ['Delivery Rate',     delivRate+'%'],
-      ['Total Campaigns',   history.length],
-      ['One-off Campaigns', history.filter(function(c){ return c.type!=='followup'&&c.type!=='drip'; }).length],
-      ['Follow-up Campaigns', history.filter(function(c){ return c.type==='followup'; }).length],
-      ['Drip Steps Sent',   history.filter(function(c){ return c.type==='drip'; }).length],
-      ['Total Contacts',    contacts.length],
+      ['Всего писем отправлено', totalSent],
+      ['Всего доставлено',   delivered],
+      ['Всего ошибок',      totalErrors],
+      ['Доставляемость',     delivRate+'%'],
+      ['Всего кампаний',   history.length],
+      ['Разовые кампании', history.filter(function(c){ return c.type!=='followup'&&c.type!=='drip'; }).length],
+      ['Дожимные кампании', history.filter(function(c){ return c.type==='followup'; }).length],
+      ['Шагов drip отправлено',   history.filter(function(c){ return c.type==='drip'; }).length],
+      ['Всего контактов',    contacts.length],
       ['Plan',              planLabel],
     ];
 
@@ -4129,9 +4129,9 @@ function mbExportXLSX() {
 
     // Per-campaign breakdown
     merges.push(mergeCell(afterSummary+1,0,afterSummary+1,5));
-    rows.push(row(afterSummary+1,[cell(afterSummary+1,0,'CAMPAIGN PERFORMANCE BREAKDOWN',5,'s')]));
+    rows.push(row(afterSummary+1,[cell(afterSummary+1,0,'ЭФФЕКТИВНОСТЬ КАМПАНИЙ',5,'s')]));
 
-    var breakHeaders = ['Campaign','Type','Date','Sent','Delivered','Errors','Rate','Trend'];
+    var breakHeaders = ['Кампания','Type','Дата','Отправлено','Доставлено','Ошибки','Дост.','Trend'];
     rows.push(row(afterSummary+2, breakHeaders.map(function(h,i){ return cell(afterSummary+2,i,h,6,'s'); })));
 
     var maxSentCamp = Math.max.apply(null, history.map(function(c){ return c.total||0; })) || 1;
@@ -4163,7 +4163,7 @@ function mbExportXLSX() {
 
     var aiText = '';
     if (history.length === 0) {
-      aiText = 'No campaigns sent yet. Send your first campaign to start seeing analytics.';
+      aiText = 'Кампании ещё не отправлялись. Отправьте первую кампанию, чтобы увидеть аналитику.';
     } else {
       var bestCamp = history.reduce(function(a,b){
         var ra=(a.total||0)>0?((a.total-a.errors)/a.total):0;
@@ -4174,7 +4174,7 @@ function mbExportXLSX() {
         return acc + ((c.total||0)>0?((c.total-(c.errors||0))/c.total)*100:0);
       }, 0) / history.length;
       aiText = 'Best campaign: "' + (bestCamp.name||'N/A') + '" · Avg delivery rate: ' + avgRate.toFixed(1) + '% · ' +
-        (parseFloat(delivRate)>=90?'Excellent deliverability! Keep it up.':parseFloat(delivRate)>=75?'Good deliverability. Watch for high-error campaigns.':'Deliverability needs attention. Review your contact list.');
+        (parseFloat(delivRate)>=90?'Отличная доставляемость! Так держать.':parseFloat(delivRate)>=75?'Хорошая доставляемость. Следите за кампаниями с большим числом ошибок.':'Доставляемость требует внимания. Проверьте список контактов.');
     }
 
     merges.push(mergeCell(footRow+1,0,footRow+1,5));
@@ -4186,7 +4186,7 @@ function mbExportXLSX() {
 
   function buildRawData() {
     var rows = [];
-    var headers = ['ID','Campaign Name','Type','Subject','Status','Tags','Date','Total Sent','Delivered','Errors','Delivery Rate (%)','Parent Campaign','Sheet ID','Sheet Tab'];
+    var headers = ['ID','Название кампании','Type','Тема','Статус','Теги','Дата','Всего отправлено','Доставлено','Ошибки','Доставляемость (%)','Родительская кампания','ID таблицы','Лист таблицы'];
     rows.push(row(1, headers.map(function(h,i){ return cell(1,i,h,6,'s'); })));
 
     history.forEach(function(c,i){
@@ -4276,9 +4276,9 @@ function mbExportXLSX() {
     ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">' +
     '<sheets>' +
       '<sheet name="Overview"  sheetId="1" r:id="rId1"/>' +
-      '<sheet name="Campaigns" sheetId="2" r:id="rId2"/>' +
-      '<sheet name="Contacts"  sheetId="3" r:id="rId3"/>' +
-      '<sheet name="Analytics" sheetId="4" r:id="rId4"/>' +
+      '<sheet name="Кампании" sheetId="2" r:id="rId2"/>' +
+      '<sheet name="Контакты"  sheetId="3" r:id="rId3"/>' +
+      '<sheet name="Аналитика" sheetId="4" r:id="rId4"/>' +
       '<sheet name="Raw_Data"  sheetId="5" r:id="rId5"/>' +
     '</sheets>' +
     '</workbook>';
@@ -4510,7 +4510,7 @@ function mbShowExportModal() {
         '<div style="font-size:12px;color:' + muted + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + desc + '</div>' +
       '</div>' +
       '<span style="font-family:' + mono + ';font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;background:' + rBadgeBg + ';color:' + rBadgeClr + ';flex-shrink:0">' + badge + '</span>' +
-      '<button data-action="' + action + '" style="padding:7px 16px;border-radius:8px;border:1px solid ' + rBtnBdr + ';background:' + rBtnBg + ';color:' + rBtnClr + ';font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:' + sans + '">Download</button>' +
+      '<button data-action="' + action + '" style="padding:7px 16px;border-radius:8px;border:1px solid ' + rBtnBdr + ';background:' + rBtnBg + ';color:' + rBtnClr + ';font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:' + sans + '">Скачать</button>' +
     '</div>';
   }
 
@@ -4524,35 +4524,35 @@ function mbShowExportModal() {
       // Header
       '<div style="padding:20px 24px 16px;border-bottom:1px solid ' + border + ';display:flex;align-items:flex-start;justify-content:space-between">' +
         '<div>' +
-          '<div style="font-size:18px;font-weight:700;color:' + ink + ';letter-spacing:-0.4px">Export data</div>' +
-          '<div style="font-size:12.5px;color:' + muted + ';margin-top:3px">All files download instantly to your computer</div>' +
+          '<div style="font-size:18px;font-weight:700;color:' + ink + ';letter-spacing:-0.4px">Экспорт данных</div>' +
+          '<div style="font-size:12.5px;color:' + muted + ';margin-top:3px">Все файлы мгновенно загружаются на ваш компьютер</div>' +
         '</div>' +
         '<button id="mb-export-close" style="background:' + rowBg + ';border:1px solid ' + border + ';border-radius:8px;cursor:pointer;color:' + muted + ';font-size:18px;line-height:1;width:32px;height:32px;display:flex;align-items:center;justify-content:center">✕</button>' +
       '</div>' +
 
       // Stats bar
       '<div style="padding:16px 24px;background:' + bg2 + ';border-bottom:1px solid ' + border + ';display:flex;gap:0;justify-content:space-around">' +
-        stat('Emails sent', totalSent.toLocaleString()) +
+        stat('Писем отправлено', totalSent.toLocaleString()) +
         '<div style="width:1px;background:' + border + ';margin:4px 0"></div>' +
-        stat('Delivered', delivered.toLocaleString()) +
+        stat('Доставлено', delivered.toLocaleString()) +
         '<div style="width:1px;background:' + border + ';margin:4px 0"></div>' +
-        stat('Delivery rate', rate) +
+        stat('Доставляемость', rate) +
         '<div style="width:1px;background:' + border + ';margin:4px 0"></div>' +
-        stat('Campaigns', campaigns.length) +
+        stat('Кампании', campaigns.length) +
         '<div style="width:1px;background:' + border + ';margin:4px 0"></div>' +
-        stat('Contacts', contacts.length) +
+        stat('Контакты', contacts.length) +
       '</div>' +
 
       // Export rows
       '<div style="padding:18px 24px;display:flex;flex-direction:column;gap:8px">' +
-        '<div style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:' + muted + ';text-transform:uppercase;margin-bottom:4px">Choose export</div>' +
-        row('Contacts list', contacts.length + ' contacts · name, email, tags, groups, custom fields', 'db-export-contacts-csv', 'CSV', false, '👤') +
-        row('Campaigns summary', campaigns.length + ' campaigns · name, type, subject, sent, errors, rate', 'db-export-campaigns-csv', 'CSV', false, '📤') +
-        row('Send history', 'Full send log with per-email status and timestamps', 'db-export-history-csv', 'CSV', false, '📋') +
-        row('Analytics report', 'Summary stats + per-campaign breakdown with delivery rates', 'db-export-analytics-csv', 'CSV', false, '📊') +
+        '<div style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:' + muted + ';text-transform:uppercase;margin-bottom:4px">Выберите экспорт</div>' +
+        row('Список контактов', contacts.length + ' contacts · name, email, tags, groups, custom fields', 'db-export-contacts-csv', 'CSV', false, '👤') +
+        row('Сводка по кампаниям', campaigns.length + ' campaigns · name, type, subject, sent, errors, rate', 'db-export-campaigns-csv', 'CSV', false, '📤') +
+        row('История отправок', 'Полный журнал отправки со статусом каждого письма и отметками времени', 'db-export-history-csv', 'CSV', false, '📋') +
+        row('Отчёт аналитики', 'Summary stats + per-campaign breakdown with delivery rates', 'db-export-analytics-csv', 'CSV', false, '📊') +
         '<div style="height:1px;background:' + border + ';margin:2px 0"></div>' +
-        row('Analytics Dashboard', '5-sheet premium report · KPIs, campaigns, contacts, analytics', 'db-export-xlsx', 'XLSX', true, '✦') +
-        row('Full backup', 'Everything — contacts, campaigns, history, drip steps, settings', 'db-export-full-json', 'JSON', false, '💾') +
+        row('Панель аналитики', '5-sheet premium report · KPIs, campaigns, contacts, analytics', 'db-export-xlsx', 'XLSX', true, '✦') +
+        row('Полная резервная копия', 'Всё — контакты, кампании, история, шаги drip, настройки', 'db-export-full-json', 'JSON', false, '💾') +
       '</div>' +
     '</div>';
 
@@ -4610,7 +4610,7 @@ function vHome() {
     out += '<button class="btn btn-ghost" data-action="resume-draft">' + t("home.resumeDraft") + '</button>';
   }
   if (S.billing.activePlan === "premium") {
-    out += '<button class="btn btn-ghost" data-action="open-drip" title="Send a multi-step drip sequence to previous campaign contacts">📬 Drip Sequence</button>';
+    out += '<button class="btn btn-ghost" data-action="open-drip" title="Отправить многошаговую drip-цепочку контактам предыдущих кампаний">📬 Drip-последовательность</button>';
   }
   out += "</div></div>";
 
@@ -4645,13 +4645,13 @@ function recentCampaignsPanel() {
       const campaign = visible[i];
       const rawSheetName = campaign.sheetName || "";
       const isRawId = !rawSheetName || rawSheetName === campaign.sheetId || /^[a-zA-Z0-9_-]{20,}$/.test(rawSheetName);
-      const sheetLabel = isRawId ? "Google Sheet" : rawSheetName;
+      const sheetLabel = isRawId ? "Google Таблица" : rawSheetName;
       const sentCount = (campaign.results || []).filter(function(r) { return r.status === "SENT"; }).length;
       out += '<div class="history-card">';
       // Top row: title + delete
       out += '<div class="history-top">';
       out += '<div class="history-title">' + esc(campaign.subject || campaign.name || t("card.untitled")) + "</div>";
-      out += '<button class="btn history-delete-btn" data-action="delete-campaign" data-id="' + escAttr(campaign.id) + '" title="Delete">✕</button>';
+      out += '<button class="btn history-delete-btn" data-action="delete-campaign" data-id="' + escAttr(campaign.id) + '" title="Удалить">✕</button>';
       out += '</div>';
       // Meta row: sheet name + date + sent count
       out += '<div class="history-sub">';
@@ -4686,14 +4686,14 @@ function vSettings() {
     ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
     : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
 
-  let out = '<div class="stitle">Settings</div>';
+  let out = '<div class="stitle">Настройки</div>';
 
   // Quick-access row
   out += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;padding:10px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--radius-lg)">';
-  out += '<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tx3);font-family:var(--font-mono);flex:1">Appearance</span>';
+  out += '<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tx3);font-family:var(--font-mono);flex:1">Внешний вид</span>';
 
   // Theme toggle
-  out += '<button class="hdr-btn" data-action="toggle-theme" title="Toggle theme" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--bg3)">';
+  out += '<button class="hdr-btn" data-action="toggle-theme" title="Переключить тему" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--bg3)">';
   out += '<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + themeIcon + '</svg>';
   out += '</button>';
 
@@ -4850,7 +4850,7 @@ function guideSection(key, title, subtitle, body) {
 }
 
 function settingsAboutPanel() {
-  let out = '<div class="panel"><div class="panel-title">' + t("about.title") + '</div><div class="panel-sub">' + t("about.sub") + '</div><div class="note"><strong>Website:</strong> <a href="' + escAttr(S.billing.config.websiteUrl || "https://madbear.io") + '" target="_blank" class="lnk">madbear.io</a><br><strong>Support:</strong> <a href="mailto:' + escAttr(S.billing.config.supportEmail || "hello@madbear.io") + '" class="lnk">' + esc(S.billing.config.supportEmail || "hello@madbear.io") + "</a></div></div>";
+  let out = '<div class="panel"><div class="panel-title">' + t("about.title") + '</div><div class="panel-sub">' + t("about.sub") + '</div><div class="note"><strong>Сайт:</strong> <a href="' + escAttr(S.billing.config.websiteUrl || "https://madbear.io") + '" target="_blank" class="lnk">madbear.io</a><br><strong>Поддержка:</strong> <a href="mailto:' + escAttr(S.billing.config.supportEmail || "hello@madbear.io") + '" class="lnk">' + esc(S.billing.config.supportEmail || "hello@madbear.io") + "</a></div></div>";
   out += '<div class="panel"><div class="panel-title">' + t("about.privacy.title") + '</div>';
   out += '<div class="note">' + t("about.privacy1") + '</div>';
   out += '<div class="note">' + t("about.privacy2") + '</div>';
@@ -4862,12 +4862,12 @@ function settingsAboutPanel() {
 
 function vGuide() {
   return '<div class="guide">' +
-    step(1, "Deploy the backend", 'Paste <code>apps-script-backend.js</code> into <a href="https://script.google.com" target="_blank" class="lnk">Apps Script</a> and deploy it as a Web app.') +
-    step(2, "Authorize it once", "Approve Gmail, Drive, and Sheets access in the same Google account you want to send from.") +
-    step(3, "Load the extension", "Open chrome://extensions, turn on Developer mode, and load this folder unpacked.") +
-    step(4, "Compose or load a draft", "Write from scratch or load a Gmail draft as a starting point.") +
-    step(5, "Use merge tags", "Click merge fields in the compose panel to insert values from your sheet.") +
-    step(6, "Test before sending", "Test mode sends only to your test email and does not mark rows as SENT.") +
+    step(1, "Разверните бэкенд", 'Paste <code>apps-script-backend.js</code> into <a href="https://script.google.com" target="_blank" class="lnk">Apps Script</a> and deploy it as a Web app.') +
+    step(2, "Авторизуйте его один раз", "Подтвердите доступ к Gmail, Drive и Sheets в том же Google-аккаунте, с которого будете отправлять письма.") +
+    step(3, "Установите расширение", "Откройте chrome://extensions, включите режим разработчика и загрузите эту папку как распакованное расширение.") +
+    step(4, "Напишите письмо или загрузите черновик", "Напишите с нуля или загрузите черновик Gmail как основу.") +
+    step(5, "Используйте теги слияния", "Нажимайте на поля слияния в панели редактирования, чтобы вставлять значения из вашей таблицы.") +
+    step(6, "Тест перед отправкой", "Тестовый режим отправляет только на ваш тестовый email и не помечает строки как SENT.") +
     "</div>";
 }
 
@@ -4913,8 +4913,8 @@ function vCompose() {
   const composeSummary = S.selectedSheet
     ? isContactsCampaign
       ? esc(S.selectedSheet.name) + " · " + recipientCount + " contacts"
-      : esc(S.selectedSheet.name) + " · " + esc(S.selectedTab || "Sheet") + " · " + recipientCount + " recipients"
-    : "Loading campaign details...";
+      : esc(S.selectedSheet.name) + " · " + esc(S.selectedTab || "Таблица") + " · " + recipientCount + " recipients"
+    : "Загрузка деталей кампании...";
 
   // Find the email label for the active backend
   const activeBackendEntry = S.scriptUrls.find(function(e) {
@@ -4922,7 +4922,7 @@ function vCompose() {
   });
   const activeBackendEmail = activeBackendEntry && typeof activeBackendEntry === "object" && activeBackendEntry.email
     ? activeBackendEntry.email
-    : (S.scriptUrl ? shortUrlLabel(S.scriptUrl) : "Not selected");
+    : (S.scriptUrl ? shortUrlLabel(S.scriptUrl) : "Не выбрано");
 
   let out = '<div class="summary tight">';
   out += '<div class="sum-row"><span>' + t("compose.campaign") + '</span><span>' + composeSummary + "</span></div>";
@@ -4932,7 +4932,7 @@ function vCompose() {
   out += "</div>";
 
   if (!isContactsCampaign && S.sheetTabs.length > 1) {
-    out += '<div class="field"><label class="label">Sheet tab</label><select class="inp sel" id="tabSelect">';
+    out += '<div class="field"><label class="label">Лист таблицы</label><select class="inp sel" id="tabSelect">';
     for (let i = 0; i < S.sheetTabs.length; i += 1) {
       const tab = S.sheetTabs[i];
       out += '<option value="' + escAttr(tab) + '"' + (tab === S.selectedTab ? " selected" : "") + ">" + esc(tab) + "</option>";
@@ -4971,8 +4971,8 @@ function vCompose() {
   if (S.composeSubject || S.composeBody || S.composeHtml) {
     out += section(
       "preview",
-      "Quick Preview",
-      "Uses the first spreadsheet row as a sample.",
+      "Быстрый предпросмотр",
+      "Для примера используется первая строка таблицы.",
       previewPanel()
     );
   }
@@ -4981,7 +4981,7 @@ function vCompose() {
 }
 
 function vSending() {
-  return '<div class="sending"><div class="spinner"></div><div class="sending-txt">Sending emails...</div></div>';
+  return '<div class="sending"><div class="spinner"></div><div class="sending-txt">Отправка писем...</div></div>';
 }
 
 function vResults() {
@@ -5007,9 +5007,9 @@ function vResults() {
   }
 
   let out = '<div class="rstats">';
-  out += '<div class="rstat ok"><span class="rstat-n">' + sent + '</span><span class="rstat-l">Sent</span></div>';
-  out += '<div class="rstat"><span class="rstat-n">' + tests + '</span><span class="rstat-l">Tests</span></div>';
-  out += '<div class="rstat bad"><span class="rstat-n">' + errors + '</span><span class="rstat-l">Errors</span></div>';
+  out += '<div class="rstat ok"><span class="rstat-n">' + sent + '</span><span class="rstat-l">Отправлено</span></div>';
+  out += '<div class="rstat"><span class="rstat-n">' + tests + '</span><span class="rstat-l">Тесты</span></div>';
+  out += '<div class="rstat bad"><span class="rstat-n">' + errors + '</span><span class="rstat-l">Ошибки</span></div>';
   out += "</div>";
 
   if (run.name) {
@@ -5017,11 +5017,11 @@ function vResults() {
   }
 
   if (skipped > 0) {
-    out += '<div class="note"><strong>Skipped:</strong> ' + skipped + " rows were already marked SENT or had no email.</div>";
+    out += '<div class="note"><strong>Пропущено:</strong> ' + skipped + " rows were already marked SENT or had no email.</div>";
   }
 
   for (let i = 0; i < errList.length; i += 1) {
-    out += '<div class="err-row"><span>' + esc(errList[i].email || "Unknown") + '</span><span class="err-msg">' + esc(errList[i].error || "") + "</span></div>";
+    out += '<div class="err-row"><span>' + esc(errList[i].email || "Неизвестно") + '</span><span class="err-msg">' + esc(errList[i].error || "") + "</span></div>";
   }
 
   out += '<div class="btns">';
@@ -5029,7 +5029,7 @@ function vResults() {
     if (S.billing.activePlan === "premium") {
       out += '<button class="btn btn-pri" data-action="start-followup" data-id="' + escAttr(run.id) + '">' + t("results.sendFollowup") + '</button>';
     } else {
-      out += '<button class="btn btn-pri" data-action="open-upgrade" data-plan="premium" title="Follow-up campaigns require Premium" style="opacity:0.6">' + t("results.followupLocked") + '</button>';
+      out += '<button class="btn btn-pri" data-action="open-upgrade" data-plan="premium" title="Дожимные кампании требуют тариф Premium" style="opacity:0.6">' + t("results.followupLocked") + '</button>';
     }
     out += '<button class="btn btn-sec" data-action="duplicate-campaign" data-id="' + escAttr(run.id) + '">' + t("results.duplicate") + '</button>';
   }
@@ -5045,7 +5045,7 @@ function vResults() {
 function vFollowUp() {
   const campaign = findHistoryById(S.followUpCampaignId);
   if (!campaign) {
-    return '<div class="empty">Original campaign not found. Go back and try again.</div>';
+    return '<div class="empty">Исходская кампания не найдена. Вернитесь назад и попробуйте снова.</div>';
   }
 
   const recipientCount = (campaign.results || []).filter(function(r) { return r.status === "SENT"; }).length;
@@ -5055,24 +5055,24 @@ function vFollowUp() {
   // ── Backend upgrade banner ────────────────────────────────────
   if (S.followUpNeedsBackendUpdate) {
     out += '<div class="warn" style="flex-direction:column;align-items:flex-start;gap:10px;border-color:var(--org);background:var(--org-s)">';
-    out += '<div><strong>⚠ Backend update required</strong><br>';
+    out += '<div><strong>⚠ Требуется обновление бэкенда</strong><br>';
     out += 'Your deployed Apps Script backend is an older version that doesn\'t support follow-up campaigns yet. You need to copy the new backend code and redeploy your Web App — it only takes about 2 minutes.</div>';
-    out += '<div style="font-size:12px;font-weight:600;color:var(--tx2)">How to update:</div>';
+    out += '<div style="font-size:12px;font-weight:600;color:var(--tx2)">Как обновить:</div>';
     out += '<div style="font-size:12px;color:var(--tx2);line-height:1.7">';
-    out += '1. Click <strong>Copy Backend Code</strong> below<br>';
+    out += '1. Click <strong>Копировать код бэкенда</strong> below<br>';
     out += '2. Go to <strong>script.google.com</strong> → open your project<br>';
     out += '3. Select all, paste the copied code, save<br>';
-    out += '4. Click <strong>Deploy → Manage deployments → Edit → New version → Deploy</strong><br>';
+    out += '4. Click <strong>Развернуть → Управление развертываниями → Изменить → Новая версия → Развернуть</strong><br>';
     out += '5. Come back here and try sending the follow-up again</div>';
-    out += '<button class="btn btn-pri btn-mini" data-action="copy-backend-code-followup">📋 Copy Backend Code</button>';
+    out += '<button class="btn btn-pri btn-mini" data-action="copy-backend-code-followup">📋 Копировать код бэкенда</button>';
     out += '</div>';
   }
 
   // Thread context banner
   out += '<div class="hero" style="margin-bottom:14px">';
   out += '<div class="hero-top"><div class="hero-copy">';
-  out += '<div class="hero-eyebrow">Follow-up Campaign</div>';
-  out += '<div class="hero-title" style="font-size:18px">Send Follow-up</div>';
+  out += '<div class="hero-eyebrow">Дожимная кампания</div>';
+  out += '<div class="hero-title" style="font-size:18px">Отправить дожим</div>';
   out += '<div class="hero-sub">Your follow-up will be sent as a reply in the same conversation thread — recipients will see it as a continuation of the original email.</div>';
   out += '</div></div>';
   out += '<div class="hero-note">';
@@ -5083,22 +5083,22 @@ function vFollowUp() {
 
   // Summary
   out += '<div class="summary tight">';
-  out += '<div class="sum-row"><span>Original Subject</span><span>' + esc(campaign.subject || "—") + '</span></div>';
-  out += '<div class="sum-row"><span>Sheet</span><span>' + esc(campaign.sheetName || "—") + ' · ' + esc(campaign.sheetTab || "") + '</span></div>';
-  out += '<div class="sum-row"><span>Recipients</span><span>' + recipientCount + ' originally delivered</span></div>';
+  out += '<div class="sum-row"><span>Исходная тема</span><span>' + esc(campaign.subject || "—") + '</span></div>';
+  out += '<div class="sum-row"><span>Таблица</span><span>' + esc(campaign.sheetName || "—") + ' · ' + esc(campaign.sheetTab || "") + '</span></div>';
+  out += '<div class="sum-row"><span>Получатели</span><span>' + recipientCount + ' originally delivered</span></div>';
   out += '</div>';
 
   // Recipient picker + compose + send
-  out += section("followup_recipients", "Recipients", selectedSummary(S.followUpRecipients), followUpRecipientsPanel());
-  out += section("followup_compose", "Write Follow-up", "Write your follow-up message.", followUpComposePanel(campaign));
-  out += section("followup_send", "Send Options", "From name, reply-to, and delay settings.", followUpSendPanel());
-  out += section("followup_test", "Test Mode", "Preview the follow-up without sending to real recipients.", followUpTestPanel());
+  out += section("followup_recipients", "Получатели", selectedSummary(S.followUpRecipients), followUpRecipientsPanel());
+  out += section("followup_compose", "Написать дожим", "Напишите сообщение дожима.", followUpComposePanel(campaign));
+  out += section("followup_send", "Параметры отправки", "Настройки имени отправителя, reply-to и задержки.", followUpSendPanel());
+  out += section("followup_test", "Тестовый режим", "Просмотрите дожим без отправки реальным получателям.", followUpTestPanel());
 
   return out;
 }
 
 function selectedSummary(recipients) {
-  if (!recipients || !recipients.length) return "Loading recipients...";
+  if (!recipients || !recipients.length) return "Загрузка получателей...";
   const total    = recipients.length;
   const selected = recipients.filter(function(r) { return r.selected; }).length;
   if (selected === total) return total + " recipients · All selected";
@@ -5110,13 +5110,13 @@ function followUpRecipientsPanel() {
   let out = "";
 
   if (!S.followUpRecipientsLoaded) {
-    out += '<div class="sending" style="padding:20px 0"><div class="spinner"></div><div class="sending-txt" style="margin-top:8px">Loading recipients...</div></div>';
+    out += '<div class="sending" style="padding:20px 0"><div class="spinner"></div><div class="sending-txt" style="margin-top:8px">Загрузка получателей...</div></div>';
     return out;
   }
 
   const recipients = S.followUpRecipients;
   if (!recipients.length) {
-    out += '<div class="empty compact-empty">No recipients found in the sheet. Make sure there are rows with valid email addresses.</div>';
+    out += '<div class="empty compact-empty">В таблице не найдено получателей. Убедитесь, что есть строки с корректными email-адресами.</div>';
     return out;
   }
 
@@ -5131,11 +5131,11 @@ function followUpRecipientsPanel() {
     const label = r.name || r.email;
     out += '<span style="display:inline-flex;align-items:center;gap:5px;background:var(--acc-soft);border:1px solid rgba(168,244,90,0.25);border-radius:999px;padding:3px 10px 3px 10px;font-size:12px;font-weight:600;color:var(--acc)">';
     out += esc(label);
-    out += '<button data-action="followup-toggle-recipient" data-index="' + i + '" style="background:none;border:none;color:var(--acc);cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px;opacity:0.7" title="Remove">×</button>';
+    out += '<button data-action="followup-toggle-recipient" data-index="' + i + '" style="background:none;border:none;color:var(--acc);cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px;opacity:0.7" title="Удалить">×</button>';
     out += '</span>';
   }
   if (selected === 0) {
-    out += '<span style="font-size:12px;color:var(--tx3);line-height:28px">No recipients selected yet</span>';
+    out += '<span style="font-size:12px;color:var(--tx3);line-height:28px">Получатели ещё не выбраны</span>';
   }
   out += '</div>';
 
@@ -5144,9 +5144,9 @@ function followUpRecipientsPanel() {
   out += '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">';
   out += '<div style="position:relative;flex:1">';
   out += '<span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:12px;pointer-events:none">⌕</span>';
-  out += '<input id="followup-recipient-search" type="text" placeholder="Search recipients…" value="' + escAttr(currentSearch) + '" style="width:100%;box-sizing:border-box;padding:8px 10px 8px 30px;border:1px solid var(--bd);border-radius:var(--radius);background:var(--bg2);color:var(--tx);font-size:13px;outline:none" data-action="followup-search-input">';
+  out += '<input id="followup-recipient-search" type="text" placeholder="Поиск получателей…" value="' + escAttr(currentSearch) + '" style="width:100%;box-sizing:border-box;padding:8px 10px 8px 30px;border:1px solid var(--bd);border-radius:var(--radius);background:var(--bg2);color:var(--tx);font-size:13px;outline:none" data-action="followup-search-input">';
   out += '</div>';
-  out += '<button class="btn btn-ghost btn-mini" data-action="followup-select-all" style="white-space:nowrap">All</button>';
+  out += '<button class="btn btn-ghost btn-mini" data-action="followup-select-all" style="white-space:nowrap">Все</button>';
   out += '<button class="btn btn-ghost btn-mini" data-action="followup-deselect-all" style="white-space:nowrap">None</button>';
   out += '</div>';
 
@@ -5178,7 +5178,7 @@ function followUpRecipientsPanel() {
   out += '<div style="font-size:11px;color:var(--tx3);font-weight:600">' + selected + ' of ' + total + ' selected</div>';
 
   if (selected === 0) {
-    out += '<div class="note" style="margin-top:8px;border-color:var(--org);background:var(--org-s);color:var(--org)">Select at least one recipient to send the follow-up.</div>';
+    out += '<div class="note" style="margin-top:8px;border-color:var(--org);background:var(--org-s);color:var(--org)">Выберите хотя бы одного получателя, чтобы отправить дожим.</div>';
   }
 
   return out;
@@ -5186,11 +5186,11 @@ function followUpRecipientsPanel() {
 
 function followUpComposePanel(campaign) {
   let out = "";
-  out += '<div class="field"><label class="label">Follow-up Subject</label>';
+  out += '<div class="field"><label class="label">Тема дожима</label>';
   out += '<input class="inp" id="followUpSubject" type="text" value="' + esc(S.followUpSubject || ("Re: " + (campaign.subject || ""))) + '" placeholder="e.g. ' + esc(campaign.subject || "your original subject") + '">';
-  out += '<span class="hint">This will be sent as a reply in the same thread as the original email.</span></div>';
+  out += '<span class="hint">Письмо будет отправлено как ответ в той же цепочке, что и исходное письмо.</span></div>';
   const canHtmlFu = S.billing.activePlan === "pro" || S.billing.activePlan === "premium";
-  out += '<div class="field"><label class="label">Editor mode</label><div class="seg">';
+  out += '<div class="field"><label class="label">Режим редактора</label><div class="seg">';
   out += '<button class="seg-btn' + (S.followUpEditorMode === "write" ? " active" : "") + '" data-action="set-followup-editor-mode" data-mode="write">' + t("compose.write") + '</button>';
   if (canHtmlFu) {
     out += '<button class="seg-btn' + (S.followUpEditorMode === "html" ? " active" : "") + '" data-action="set-followup-editor-mode" data-mode="html">' + t("compose.html") + '</button>';
@@ -5200,11 +5200,11 @@ function followUpComposePanel(campaign) {
   out += '</div></div>';
 
   if (S.followUpEditorMode === "write") {
-    out += '<div class="field"><label class="label">Follow-up message</label><textarea class="inp area tall-area" id="followUpBody" placeholder="Hi,&#10;&#10;Just wanted to follow up on my last email...">' + esc(S.followUpBody) + '</textarea></div>';
+    out += '<div class="field"><label class="label">Сообщение дожима</label><textarea class="inp area tall-area" id="followUpBody" placeholder="Hi,&#10;&#10;Just wanted to follow up on my last email...">' + esc(S.followUpBody) + '</textarea></div>';
   } else {
-    out += '<div class="field"><label class="label">HTML follow-up</label>';
-    out += '<textarea class="inp area tall-area code-area" id="followUpHtml" placeholder="<p>Hi,</p><p>Following up on my last email...</p>">' + esc(S.followUpHtml) + '</textarea>';
-    out += '<span class="hint">Inline HTML and CSS are supported.</span></div>';
+    out += '<div class="field"><label class="label">HTML дожима</label>';
+    out += '<textarea class="inp area tall-area code-area" id="followUpHtml" placeholder="<p>Привет,</p><p>Насчёт моего последнего письма...</p>">' + esc(S.followUpHtml) + '</textarea>';
+    out += '<span class="hint">Поддерживаются встроенные HTML и CSS.</span></div>';
   }
 
   // ── Spreadsheet columns as merge field chips ──────────────────────
@@ -5214,8 +5214,8 @@ function followUpComposePanel(campaign) {
 
   if (sheetHeaders.length > 0) {
     out += '<div class="field" style="margin-top:14px">';
-    out += '<label class="label">Sheet Fields</label>';
-    out += '<span class="hint" style="display:block;margin-bottom:8px">Click a field to insert it into your message.</span>';
+    out += '<label class="label">Поля таблицы</label>';
+    out += '<span class="hint" style="display:block;margin-bottom:8px">Нажмите на поле, чтобы вставить его в сообщение.</span>';
     out += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
     for (let h = 0; h < sheetHeaders.length; h++) {
       const col = sheetHeaders[h];
@@ -5225,7 +5225,7 @@ function followUpComposePanel(campaign) {
     out += '</div>';
   } else {
     out += '<div class="field" style="margin-top:14px">';
-    out += '<label class="label">Sheet Fields</label>';
+    out += '<label class="label">Поля таблицы</label>';
     out += '<span class="hint">Sheet fields will appear here once the spreadsheet is loaded. Use them as <code style="background:var(--bg2);padding:1px 5px;border-radius:4px;font-size:11px">{{ColumnName}}</code> in your message.</span>';
     out += '</div>';
   }
@@ -5235,25 +5235,25 @@ function followUpComposePanel(campaign) {
 
 function followUpSendPanel() {
   let out = "";
-  out += mkField("fuFromName", "From name", "text", S.followUpFromName, "e.g. Julio from Madbear");
+  out += mkField("fuFromName", "Имя отправителя", "text", S.followUpFromName, "e.g. Julio from Madbear");
   out += mkField("fuReplyTo", "Reply-to", "email", S.followUpReplyTo, "Optional");
-  out += mkField("fuDelayMs", "Delay between sends (ms)", "number", S.followUpDelayMs, "500");
+  out += mkField("fuDelayMs", "Задержка между отправками (мс)", "number", S.followUpDelayMs, "500");
   out += '<div class="btns">';
-  out += '<button class="btn btn-pri" data-action="send-followup-live">↩ Send Follow-up</button>';
+  out += '<button class="btn btn-pri" data-action="send-followup-live">↩ Отправить дожим</button>';
   out += '</div>';
   return out;
 }
 
 function followUpTestPanel() {
   let out = "";
-  out += mkField("fuTestEmail", "Test email", "email", S.followUpTestEmail, "your@email.com");
-  out += '<div class="note"><strong>Test mode:</strong> sends the follow-up preview only to your test email — does not mark any rows.</div>';
-  out += '<div class="btns"><button class="btn btn-sec" data-action="send-followup-test">Send Test Follow-up</button></div>';
+  out += mkField("fuTestEmail", "Тестовый email", "email", S.followUpTestEmail, "your@email.com");
+  out += '<div class="note"><strong>Тестовый режим:</strong> sends the follow-up preview only to your test email — does not mark any rows.</div>';
+  out += '<div class="btns"><button class="btn btn-sec" data-action="send-followup-test">Отправить тестовый дожим</button></div>';
   return out;
 }
 
 function vFollowUpSending() {
-  return '<div class="sending"><div class="spinner"></div><div class="sending-txt">Sending follow-up emails...</div></div>';
+  return '<div class="sending"><div class="spinner"></div><div class="sending-txt">Отправка дожимных писем...</div></div>';
 }
 
 function vFollowUpResults() {
@@ -5270,28 +5270,28 @@ function vFollowUpResults() {
   }
 
   let out = '<div class="rstats">';
-  out += '<div class="rstat ok"><span class="rstat-n">' + (sent || tests) + '</span><span class="rstat-l">' + (tests ? "Tests" : "Sent") + '</span></div>';
-  out += '<div class="rstat ok"><span class="rstat-n">' + threaded + '</span><span class="rstat-l">Threaded</span></div>';
-  out += '<div class="rstat bad"><span class="rstat-n">' + errors + '</span><span class="rstat-l">Errors</span></div>';
+  out += '<div class="rstat ok"><span class="rstat-n">' + (sent || tests) + '</span><span class="rstat-l">' + (tests ? "Тесты" : "Отправлено") + '</span></div>';
+  out += '<div class="rstat ok"><span class="rstat-n">' + threaded + '</span><span class="rstat-l">В той же цепочке</span></div>';
+  out += '<div class="rstat bad"><span class="rstat-n">' + errors + '</span><span class="rstat-l">Ошибки</span></div>';
   out += '</div>';
 
-  out += '<div class="note" style="margin-bottom:14px">✅ <strong>' + (sent || tests) + ' follow-up' + ((sent || tests) === 1 ? '' : 's') + ' sent</strong> as threaded replies — each recipient received the message in the same conversation thread. Your sheet now has a <strong>FollowUpStatus</strong> column marked <strong>Done</strong> for each recipient.</div>';
+  out += '<div class="note" style="margin-bottom:14px">✅ <strong>' + (sent || tests) + ' follow-up' + ((sent || tests) === 1 ? '' : 's') + ' дожимных писем отправлено</strong> как ответы в той же цепочке — каждый получатель увидел письмо в том же обсуждении. В вашей таблице появился столбец <strong>FollowUpStatus</strong> со значением <strong>Готово</strong> для каждого получателя.</div>';
 
   if (run.name) {
     out += '<div class="panel"><div class="panel-title">↩ Follow-up: ' + esc(run.name) + '</div><div class="panel-sub">' + esc(run.summary || "") + '</div></div>';
   }
 
   if (noEmail > 0) {
-    out += '<div class="note"><strong>Skipped:</strong> ' + noEmail + ' rows had no valid email address.</div>';
+    out += '<div class="note"><strong>Пропущено:</strong> ' + noEmail + ' rows had no valid email address.</div>';
   }
 
   for (let i = 0; i < errList.length; i++) {
-    out += '<div class="err-row"><span>' + esc(errList[i].email || "Unknown") + '</span><span class="err-msg">' + esc(errList[i].error || "") + '</span></div>';
+    out += '<div class="err-row"><span>' + esc(errList[i].email || "Неизвестно") + '</span><span class="err-msg">' + esc(errList[i].error || "") + '</span></div>';
   }
 
   // Debug info — shows thread status per recipient
   if (run.results && run.results.length > 0) {
-    out += '<div class="note" style="margin-top:8px"><strong>Debug info:</strong><br>';
+    out += '<div class="note" style="margin-top:8px"><strong>Отладочная информация:</strong><br>';
     for (let i = 0; i < run.results.length; i++) {
       const r = run.results[i];
       out += '<span style="font-family:var(--font-mono);font-size:11px;color:var(--tx3)">';
@@ -5301,14 +5301,14 @@ function vFollowUpResults() {
     out += '</div>';
   }
 
-  out += '<div class="btns"><button class="btn btn-pri" data-action="go-home">↩ Back Home</button></div>';
+  out += '<div class="btns"><button class="btn btn-pri" data-action="go-home">↩ На главную</button></div>';
   return out;
 }
 
 async function startFollowUp(campaignId) {
   const campaign = findHistoryById(campaignId);
   if (!campaign) {
-    S.error = "Campaign not found.";
+    S.error = "Кампания не найдена.";
     render();
     return;
   }
@@ -5392,23 +5392,23 @@ async function doFollowUp(isTest) {
 
   const campaign = findHistoryById(S.followUpCampaignId);
   if (!campaign) {
-    S.error = "Original campaign not found.";
+    S.error = "Исходская кампания не найдена.";
     render();
     return;
   }
 
   if (!S.followUpSubject.trim()) {
-    S.error = "Add a follow-up subject before sending.";
+    S.error = "Укажите тему дожима перед отправкой.";
     render();
     return;
   }
   if (!S.followUpBody.trim() && !S.followUpHtml.trim()) {
-    S.error = "Write your follow-up message before sending.";
+    S.error = "Напишите сообщение дожима перед отправкой.";
     render();
     return;
   }
   if (isTest && !S.followUpTestEmail) {
-    S.error = "Enter a test email before sending a test.";
+    S.error = "Укажите тестовый email перед тестовой отправкой.";
     render();
     return;
   }
@@ -5419,7 +5419,7 @@ async function doFollowUp(isTest) {
     .map(function(r) { return r.email; });
 
   if (!isTest && S.followUpRecipientsLoaded && selectedEmails.length === 0) {
-    S.error = "Select at least one recipient before sending.";
+    S.error = "Перед отправкой выберите хотя бы одного получателя.";
     render();
     return;
   }
@@ -5486,7 +5486,7 @@ async function doFollowUp(isTest) {
     S.results = Array.isArray(res.data) ? res.data : [];
     S.lastRun = {
       id: "followup-" + Date.now(),
-      name: campaign.name || campaign.subject || "Campaign",
+      name: campaign.name || campaign.subject || "Кампания",
       createdAt: new Date().toISOString(),
       sheetId: campaign.sheetId,
       sheetName: campaign.sheetName,
@@ -5518,7 +5518,7 @@ async function doFollowUp(isTest) {
     if (isOldBackend) {
       S.followUpNeedsBackendUpdate = true;
     } else {
-      S.error = errMsg || "Follow-up failed.";
+      S.error = errMsg || "Ошибка дожима.";
     }
     S.view = "followup";
   }
@@ -5527,9 +5527,9 @@ async function doFollowUp(isTest) {
 
 function composePanel(headers, preview) {
   let out = "";
-  out += '<div class="field"><label class="label">Subject</label><input class="inp" id="composeSubject" type="text" value="' + esc(S.composeSubject) + '" placeholder="Hi {{FirstName}}, quick question"></div>';
+  out += '<div class="field"><label class="label">Тема</label><input class="inp" id="composeSubject" type="text" value="' + esc(S.composeSubject) + '" placeholder="Hi {{FirstName}}, quick question"></div>';
   const canHtml = S.billing.activePlan === "pro" || S.billing.activePlan === "premium";
-  out += '<div class="field"><label class="label">Editor mode</label><div class="seg">';
+  out += '<div class="field"><label class="label">Режим редактора</label><div class="seg">';
   out += '<button class="seg-btn' + (S.editorMode === "write" ? " active" : "") + '" data-action="set-editor-mode" data-mode="write">' + t("compose.write") + '</button>';
   if (canHtml) {
     out += '<button class="seg-btn' + (S.editorMode === "html" ? " active" : "") + '" data-action="set-editor-mode" data-mode="html">' + t("compose.html") + '</button>';
@@ -5539,18 +5539,18 @@ function composePanel(headers, preview) {
   out += "</div></div>";
 
   if (S.editorMode === "write") {
-    out += '<div class="field"><label class="label">Email body</label><textarea class="inp area tall-area" id="composeBody" placeholder="Hi {{FirstName}},&#10;&#10;I wanted to reach out because...">' + esc(S.composeBody) + "</textarea></div>";
+    out += '<div class="field"><label class="label">Текст письма</label><textarea class="inp area tall-area" id="composeBody" placeholder="Hi {{FirstName}},&#10;&#10;I wanted to reach out because...">' + esc(S.composeBody) + "</textarea></div>";
   } else {
-    out += '<div class="field"><label class="label">HTML email</label>';
+    out += '<div class="field"><label class="label">HTML-письмо</label>';
     out += '<textarea class="inp area tall-area code-area" id="composeHtml" placeholder="<div style=&quot;font-family:Arial&quot;>Hi {{FirstName}}</div>">' + esc(S.composeHtml) + "</textarea>";
-    out += '<span class="hint">Inline HTML and CSS are supported.</span></div>';
+    out += '<span class="hint">Поддерживаются встроенные HTML и CSS.</span></div>';
   }
 
   // Attachments section
   out += '<div class="field">';
-  out += '<label class="label">Attachments</label>';
+  out += '<label class="label">Вложения</label>';
   out += '<div class="attach-area">';
-  out += '<label class="btn btn-ghost btn-mini attach-label" title="Attach a file">Attach File<input type="file" id="attachFileInput" multiple style="display:none" data-action="attach-file"></label>';
+  out += '<label class="btn btn-ghost btn-mini attach-label" title="Прикрепить файл">Прикрепить файл<input type="file" id="attachFileInput" multiple style="display:none" data-action="attach-file"></label>';
   if (S.attachments && S.attachments.length > 0) {
     out += '<div class="attach-list">';
     for (let i = 0; i < S.attachments.length; i++) {
@@ -5558,18 +5558,18 @@ function composePanel(headers, preview) {
       out += '<span class="attach-chip">';
       out += '<span class="attach-name" title="' + escAttr(att.name) + '">' + esc(att.name) + '</span>';
       out += '<span class="attach-size"> (' + formatFileSize(att.size) + ')</span>';
-      out += '<button class="attach-remove" data-action="remove-attachment" data-index="' + i + '" title="Remove">×</button>';
+      out += '<button class="attach-remove" data-action="remove-attachment" data-index="' + i + '" title="Удалить">×</button>';
       out += '</span>';
     }
     out += '</div>';
   } else {
-    out += '<span class="hint" style="margin-left:8px">No attachments added.</span>';
+    out += '<span class="hint" style="margin-left:8px">Вложения не добавлены.</span>';
   }
   out += '</div>';
-  out += '<span class="hint">Files are attached to every email in the campaign. Keep total size under 5MB.</span>';
+  out += '<span class="hint">Файлы прикрепляются к каждому письму кампании. Общий размер должен быть меньше 5 МБ.</span>';
   out += '</div>';
 
-  out += '<div class="field"><label class="label">Merge fields</label><div class="chips chips-lg">';
+  out += '<div class="field"><label class="label">Поля слияния</label><div class="chips chips-lg">';
   for (let i = 0; i < headers.length; i += 1) {
     out += '<button class="chip chip-btn ok" data-action="insert-tag" data-tag="' + escAttr(headers[i]) + '">{{' + esc(headers[i]) + "}}</button>";
   }
@@ -5580,7 +5580,7 @@ function composePanel(headers, preview) {
   out += "</div>";
 
   if (S.editorMode === "html") {
-    out += '<div class="preview"><div class="label" style="margin-bottom:6px">HTML preview</div><div class="preview-box">' + sanitizePreview(S.composeHtml || "<em>Your HTML preview will appear here.</em>") + "</div></div>";
+    out += '<div class="preview"><div class="label" style="margin-bottom:6px">Предпросмотр HTML</div><div class="preview-box">' + sanitizePreview(S.composeHtml || "<em>Предпросмотр HTML появится здесь.</em>") + "</div></div>";
   }
 
   return out;
@@ -5589,11 +5589,11 @@ function composePanel(headers, preview) {
 function templatePanel(draftCount) {
   let out = "";
   if (S.selectedDraft) {
-    out += '<div class="selected-draft"><strong>Loaded:</strong> ' + esc(S.selectedDraft.subject) + ' <button class="link-btn" data-action="clear-draft">Remove</button></div>';
+    out += '<div class="selected-draft"><strong>Загружено:</strong> ' + esc(S.selectedDraft.subject) + ' <button class="link-btn" data-action="clear-draft">Удалить</button></div>';
   }
-  out += '<div class="panel-actions"><button class="btn btn-sec btn-mini" data-action="clear-template">Start Fresh</button></div>';
+  out += '<div class="panel-actions"><button class="btn btn-sec btn-mini" data-action="clear-template">Начать заново</button></div>';
   if (draftCount === 0) {
-    out += '<div class="empty compact-empty">No Gmail drafts found.</div>';
+    out += '<div class="empty compact-empty">Черновики в Gmail не найдены.</div>';
   } else {
     out += '<div class="draft-list">';
     for (let i = 0; i < S.drafts.length; i += 1) {
@@ -5621,15 +5621,15 @@ function sendPanel() {
   // ── CC / BCC (Feature 9, Premium) ────────────────────────────────
   if (isPremium) {
     out += '<div class="field">';
-    out += '<label class="label">CC <span style="font-weight:400;color:var(--tx3);font-size:10px">— supports {{merge}} tokens</span></label>';
+    out += '<label class="label">CC <span style="font-weight:400;color:var(--tx3);font-size:10px">— поддерживает теги {{merge}}</span></label>';
     out += '<input class="inp" id="f_cc" type="text" value="' + escAttr(S.ccField) + '" placeholder="cc@example.com">';
-    out += '<span class="hint">Optional. Comma-separate multiple addresses.</span></div>';
+    out += '<span class="hint">Необязательно. Несколько адресов через запятую.</span></div>';
     out += '<div class="field">';
-    out += '<label class="label">BCC <span style="font-weight:400;color:var(--tx3);font-size:10px">— supports {{merge}} tokens</span></label>';
+    out += '<label class="label">BCC <span style="font-weight:400;color:var(--tx3);font-size:10px">— поддерживает теги {{merge}}</span></label>';
     out += '<input class="inp" id="f_bcc" type="text" value="' + escAttr(S.bccField) + '" placeholder="bcc@example.com">';
     out += '<span class="hint">Hidden recipients. Use {{email}} to BCC each person their own copy.</span></div>';
   } else {
-    out += '<div class="note" style="margin-bottom:8px">💎 <strong>CC / BCC</strong> — <button class="btn btn-ghost btn-mini" data-action="open-upgrade" data-plan="premium">Доступно бесплатно</button></div>';
+    out += '<div class="note" style="margin-bottom:8px">💎 <strong>Копия / Скрытая копия</strong> — <button class="btn btn-ghost btn-mini" data-action="open-upgrade" data-plan="premium">Доступно бесплатно</button></div>';
   }
 
   out += mkField("delayMs", t("send.delay"), "number", S.delayMs, "500");
@@ -5645,7 +5645,7 @@ function sendPanel() {
     out += '</div>';
     if (S.unsubscribeEnabled) {
       out += '<div class="field">';
-      out += '<label class="label">Your unsubscribe page URL</label>';
+      out += '<label class="label">URL вашей страницы отписки</label>';
       out += '<input class="inp" id="f_unsubUrl" type="url" value="' + escAttr(S.unsubscribeBaseUrl) + '" placeholder="https://yoursite.com/unsubscribe">';
       out += '<span class="hint">A unique token is auto-appended: <code>?t={{token}}&e={{email}}</code>. Use <code>{{unsubscribeUrl}}</code> in your HTML to place the link, or the footer is auto-appended.</span>';
       out += '</div>';
@@ -5664,10 +5664,10 @@ function sendPanel() {
     out += '</div>';
     if (S.scheduleEnabled) {
       out += '<div class="field">';
-      out += '<label class="label">Send at (your local time)</label>';
+      out += '<label class="label">Отправить в (ваше локальное время)</label>';
       const minDt = new Date(Date.now() + 2 * 60000).toISOString().slice(0, 16);
       out += '<input class="inp" id="f_scheduleAt" type="datetime-local" value="' + escAttr(S.scheduleAt) + '" min="' + minDt + '">';
-      out += '<span class="hint">The campaign will send automatically, even if the popup is closed.</span></div>';
+      out += '<span class="hint">Кампания отправится автоматически, даже если окно расширения закрыто.</span></div>';
     }
     out += '</div>';
   }
@@ -5684,14 +5684,14 @@ function sendPanel() {
     if (S.smartSendEnabled) {
       out += '<div class="note">Emails are staggered evenly across your chosen window — looks more human, reduces spam risk.</div>';
       out += '<div class="field">';
-      out += '<label class="label">Send date</label>';
+      out += '<label class="label">Дата отправки</label>';
       const todayStr = new Date().toISOString().slice(0, 10);
       out += '<input class="inp" id="f_smartDate" type="date" value="' + escAttr(S.smartSendDate || todayStr) + '" min="' + todayStr + '">';
       out += '</div>';
       out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
-      out += '<div class="field"><label class="label">Window start</label>';
+      out += '<div class="field"><label class="label">Начало окна</label>';
       out += '<input class="inp" id="f_smartStart" type="time" value="' + escAttr(S.smartSendStart || "09:00") + '"></div>';
-      out += '<div class="field"><label class="label">Window end</label>';
+      out += '<div class="field"><label class="label">Конец окна</label>';
       out += '<input class="inp" id="f_smartEnd" type="time" value="' + escAttr(S.smartSendEnd || "11:00") + '"></div>';
       out += '</div>';
     }
@@ -5701,9 +5701,9 @@ function sendPanel() {
   // ── Send buttons ──────────────────────────────────────────────────
   out += '<div class="btns" style="gap:8px;margin-top:4px">';
   if (S.scheduleEnabled && isPremium) {
-    out += '<button class="btn btn-pri" data-action="send-schedule">🕐 Schedule Campaign</button>';
+    out += '<button class="btn btn-pri" data-action="send-schedule">🕐 Запланировать кампанию</button>';
   } else if (S.smartSendEnabled && isPremium) {
-    out += '<button class="btn btn-pri" data-action="send-smart">⚡ Smart Send</button>';
+    out += '<button class="btn btn-pri" data-action="send-smart">⚡ Умная отправка</button>';
   } else {
     out += '<button class="btn btn-pri" data-action="send-live">' + t("send.sendBtn") + '</button>';
   }
@@ -5722,7 +5722,7 @@ function testPanel() {
 
 function previewPanel() {
   let out = "";
-  out += '<div class="preview-meta"><strong>Subject:</strong> ' + esc(applyMerge(S.composeSubject, 1)) + "</div>";
+  out += '<div class="preview-meta"><strong>Тема:</strong> ' + esc(applyMerge(S.composeSubject, 1)) + "</div>";
   out += '<div class="preview-box">' + sanitizePreview(renderPreviewBody(1)) + "</div>";
   return out;
 }
@@ -5742,7 +5742,7 @@ function section(key, title, subtitle, body) {
 
 async function startCampaign() {
   if (!S.scriptUrl) {
-    S.error = "Set your Apps Script URL in Settings first.";
+    S.error = "Сначала укажите URL Apps Script в настройках.";
     render();
     return;
   }
@@ -5770,7 +5770,7 @@ async function connectSpreadsheet() {
   const customNameInput = document.getElementById("sheetCustomNameInput");
   const customName = customNameInput ? customNameInput.value.trim() : "";
   if (!raw) {
-    S.error = "Paste a Google Sheets URL or spreadsheet ID first.";
+    S.error = "Сначала вставьте URL таблицы Google Sheets или её ID.";
     render();
     return;
   }
@@ -5793,7 +5793,7 @@ async function connectSpreadsheet() {
   // getSheetTabs validates access and works with all deployed backend versions.
   const res = await api("getSheetTabs", { spreadsheetId: spreadsheetId });
   if (!res.ok) {
-    S.error = res.error || "Could not open that spreadsheet. Make sure the URL is correct and the Apps Script has access to it.";
+    S.error = res.error || "Не удалось открыть эту таблицу. Убедитесь, что URL верный и Apps Script имеет к ней доступ.";
     render();
     return;
   }
@@ -5965,22 +5965,22 @@ async function doSend(isTest) {
   const isContactsCampaign = S.selectedSheet && S.selectedSheet.id === "contacts";
 
   if (!S.selectedSheet || (!S.selectedTab && !isContactsCampaign)) {
-    S.error = isContactsCampaign ? "No contacts loaded." : "Pick a spreadsheet first.";
+    S.error = isContactsCampaign ? "Контакты не загружены." : "Сначала выберите таблицу.";
     render();
     return;
   }
   if (!S.composeSubject.trim()) {
-    S.error = "Add an email subject before sending.";
+    S.error = "Укажите тему письма перед отправкой.";
     render();
     return;
   }
   if (!S.composeBody.trim() && !S.composeHtml.trim()) {
-    S.error = "Write your email body or paste your HTML before sending.";
+    S.error = "Напишите текст письма или вставьте HTML перед отправкой.";
     render();
     return;
   }
   if (isTest && !S.testEmail) {
-    S.error = "Enter a Test Email before sending a test.";
+    S.error = "Укажите тестовый email перед тестовой отправкой.";
     render();
     return;
   }
@@ -6071,7 +6071,7 @@ async function doSend(isTest) {
 
     S.view = "results";
   } else {
-    S.error = res.error || "Merge failed.";
+    S.error = res.error || "Ошибка слияния.";
     S.view = "compose";
   }
   render();
@@ -6082,7 +6082,7 @@ function saveSettings() {
   const nextUrl = input ? input.value.trim() : "";
 
   if (!nextUrl) {
-    S.error = "The Apps Script URL cannot be empty.";
+    S.error = "URL Apps Script не может быть пустым.";
     render();
     return;
   }
@@ -6183,8 +6183,8 @@ function syncComposeFields() {
 
 function buildUnsubFooter() {
   return '<div style="margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;text-align:center;font-family:-apple-system,BlinkMacSystemFont,sans-serif">' +
-    '<p style="color:#9ca3af;font-size:12px;margin:0 0 6px">You received this email because you opted in.</p>' +
-    '<p style="margin:0"><a href="{{unsubscribeUrl}}" style="color:#6b7280;font-size:12px;text-decoration:underline">Unsubscribe</a></p>' +
+    '<p style="color:#9ca3af;font-size:12px;margin:0 0 6px">Вы получили это письмо, потому что подписались на рассылку.</p>' +
+    '<p style="margin:0"><a href="{{unsubscribeUrl}}" style="color:#6b7280;font-size:12px;text-decoration:underline">Отписаться</a></p>' +
     '</div>';
 }
 
@@ -6195,18 +6195,18 @@ function buildUnsubFooter() {
 async function doScheduledSend() {
   syncComposeFields();
   if (!S.selectedSheet || !S.composeSubject.trim()) {
-    S.error = "Complete your campaign before scheduling.";
+    S.error = "Завершите настройку кампании перед планированием.";
     render();
     return;
   }
   if (!S.scheduleAt) {
-    S.error = "Pick a date and time for the scheduled send.";
+    S.error = "Выберите дату и время для запланированной отправки.";
     render();
     return;
   }
   const scheduledDate = new Date(S.scheduleAt);
   if (isNaN(scheduledDate.getTime()) || scheduledDate <= new Date()) {
-    S.error = "Schedule time must be in the future.";
+    S.error = "Время отправки должно быть в будущем.";
     render();
     return;
   }
@@ -6239,7 +6239,7 @@ async function doScheduledSend() {
       render();
     }, 300);
   } else {
-    S.error = (resp && resp.error) || "Could not schedule send.";
+    S.error = (resp && resp.error) || "Не удалось запланировать отправку.";
     render();
   }
 }
@@ -6268,12 +6268,12 @@ async function loadScheduledJob() {
 async function doSmartSend() {
   syncComposeFields();
   if (!S.selectedSheet || !S.composeSubject.trim()) {
-    S.error = "Complete your campaign before using smart send.";
+    S.error = "Завершите настройку кампании перед использованием умной отправки.";
     render();
     return;
   }
   if (!S.smartSendDate || !S.smartSendStart || !S.smartSendEnd) {
-    S.error = "Pick a date and time window for smart send.";
+    S.error = "Выберите временное окно для умной отправки.";
     render();
     return;
   }
@@ -6281,19 +6281,19 @@ async function doSmartSend() {
   const startMs = new Date(S.smartSendDate + "T" + S.smartSendStart + ":00").getTime();
   const endMs   = new Date(S.smartSendDate + "T" + S.smartSendEnd   + ":00").getTime();
   if (isNaN(startMs) || startMs <= Date.now()) {
-    S.error = "Smart send window start must be in the future.";
+    S.error = "Начало окна умной отправки должно быть в будущем.";
     render();
     return;
   }
   if (endMs <= startMs) {
-    S.error = "Window end must be after window start.";
+    S.error = "Конец окна должен быть позже его начала.";
     render();
     return;
   }
 
   // Build recipient list from sheet data
   const rows = S.sheetData || [];
-  if (rows.length < 2) { S.error = "No recipients in sheet."; render(); return; }
+  if (rows.length < 2) { S.error = "В таблице нет получателей."; render(); return; }
   const headers = rows[0];
   const emailIdx = headers.findIndex(function(h) { return String(h).toLowerCase().trim() === "email"; });
   if (emailIdx === -1) { S.error = 'Sheet has no "Email" column.'; render(); return; }
@@ -6304,7 +6304,7 @@ async function doSmartSend() {
       recipients.push({ email: email, rowIndex: i });
     }
   }
-  if (!recipients.length) { S.error = "No valid email addresses in sheet."; render(); return; }
+  if (!recipients.length) { S.error = "В таблице нет корректных email-адресов."; render(); return; }
 
   let htmlBody = S.composeHtml.trim() || plainTextToHtml(S.composeBody);
   if (S.unsubscribeEnabled && S.unsubscribeBaseUrl && !htmlBody.includes("{{unsubscribeUrl}}")) {
@@ -6335,7 +6335,7 @@ async function doSmartSend() {
     render();
     startBgSendPolling();
   } else {
-    S.error = (resp && resp.error) || "Could not start smart send.";
+    S.error = (resp && resp.error) || "Не удалось запустить умную отправку.";
     render();
   }
 }
@@ -6394,10 +6394,10 @@ function renderBgSendBanner() {
     const dt = S.scheduledJob.scheduledAt ? new Date(S.scheduledJob.scheduledAt).toLocaleString() : "—";
     out += '<div style="margin:0 0 12px;background:linear-gradient(135deg,#0f2d1a,#0a1f11);border:1px solid #2d6e47;border-radius:var(--radius-lg);padding:12px 14px;display:flex;align-items:center;gap:10px">';
     out += '<div style="flex:1">';
-    out += '<div style="font-size:12px;font-weight:700;color:#4ade80;margin-bottom:2px">🕐 Campaign Scheduled</div>';
-    out += '<div style="font-size:11px;color:rgba(255,255,255,0.6)">' + esc(S.scheduledJob.subject || "Campaign") + ' · ' + esc(dt) + '</div>';
+    out += '<div style="font-size:12px;font-weight:700;color:#4ade80;margin-bottom:2px">🕐 Кампания запланирована</div>';
+    out += '<div style="font-size:11px;color:rgba(255,255,255,0.6)">' + esc(S.scheduledJob.subject || "Кампания") + ' · ' + esc(dt) + '</div>';
     out += '</div>';
-    out += '<button class="btn btn-danger btn-mini" data-action="cancel-schedule">Cancel</button>';
+    out += '<button class="btn btn-danger btn-mini" data-action="cancel-schedule">Отмена</button>';
     out += '</div>';
   }
 
@@ -6417,9 +6417,9 @@ function renderBgSendBanner() {
     out += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
     out += '<span style="font-size:12px;font-weight:700;color:var(--tx)">' + statusLabel + '</span>';
     if (S.bgSendJob.status === "running" || S.bgSendJob.status === "scheduled") {
-      out += '<button class="btn btn-ghost btn-mini" data-action="cancel-smart-send">Cancel</button>';
+      out += '<button class="btn btn-ghost btn-mini" data-action="cancel-smart-send">Отмена</button>';
     } else {
-      out += '<button class="btn btn-ghost btn-mini" data-action="cancel-bg-send">Dismiss</button>';
+      out += '<button class="btn btn-ghost btn-mini" data-action="cancel-bg-send">Закрыть</button>';
     }
     out += '</div>';
     if (p.total > 0) {
@@ -6442,7 +6442,7 @@ function renderBgSendBanner() {
 
 function openDrip() {
   if (!S.history.length) {
-    S.error = "Run at least one campaign first. Drip sequences send follow-up steps to contacts from your campaign history.";
+    S.error = "Сначала отправьте хотя бы одну кампанию. Drip-цепочки отправляют шаги дожима контактам из истории ваших кампаний.";
     render();
     return;
   }
@@ -6469,31 +6469,31 @@ async function doDripStep(stepIdx, isTest) {
   syncDripStep();
   const step = S.dripSteps[stepIdx];
   if (!step || !step.enabled) {
-    S.error = "This step is disabled.";
+    S.error = "Этот шаг отключён.";
     render();
     return;
   }
   if (!step.subject.trim()) {
-    S.error = "Add a subject for this drip step.";
+    S.error = "Укажите тему для этого шага drip.";
     render();
     return;
   }
   if (!step.body.trim() && !step.html.trim()) {
-    S.error = "Write the body for this drip step.";
+    S.error = "Напишите текст для этого шага drip.";
     render();
     return;
   }
 
   // Need a campaign to follow up on — pick from history or require user to select
   if (!S.selectedSheet) {
-    S.error = "Select a campaign sheet first. Click 'New Campaign' to pick a sheet, then come back to Drip.";
+    S.error = "Select a campaign sheet first. Click 'Новая кампания' to pick a sheet, then come back to Drip.";
     render();
     return;
   }
 
   const testEmail = S.followUpTestEmail || S.testEmail;
   if (isTest && !testEmail) {
-    S.error = "Enter a test email in Follow-up Settings.";
+    S.error = "Укажите тестовый email в настройках дожима.";
     render();
     return;
   }
@@ -6563,7 +6563,7 @@ async function doDripStep(stepIdx, isTest) {
     }
     S.view = "dripresults";
   } else {
-    S.error = res.error || "Drip step failed.";
+    S.error = res.error || "Ошибка шага drip.";
     S.view = "drip";
   }
   render();
@@ -6572,8 +6572,8 @@ async function doDripStep(stepIdx, isTest) {
 function vDrip() {
   const isPremium = true;
   if (!isPremium) {
-    return '<div class="panel"><div class="panel-title">💎 Premium Feature</div>' +
-      '<div class="panel-sub">Drip sequences are available on the Premium plan.</div>' +
+    return '<div class="panel"><div class="panel-title">💎 Возможность Premium</div>' +
+      '<div class="panel-sub">Drip-последовательности доступны на тарифе Premium.</div>' +
       '<div class="btn-row" style="margin-top:12px"><button class="btn btn-pri btn-mini" data-action="open-upgrade" data-plan="premium">Доступно бесплатно</button></div></div>';
   }
 
@@ -6609,28 +6609,28 @@ function vDrip() {
 
   // Delay days
   out += '<div class="field">';
-  out += '<label class="label">Send delay (days after previous step)</label>';
+  out += '<label class="label">Задержка отправки (дней после предыдущего шага)</label>';
   out += '<input class="inp" id="drip_days_' + idx + '" type="number" min="1" max="90" value="' + step.delayDays + '" style="width:80px">';
-  out += '<span class="hint">Shown for reference — you manually trigger each step from this panel.</span></div>';
+  out += '<span class="hint">Показывается справочно — каждый шаг запускается вручную из этой панели.</span></div>';
 
   // Subject
-  out += '<div class="field"><label class="label">Subject</label>';
-  out += '<input class="inp" id="drip_subject_' + idx + '" type="text" value="' + escAttr(step.subject) + '" placeholder="Re: [Original subject]">';
+  out += '<div class="field"><label class="label">Тема</label>';
+  out += '<input class="inp" id="drip_subject_' + idx + '" type="text" value="' + escAttr(step.subject) + '" placeholder="Re: [Исходная тема]">';
   out += '</div>';
 
   // Editor mode toggle
   out += '<div class="seg" style="margin-bottom:10px">';
-  out += '<button class="seg-btn' + (step.editorMode === "write" ? " active" : "") + '" data-action="drip-set-editor-mode" data-mode="write">Write</button>';
+  out += '<button class="seg-btn' + (step.editorMode === "write" ? " active" : "") + '" data-action="drip-set-editor-mode" data-mode="write">Текст</button>';
   if (canHtml) {
     out += '<button class="seg-btn' + (step.editorMode === "html" ? " active" : "") + '" data-action="drip-set-editor-mode" data-mode="html">HTML</button>';
   }
   out += '</div>';
 
   if (step.editorMode === "html") {
-    out += '<div class="field"><label class="label">HTML body</label>';
+    out += '<div class="field"><label class="label">HTML-письмо</label>';
     out += '<textarea class="inp" id="drip_html_' + idx + '" rows="8" style="font-family:var(--font-mono);font-size:11px">' + esc(step.html) + '</textarea></div>';
   } else {
-    out += '<div class="field"><label class="label">Body</label>';
+    out += '<div class="field"><label class="label">Текст письма</label>';
     out += '<textarea class="inp" id="drip_body_' + idx + '" rows="6" placeholder="Hi {{Name}},\n\nJust following up on my previous email...">' + esc(step.body) + '</textarea></div>';
   }
 
@@ -6640,19 +6640,19 @@ function vDrip() {
   if (S.selectedSheet) {
     out += '<div style="font-size:11px;color:var(--tx3);margin:8px 0">📋 Targeting: <strong style="color:var(--tx2)">' + esc(S.selectedSheet.name) + '</strong> — contacts from your original campaign</div>';
   } else {
-    out += '<div class="note" style="border-color:#f59e0b;background:rgba(245,158,11,0.08)">⚠️ No sheet selected. <button class="btn btn-ghost btn-mini" data-action="start-campaign">Select a Sheet</button></div>';
+    out += '<div class="note" style="border-color:#f59e0b;background:rgba(245,158,11,0.08)">⚠️ No sheet selected. <button class="btn btn-ghost btn-mini" data-action="start-campaign">Выбрать таблицу</button></div>';
   }
 
   // Send actions
   out += '<div class="btn-row" style="margin-top:14px;gap:8px">';
   out += '<button class="btn btn-pri" data-action="send-drip-step" data-step="' + idx + '"' + (!step.enabled ? " disabled style=\"opacity:0.4\"" : "") + '>↗ Send Step ' + (idx + 1) + '</button>';
-  out += '<button class="btn btn-sec" data-action="test-drip-step" data-step="' + idx + '">Send Test</button>';
+  out += '<button class="btn btn-sec" data-action="test-drip-step" data-step="' + idx + '">Тестовая отправка</button>';
   out += '</div>';
   out += '</div>';
 
   // Step overview — mini timeline
   out += '<div class="panel">';
-  out += '<div class="panel-title" style="margin-bottom:10px">Sequence Timeline</div>';
+  out += '<div class="panel-title" style="margin-bottom:10px">Таймлайн последовательности</div>';
   for (let i = 0; i < S.dripSteps.length; i++) {
     const s = S.dripSteps[i];
     const isActive2 = S.activeDripStep === i;
@@ -6669,12 +6669,12 @@ function vDrip() {
 }
 
 function vDripSending() {
-  return '<div class="sending"><div class="spinner"></div><div class="sending-txt">Sending drip step…</div></div>';
+  return '<div class="sending"><div class="spinner"></div><div class="sending-txt">Отправка шага drip…</div></div>';
 }
 
 function vDripResults() {
   const run = S.lastRun;
-  if (!run || run.type !== "drip") return '<div class="panel"><div class="empty">No drip results yet.</div></div>';
+  if (!run || run.type !== "drip") return '<div class="panel"><div class="empty">Результатов drip пока нет.</div></div>';
 
   const results = run.results || [];
   const sent    = results.filter(function(r) { return r.status === "SENT"; }).length;
@@ -6685,9 +6685,9 @@ function vDripResults() {
   out += '<div class="panel">';
   out += '<div class="panel-title">Step ' + (run.step || "?") + ' Complete</div>';
   out += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px">';
-  out += '<div class="stat"><span class="stat-n" style="color:#4ade80">' + sent + '</span><span class="stat-l">Sent</span></div>';
-  out += '<div class="stat"><span class="stat-n" style="color:#f87171">' + errors + '</span><span class="stat-l">Errors</span></div>';
-  out += '<div class="stat"><span class="stat-n" style="color:var(--tx3)">' + skipped + '</span><span class="stat-l">Skipped</span></div>';
+  out += '<div class="stat"><span class="stat-n" style="color:#4ade80">' + sent + '</span><span class="stat-l">Отправлено</span></div>';
+  out += '<div class="stat"><span class="stat-n" style="color:#f87171">' + errors + '</span><span class="stat-l">Ошибки</span></div>';
+  out += '<div class="stat"><span class="stat-n" style="color:var(--tx3)">' + skipped + '</span><span class="stat-l">Пропущено</span></div>';
   out += '</div></div>';
 
   if (S.activeDripStep < S.dripSteps.length - 1 && S.dripSteps[S.activeDripStep + 1].enabled) {
@@ -6697,15 +6697,15 @@ function vDripResults() {
   }
 
   out += '<div class="btn-row" style="margin-top:14px;gap:8px">';
-  out += '<button class="btn btn-sec" data-action="go" data-view="drip">Back to Drip</button>';
-  out += '<button class="btn btn-ghost" data-action="go-home">Home</button>';
+  out += '<button class="btn btn-sec" data-action="go" data-view="drip">Назад к Drip</button>';
+  out += '<button class="btn btn-ghost" data-action="go-home">Главная</button>';
   out += '</div>';
   return out;
 }
 
 // ── Per-campaign drip send ─────────────────────────────────────────
 async function dbDripSendStep(campId, stepIdx, camp, step) {
-  if (!S.scriptUrl) { S.error = "No backend configured. Add a backend in Settings first."; render(); return; }
+  if (!S.scriptUrl) { S.error = "Бэкенд не настроен. Сначала добавьте бэкенд в настройках."; render(); return; }
 
   DB.tab = "drips";
   S.error = null;
@@ -6760,17 +6760,17 @@ async function dbDripSendStep(campId, stepIdx, camp, step) {
       S.stats.sent = (S.stats.sent || 0) + sent;
       chrome.storage.local.set({ mb_history: S.history, mb_stats: S.stats });
 
-      S.success = "Step " + (stepIdx+1) + " sent to " + sent + " recipients!";
+      S.success = "Шаг " + (stepIdx+1) + " отправлен " + sent + " получателям!";
     } else {
       if (curSteps[stepIdx]) { curSteps[stepIdx].status = 'pending'; }
       dbSaveDripSteps(campId, curSteps);
-      S.error = res.error || "Drip step failed to send.";
+      S.error = res.error || "Не удалось отправить шаг drip.";
     }
   } catch(e) {
     var failSteps = dbDripStepsForCampaign(campId).slice();
     if (failSteps[stepIdx]) { failSteps[stepIdx].status = 'pending'; }
     dbSaveDripSteps(campId, failSteps);
-    S.error = e.message || "Send failed.";
+    S.error = e.message || "Отправка не удалась.";
   }
   render();
   if (S.success) setTimeout(function(){ S.success = null; render(); }, 4000);
@@ -7199,7 +7199,7 @@ function handleActionClick(event) {
     var tagsEl  = document.getElementById("contactFormTags");
     var cfEl    = document.getElementById("contactFormCF");
     var email = emailEl ? emailEl.value.trim() : DB.contactAddForm.email;
-    if (!email || !email.includes("@")) { S.error = "Please enter a valid email address."; render(); return; }
+    if (!email || !email.includes("@")) { S.error = "Пожалуйста, введите корректный email-адрес."; render(); return; }
     // Check duplicate
     if (S.contacts.some(function(c) { return c.email.toLowerCase() === email.toLowerCase(); })) {
       S.error = "A contact with this email already exists."; render(); return;
@@ -7238,7 +7238,7 @@ function handleActionClick(event) {
     var tagsElE  = document.getElementById("contactFormTags");
     var cfElE    = document.getElementById("contactFormCF");
     var editEmail = emailElE ? emailElE.value.trim() : "";
-    if (!editEmail || !editEmail.includes("@")) { S.error = "Please enter a valid email address."; render(); return; }
+    if (!editEmail || !editEmail.includes("@")) { S.error = "Пожалуйста, введите корректный email-адрес."; render(); return; }
     var idx = S.contacts.findIndex(function(c) { return c.id === editId; });
     if (idx !== -1) {
       S.contacts[idx] = Object.assign({}, S.contacts[idx], {
@@ -7403,7 +7403,7 @@ function handleActionClick(event) {
   if (action === "db-camp-delete-one") {
     var delOneId = actionEl.getAttribute("data-id");
     if (!delOneId) return;
-    if (!confirm("Delete this campaign? This cannot be undone.")) return;
+    if (!confirm("Удалить эту кампанию? Это действие необратимо.")) return;
     S.history = (S.history || []).filter(function(c){ return c.id !== delOneId; });
     delete (DB.selectedCampaignIds || {})[delOneId];
     chrome.storage.local.set({ mb_history: S.history });
@@ -7536,8 +7536,8 @@ function handleActionClick(event) {
     if (snBodyEl) snSteps[sendNowIdx].body = snBodyEl.value;
     if (snDaysEl) snSteps[sendNowIdx].delayDays = Math.max(1, parseInt(snDaysEl.value, 10) || 3);
     if (snSchedEl) snSteps[sendNowIdx].scheduledAt = snSchedEl.value ? new Date(snSchedEl.value).toISOString() : '';
-    if (!snSteps[sendNowIdx].subject) { S.error = "Add a subject before sending."; render(); return; }
-    if (!snSteps[sendNowIdx].body) { S.error = "Write the email body before sending."; render(); return; }
+    if (!snSteps[sendNowIdx].subject) { S.error = "Укажите тему перед отправкой."; render(); return; }
+    if (!snSteps[sendNowIdx].body) { S.error = "Напишите текст письма перед отправкой."; render(); return; }
     // If a future date is set — save as scheduled, do not send yet
     var snScheduledAt = snSteps[sendNowIdx].scheduledAt;
     if (snScheduledAt) {
@@ -7554,8 +7554,8 @@ function handleActionClick(event) {
     dbSaveDripSteps(sendNowCampId, snSteps);
     // Find the campaign to get sheet info
     var snCamp = (S.history||[]).find(function(c){ return c.id === sendNowCampId; });
-    if (!snCamp) { S.error = "Campaign not found."; render(); return; }
-    if (!snCamp.sheetId) { S.error = "This campaign has no sheet attached — cannot send drip step."; render(); return; }
+    if (!snCamp) { S.error = "Кампания не найдена."; render(); return; }
+    if (!snCamp.sheetId) { S.error = "К этой кампании не привязана таблица — невозможно отправить шаг drip."; render(); return; }
     dbDripSendStep(sendNowCampId, sendNowIdx, snCamp, snSteps[sendNowIdx]);
     return;
   }
@@ -7629,7 +7629,7 @@ function handleActionClick(event) {
     return;
   }
 
-  // Pick "All contacts" from compose modal sheet picker
+  // Pick "Все контакты" from compose modal sheet picker
   if (action === "db-compose-pick-contacts-all") {
     DB.showComposeModal = false;
     startCampaignFromContacts(null);
@@ -7814,7 +7814,7 @@ function handleActionClick(event) {
     if (dcCamp) {
       // Pre-fill the compose modal with the duplicated campaign data
       DB.composeForm = {
-        name:              (dcCamp.name || "Campaign") + " (copy)",
+        name:              (dcCamp.name || "Кампания") + " (copy)",
         subject:           dcCamp.subject || "",
         body:              dcCamp.body || "",
         htmlBody:          dcCamp.htmlBody || "",
@@ -8120,7 +8120,7 @@ function handleActionClick(event) {
           return rows;
         }
         var rows = parseCSV(text.trim());
-        if (rows.length < 2) { DB.contactImportError = "CSV is empty or has no data rows"; render(); return; }
+        if (rows.length < 2) { DB.contactImportError = "CSV-файл пуст или не содержит строк данных"; render(); return; }
         var headers = rows[0].map(function(h) { return h.trim().toLowerCase(); });
         // Find columns — support common header names
         function findCol(names) {
@@ -8152,7 +8152,7 @@ function handleActionClick(event) {
           var group = groupIdx >= 0 ? (cols[groupIdx] || "").trim() : "";
           parsed.push({ name: name, email: email, tags: tags, group: group });
         }
-        if (parsed.length === 0) { DB.contactImportError = "No valid contacts found. Make sure the Email column has valid addresses."; render(); return; }
+        if (parsed.length === 0) { DB.contactImportError = "Корректные контакты не найдены. Убедитесь, что в столбце Email указаны верные адреса."; render(); return; }
         DB.contactImportPreview = parsed;
         DB.contactImportError = "";
         render();
@@ -8275,7 +8275,7 @@ function handleChange(event) {
       render();
     };
     reader.onerror = function() {
-      DB.contactImportError = "Could not read the file.";
+      DB.contactImportError = "Не удалось прочитать файл.";
       DB.contactImportPreview = null;
       render();
     };
@@ -8613,7 +8613,7 @@ function formatFileSize(bytes) {
 async function duplicateCampaign(id) {
   const campaign = findHistoryById(id);
   if (!campaign) {
-    S.error = "Campaign not found.";
+    S.error = "Кампания не найдена.";
     render();
     return;
   }
@@ -8682,7 +8682,7 @@ function deleteCampaign(id) {
 function viewCampaignResults(id) {
   const campaign = findHistoryById(id);
   if (!campaign) {
-    S.error = "Campaign not found.";
+    S.error = "Кампания не найдена.";
     render();
     return;
   }
@@ -8705,7 +8705,7 @@ function upsertHistory(record) {
 }
 
 function buildHistoryRecord(isTest) {
-  const name = S.composeSubject.trim() || (S.selectedSheet ? S.selectedSheet.name : "Campaign");
+  const name = S.composeSubject.trim() || (S.selectedSheet ? S.selectedSheet.name : "Кампания");
   const record = {
     id: "campaign-" + Date.now(),
     name: name,
@@ -8721,7 +8721,7 @@ function buildHistoryRecord(isTest) {
     replyTo: S.replyTo,
     testEmail: S.testEmail,
     delayMs: S.delayMs,
-    summary: (isTest ? "Test run" : "Live run") + " · " + (S.selectedSheet ? S.selectedSheet.name : ""),
+    summary: (isTest ? "Тестовый запуск" : "Текущая отправка") + " · " + (S.selectedSheet ? S.selectedSheet.name : ""),
     results: []
   };
   return record;
@@ -8839,7 +8839,7 @@ function summarizeResults(results, isTest, sheetName) {
   if (isTest) {
     parts.push(tests + " test");
   } else {
-    parts.push(sent + " sent");
+    parts.push(sent + " отправлено");
   }
   if (errors) {
     parts.push(errors + " errors");
@@ -8957,7 +8957,7 @@ async function copyBackendCode() {
     await loadBackendCode();
   }
   if (!S.backendCode) {
-    S.error = "Could not load the Apps Script code.";
+    S.error = "Не удалось загрузить код Apps Script.";
     render();
     return;
   }
@@ -8976,14 +8976,14 @@ async function copyBackendCode() {
       }, 2000);
     }
   } catch (e) {
-    S.error = "Could not copy to clipboard. Please try again.";
+    S.error = "Не удалось скопировать в буфер обмена. Попробуйте ещё раз.";
     render();
   }
 }
 
 function formatBackendLimit(limit) {
   if (typeof limit !== "number" || limit < 0) {
-    return "Unlimited backends";
+    return "Неограниченное число бэкендов";
   }
   return limit + " backend" + (limit === 1 ? "" : "s");
 }
@@ -9006,7 +9006,7 @@ async function addBackend() {
   const nextUrl = input ? input.value.trim() : "";
   const nextEmail = emailInput ? emailInput.value.trim() : "";
   if (!nextUrl) {
-    S.error = "Paste your Apps Script Web App URL first.";
+    S.error = "Сначала вставьте URL вашего веб-приложения Apps Script.";
     render();
     return;
   }
@@ -9014,7 +9014,7 @@ async function addBackend() {
   // Security: validate URL via background before accepting it
   const validation = await billingRequest("billing:validate-backend-url", { url: nextUrl });
   if (!validation.ok || (validation.data && !validation.data.valid)) {
-    S.error = (validation.data && validation.data.error) || validation.error || "Invalid backend URL.";
+    S.error = (validation.data && validation.data.error) || validation.error || "Неверный URL бэкенда.";
     render();
     return;
   }
