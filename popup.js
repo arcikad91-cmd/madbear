@@ -276,71 +276,71 @@
 // ── Self-contained translation function (no i18n.js needed) ─────────
 var MB_STRINGS = {
   ru: {
-    'db.nav.overview':'Overview',
-    'db.nav.campaigns':'Campaigns',
-    'db.nav.analytics':'Analytics',
-    'db.nav.contacts':'Contacts',
-    'db.nav.drip':'Drip',
-    'db.nav.billing':'Billing',
-    'db.nav.settings':'Settings',
-    'db.nav.managePlan':'Manage plan',
-    'db.overview.title':'Overview',
-    'db.overview.sub':'Your sending activity at a glance',
-    'db.overview.recentTitle':'Recent campaigns',
-    'db.overview.viewAnalytics':'View analytics',
-    'db.overview.newCampaign':'New campaign',
-    'db.campaigns.title':'Campaigns',
-    'db.campaigns.export':'Export',
-    'db.campaigns.new':'New campaign',
-    'db.analytics.title':'Analytics',
-    'db.analytics.sub':'Delivery stats across all campaigns',
-    'db.contacts.title':'Contacts',
-    'db.contacts.export':'Export CSV',
-    'db.contacts.import':'Import CSV',
-    'db.contacts.add':'Add contact',
-    'db.contacts.newCamp':'New campaign',
-    'db.contacts.formName':'Full name',
-    'db.contacts.formEmail':'Email address',
-    'db.contacts.formTags':'Tags (comma separated)',
-    'db.contacts.formGroup':'Group',
-    'db.contacts.formGroupPlaceholder':'e.g. Leads, Customers…',
-    'db.contacts.formCF':'Custom fields (key:value, one per line)',
-    'db.contacts.saveAdd':'Save contact',
-    'db.contacts.saveEdit':'Save changes',
-    'db.contacts.cancel':'Cancel',
-    'db.contacts.addTitle':'New contact',
-    'db.contacts.editTitle':'Edit contact',
-    'db.drip.title':'Drip sequences',
-    'db.drip.sub':'Automated follow-up emails',
-    'db.drip.sendStep':'Send step',
-    'db.billing.title':'Billing',
-    'db.billing.sub':'Plan and usage',
-    'db.billing.sync':'Sync',
-    'db.billing.manage':'Manage',
-    'db.billing.upgrade':'Upgrade',
-    'db.settings.title':'Settings',
-    'db.settings.sub':'Account preferences, backends, and integrations',
-    'db.settings.dashTheme':'Dashboard theme',
-    'db.settings.dashHint':'Light or dark mode for the dashboard',
-    'db.settings.light':'Light',
-    'db.settings.dark':'Dark',
-    'db.settings.language':'Language',
-    'db.settings.langHint':'',
-    'db.settings.backends':'Backends',
-    'db.settings.guide':'Guide',
-    'db.settings.about':'About',
-    'db.compose.title':'New campaign',
-    'db.compose.sub':'Connect your Google Sheet and write your message',
-    'db.compose.composeTitle':'Write your email',
-    'db.compose.campName':'Campaign name',
-    'db.compose.sheetUrl':'Google Sheet URL',
-    'db.compose.connect':'Connect sheet',
-    'db.compose.subject':'Subject line',
-    'db.compose.body':'Email body',
-    'db.compose.back':'Back',
-    'db.compose.test':'Send test',
-    'db.compose.save':'Save draft',
-    'db.compose.send':'Start sending',
+    'db.nav.overview':'Обзор',
+    'db.nav.campaigns':'Кампании',
+    'db.nav.analytics':'Аналитика',
+    'db.nav.contacts':'Контакты',
+    'db.nav.drip':'Drip-последовательности',
+    'db.nav.billing':'Тарифы',
+    'db.nav.settings':'Настройки',
+    'db.nav.managePlan':'Управление тарифом',
+    'db.overview.title':'Обзор',
+    'db.overview.sub':'Ваша активность отправки в одном взгляде',
+    'db.overview.recentTitle':'Последние кампании',
+    'db.overview.viewAnalytics':'Смотреть аналитику',
+    'db.overview.newCampaign':'Новая кампания',
+    'db.campaigns.title':'Кампании',
+    'db.campaigns.export':'Экспорт',
+    'db.campaigns.new':'Новая кампания',
+    'db.analytics.title':'Аналитика',
+    'db.analytics.sub':'Эффективность по всем кампаниям',
+    'db.contacts.title':'Контакты',
+    'db.contacts.export':'Экспорт CSV',
+    'db.contacts.import':'Импорт CSV',
+    'db.contacts.add':'Добавить контакт',
+    'db.contacts.newCamp':'Новая кампания',
+    'db.contacts.formName':'Полное имя',
+    'db.contacts.formEmail':'Адрес электронной почты',
+    'db.contacts.formTags':'Теги (через запятую)',
+    'db.contacts.formGroup':'Группа',
+    'db.contacts.formGroupPlaceholder':'напр. Лиды, Клиенты…',
+    'db.contacts.formCF':'Свои поля (ключ:значение, по одному в строке)',
+    'db.contacts.saveAdd':'Сохранить контакт',
+    'db.contacts.saveEdit':'Сохранить изменения',
+    'db.contacts.cancel':'Отмена',
+    'db.contacts.addTitle':'Новый контакт',
+    'db.contacts.editTitle':'Редактировать контакт',
+    'db.drip.title':'Drip-последовательности',
+    'db.drip.sub':'Многошаговые автоматизированные дожимы',
+    'db.drip.sendStep':'Отправить шаг drip',
+    'db.billing.title':'Тарифы и подписка',
+    'db.billing.sub':'Ваша подписка и данные аккаунта',
+    'db.billing.sync':'Синхронизировать',
+    'db.billing.manage':'Управление подпиской',
+    'db.billing.upgrade':'Обновить',
+    'db.settings.title':'Настройки',
+    'db.settings.sub':'Параметры аккаунта, бэкенды и интеграции',
+    'db.settings.dashTheme':'Тема панели',
+    'db.settings.dashHint':'Светлый или тёмный режим для панели',
+    'db.settings.light':'☀ Светлая',
+    'db.settings.dark':'☾ Тёмная',
+    'db.settings.language':'Язык',
+    'db.settings.langHint':'Весь интерфейс доступен на русском языке',
+    'db.settings.backends':'Бэкенды',
+    'db.settings.guide':'Руководство',
+    'db.settings.about':'О расширении',
+    'db.compose.title':'Новая кампания',
+    'db.compose.sub':'Вставьте URL таблицы Google Sheets — столбец A = email, строка 1 = заголовок',
+    'db.compose.composeTitle':'Написать письмо',
+    'db.compose.campName':'Название кампании',
+    'db.compose.sheetUrl':'URL или ID таблицы Google Sheets',
+    'db.compose.connect':'Подключить таблицу',
+    'db.compose.subject':'Тема письма',
+    'db.compose.body':'Текст сообщения',
+    'db.compose.back':'Назад',
+    'db.compose.test':'Тестовая отправка',
+    'db.compose.save':'Сохранить черновик',
+    'db.compose.send':'Отправить сейчас',
   }
 };
 function t(key) {
@@ -1042,14 +1042,14 @@ function dbSendingBanner() {
   // Label + campaign name
   out += '<span style="flex:1;color:var(--db-ink);font-weight:500">';
   if (isSending) {
-    out += esc(b.label || 'Sending campaign…');
+    out += esc(b.label || 'Отправка кампании…');
     if (b.campName) out += ' <span style="font-weight:400;color:var(--db-muted)">· ' + esc(b.campName) + '</span>';
   } else if (isDone) {
     out += '<span style="color:var(--db-green);font-weight:700">' + (b.sent || 0) + ' sent</span>';
     if (b.errors > 0) out += ' <span style="color:var(--db-red);font-weight:500">· ' + b.errors + ' failed</span>';
     if (b.campName) out += ' <span style="font-weight:400;color:var(--db-muted)">· ' + esc(b.campName) + '</span>';
   } else {
-    out += '<span style="color:var(--db-red)">' + esc(b.label || 'Send failed') + '</span>';
+    out += '<span style="color:var(--db-red)">' + esc(b.label || 'Ошибка отправки') + '</span>';
   }
   out += '</span>';
 
@@ -1062,7 +1062,7 @@ function dbSendingBanner() {
 
   // Dismiss button (only when done or error)
   if (!isSending) {
-    out += '<button data-action="db-banner-dismiss" style="background:none;border:none;cursor:pointer;color:var(--db-muted);padding:2px 4px;line-height:1;font-size:16px;opacity:0.7" title="Dismiss">' + dbIcon('x', 14) + '</button>';
+    out += '<button data-action="db-banner-dismiss" style="background:none;border:none;cursor:pointer;color:var(--db-muted);padding:2px 4px;line-height:1;font-size:16px;opacity:0.7" title="Закрыть">' + dbIcon('x', 14) + '</button>';
   }
 
   out += '</div>';
@@ -1126,14 +1126,14 @@ function dbComposeModal() {
     // No backend warning
     if (!S.scriptUrl) {
       out += '<div style="background:var(--db-gold-tint);border:1px solid var(--db-gold);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--db-ink)">';
-      out += dbIcon('info', 14) + ' <strong>No backend set.</strong> Go to <button class="db-btn ghost sm" data-action="db-nav" data-tab="settings" style="display:inline-flex;padding:0 6px;height:22px;font-size:12px">Settings → Backends</button> and add your Google Apps Script URL first.';
+      out += dbIcon('info', 14) + ' <strong>Бэкенд не настроен.</strong> Перейдите в <button class="db-btn ghost sm" data-action="db-nav" data-tab="settings" style="display:inline-flex;padding:0 6px;height:22px;font-size:12px">Настройки → Бэкенды</button> и сначала добавьте URL вашего Google Apps Script.';
       out += '</div>';
     }
 
     // Campaign name
     out += '<div>';
     out += '<div class="db-field-label">' + t('db.compose.campName') + '</div>';
-    out += '<div class="db-field">' + dbIcon('folder') + '<input id="dbCampName" placeholder="May Newsletter" value="' + escAttr(form.name || '') + '" data-action="db-compose-field" data-field="name"/></div>';
+    out += '<div class="db-field">' + dbIcon('folder') + '<input id="dbCampName" placeholder="Июньская рассылка" value="' + escAttr(form.name || '') + '" data-action="db-compose-field" data-field="name"/></div>';
     out += '</div>';
 
     // Sheet URL
@@ -1145,11 +1145,11 @@ function dbComposeModal() {
     // Recent sheets
     if (recentSheets.length > 0) {
       out += '<div>';
-      out += '<div class="db-field-label">Recent spreadsheets</div>';
+      out += '<div class="db-field-label">Недавние таблицы</div>';
       out += '<div style="display:flex;flex-direction:column;gap:6px">';
       recentSheets.slice(0, 5).forEach(function(sheet, i) {
         var isRawId = sheet.name === sheet.id || /^[a-zA-Z0-9_-]{20,}$/.test(sheet.name);
-        var displayName = isRawId ? ('Sheet · ' + sheet.id.slice(0, 14) + '…') : sheet.name;
+        var displayName = isRawId ? ('Таблица · ' + sheet.id.slice(0, 14) + '…') : sheet.name;
         out += '<button class="db-sheet-row" data-action="db-compose-pick-recent" data-index="' + i + '">';
         out += '<span style="font-weight:500;color:var(--db-ink)">' + esc(displayName) + '</span>';
         out += '<span style="font-family:var(--db-mono);font-size:11px;color:var(--db-muted)">' + esc(timeAgo ? timeAgo(sheet.modified) : '') + '</span>';
@@ -1170,13 +1170,13 @@ function dbComposeModal() {
     if (modalContacts.length > 0) {
       out += '<div style="border-top:1px solid var(--db-line);padding-top:16px;margin-top:4px">';
       out += '<div class="db-field-label" style="margin-bottom:8px;display:flex;align-items:center;gap:6px">';
-      out += dbIcon('users', 13) + ' Or send directly to your contacts <span style="color:var(--db-green);font-size:11px;font-weight:600;background:var(--db-green-tint);padding:2px 7px;border-radius:20px;margin-left:4px">No Sheet needed</span>';
+      out += dbIcon('users', 13) + ' Или отправьте напрямую вашим контактам <span style="color:var(--db-green);font-size:11px;font-weight:600;background:var(--db-green-tint);padding:2px 7px;border-radius:20px;margin-left:4px">Таблица не нужна</span>';
       out += '</div>';
       out += '<div style="display:flex;flex-direction:column;gap:6px">';
       // "All contacts" button
       out += '<button class="db-sheet-row" data-action="db-compose-pick-contacts-all" style="border-color:var(--db-green-soft)">';
-      out += '<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:6px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center">' + dbIcon('users', 12) + '</span><span style="font-weight:500;color:var(--db-ink)">All contacts</span></span>';
-      out += '<span style="font-size:11px;color:var(--db-muted)">' + modalContacts.length + ' recipient' + (modalContacts.length !== 1 ? 's' : '') + '</span>';
+      out += '<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:6px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center">' + dbIcon('users', 12) + '</span><span style="font-weight:500;color:var(--db-ink)">Все контакты</span></span>';
+      out += '<span style="font-size:11px;color:var(--db-muted)">' + modalContacts.length + ' получатель' + (modalContacts.length > 1 ? 'ев' : (modalContacts.length === 1 ? '' : 'ев')) + '</span>';
       out += '</button>';
       // Per-group buttons
       if (modalGroupNames.length > 0) {
@@ -1184,7 +1184,7 @@ function dbComposeModal() {
           var cnt = modalGroupCounts[g] || 0;
           out += '<button class="db-sheet-row" data-action="db-compose-pick-contacts-group" data-group="' + escAttr(g) + '" style="border-color:var(--db-green-soft)">';
           out += '<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:6px;background:var(--db-green-tint);color:var(--db-green);display:grid;place-items:center;font-weight:700;font-size:11px">' + esc(g[0].toUpperCase()) + '</span><span style="font-weight:500;color:var(--db-ink)">' + esc(g) + '</span></span>';
-          out += '<span style="font-size:11px;color:var(--db-muted)">' + cnt + ' recipient' + (cnt !== 1 ? 's' : '') + '</span>';
+          out += '<span style="font-size:11px;color:var(--db-muted)">' + cnt + ' получатель' + (cnt > 1 ? 'ев' : (cnt === 1 ? '' : 'ев')) + '</span>';
           out += '</button>';
         });
       }
@@ -1193,14 +1193,14 @@ function dbComposeModal() {
     } else if (modalContacts.length === 0) {
       out += '<div style="border-top:1px solid var(--db-line);padding-top:14px;margin-top:4px">';
       out += '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--db-surface2);border-radius:9px;font-size:12.5px;color:var(--db-muted)">';
-      out += dbIcon('users', 13) + ' No contacts yet — <button class="db-btn ghost sm" data-action="db-nav" data-tab="contacts" style="padding:0 4px;height:auto;font-size:12px;display:inline;color:var(--db-green)">add contacts</button> to send without a Google Sheet.';
+      out += dbIcon('users', 13) + ' Контактов пока нет — <button class="db-btn ghost sm" data-action="db-nav" data-tab="contacts" style="padding:0 4px;height:auto;font-size:12px;display:inline;color:var(--db-green)">добавьте контакты</button>, чтобы отправлять без Google Таблицы.';
       out += '</div></div>';
     }
 
     out += '</div>'; // modal-body
 
     out += '<div class="db-modal-foot">';
-    out += '<button class="db-btn ghost" data-action="db-compose-close">Cancel</button>';
+    out += '<button class="db-btn ghost" data-action="db-compose-close">Отмена</button>';
     out += '<span style="flex:1"></span>';
     out += '<button class="db-btn primary" data-action="db-compose-connect">' + dbIcon('arrow') + ' ' + t('db.compose.connect') + '</button>';
     out += '</div>';
@@ -1210,8 +1210,8 @@ function dbComposeModal() {
     var recipientCount = form.recipientCount || 0;
     var isContactsCampaignMode = !!(form.isContactsCampaign && form.inlineData);
     var sheetDisplayName = isContactsCampaignMode
-      ? (form.contactGroup ? '"' + form.contactGroup + '" group' : form.contactTag ? '"' + form.contactTag + '" contacts' : 'All contacts')
-      : (form.sheetName || form.sheetUrl || "Spreadsheet");
+      ? (form.contactGroup ? 'группа "' + form.contactGroup + '"' : form.contactTag ? 'контакты "' + form.contactTag + '"' : 'Все контакты')
+      : (form.sheetName || form.sheetUrl || "Таблица");
     var isPremium = true;
     var isHtmlMode = form.editorMode === "html";
 
@@ -1223,8 +1223,8 @@ function dbComposeModal() {
     out += '<div class="db-modal-head">';
     out += '<div><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">' + t('db.compose.composeTitle') + '</h3>';
     var recipientLine = isContactsCampaignMode
-      ? dbIcon('user', 11) + ' ' + recipientCount + ' contacts · no sheet needed · from ' + esc(backendEmail)
-      : esc(sheetDisplayName) + ' · ' + recipientCount + ' recipients · from ' + esc(backendEmail);
+      ? dbIcon('user', 11) + ' ' + recipientCount + ' контактов · таблица не нужна · от  + esc(backendEmail)
+      : esc(sheetDisplayName) + ' · ' + recipientCount + ' получателей · от  + esc(backendEmail);
     out += '<p style="font-size:12.5px;color:var(--db-muted);margin:2px 0 0">' + recipientLine + '</p></div>';
     out += '<button class="db-btn ghost sm" data-action="db-compose-close">' + dbIcon('x', 14) + '</button>';
     out += '</div>';
@@ -1234,23 +1234,23 @@ function dbComposeModal() {
     // Contacts campaign notice banner
     if (isContactsCampaignMode) {
       var recipientDesc = form.contactGroup
-        ? ' in group <strong>' + esc(form.contactGroup) + '</strong>'
+        ? ' из группы <strong>' + esc(form.contactGroup) + '</strong>'
         : form.contactTag
-          ? ' tagged <strong>"' + esc(form.contactTag) + '"</strong>'
+          ? ' с тегом <strong>"' + esc(form.contactTag) + '"</strong>'
           : '';
       out += '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--db-green-tint);border:1px solid var(--db-green-soft);border-radius:10px;font-size:13px;color:var(--db-green)">';
-      out += dbIcon('users', 14) + ' <strong>Contacts campaign</strong> — sending to <strong>' + recipientCount + '</strong> contact' + (recipientCount !== 1 ? 's' : '') + recipientDesc + '. No Google Sheet required.';
+      out += dbIcon('users', 14) + ' <strong>Кампания по контактам</strong> — отправка на <strong>' + recipientCount + '</strong> contact' + (recipientCount === 1 ? '' : 'ов') + recipientDesc + '. Google Таблица не требуется.';
       out += '</div>';
     }
 
     // ── From Name + Reply-To ──────────────────────────────────
     out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
     out += '<div>';
-    out += '<div class="db-field-label">From Name</div>';
-    out += '<div class="db-field">' + dbIcon('user', 13) + '<input id="dbCampFromName" placeholder="Your Name" value="' + escAttr(form.fromName || S.fromName || '') + '" data-action="db-compose-field" data-field="fromName"/></div>';
+    out += '<div class="db-field-label">Имя отправителя</div>';
+    out += '<div class="db-field">' + dbIcon('user', 13) + '<input id="dbCampFromName" placeholder="Ваше имя" value="' + escAttr(form.fromName || S.fromName || '') + '" data-action="db-compose-field" data-field="fromName"/></div>';
     out += '</div>';
     out += '<div>';
-    out += '<div class="db-field-label">Reply-To Email</div>';
+    out += '<div class="db-field-label">Email для ответа</div>';
     out += '<div class="db-field">' + dbIcon('reply', 13) + '<input id="dbCampReplyTo" type="email" placeholder="reply@yourdomain.com" value="' + escAttr(form.replyTo || S.replyTo || '') + '" data-action="db-compose-field" data-field="replyTo"/></div>';
     out += '</div>';
     out += '</div>';
@@ -1258,11 +1258,11 @@ function dbComposeModal() {
     // ── CC / BCC ──────────────────────────────────────────────
     out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
     out += '<div>';
-    out += '<div class="db-field-label">CC <span style="color:var(--db-muted);font-size:11px">(supports {{tokens}})</span></div>';
+    out += '<div class="db-field-label">CC <span style="color:var(--db-muted);font-size:11px">(поддерживает {{токены}})</span></div>';
     out += '<div class="db-field">' + dbIcon('users', 13) + '<input id="dbCampCC" placeholder="cc@email.com" value="' + escAttr(form.cc || '') + '" data-action="db-compose-field" data-field="cc"/></div>';
     out += '</div>';
     out += '<div>';
-    out += '<div class="db-field-label">BCC <span style="color:var(--db-muted);font-size:11px">(supports {{tokens}})</span></div>';
+    out += '<div class="db-field-label">BCC <span style="color:var(--db-muted);font-size:11px">(поддерживает {{токены}})</span></div>';
     out += '<div class="db-field">' + dbIcon('users', 13) + '<input id="dbCampBCC" placeholder="bcc@email.com" value="' + escAttr(form.bcc || '') + '" data-action="db-compose-field" data-field="bcc"/></div>';
     out += '</div>';
     out += '</div>';
@@ -1288,21 +1288,21 @@ function dbComposeModal() {
     out += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">';
     out += '<div class="db-field-label" style="margin-bottom:0">' + t('db.compose.body') + '</div>';
     out += '<div style="display:flex;gap:4px">';
-    out += '<button class="db-btn ghost sm' + (!isHtmlMode ? ' active' : '') + '" data-action="db-compose-editor-mode" data-mode="write" style="font-size:11px;height:22px;padding:0 8px">Plain Text</button>';
+    out += '<button class="db-btn ghost sm' + (!isHtmlMode ? ' active' : '') + '" data-action="db-compose-editor-mode" data-mode="write" style="font-size:11px;height:22px;padding:0 8px">Обычный текст</button>';
     out += '<button class="db-btn ghost sm' + (isHtmlMode ? ' active' : '') + '" data-action="db-compose-editor-mode" data-mode="html" style="font-size:11px;height:22px;padding:0 8px">HTML</button>';
     out += '</div>';
     out += '</div>';
     if (!isHtmlMode) {
-      out += '<textarea id="dbCampBody" style="width:100%;min-height:160px;background:var(--db-surface2);border:1.5px solid var(--db-line);border-radius:10px;padding:12px 14px;font-size:13px;font-family:var(--db-sans);color:var(--db-ink);resize:vertical;box-sizing:border-box;outline:none" placeholder="Hi {{FirstName}},&#10;&#10;…your message…&#10;&#10;Best,&#10;Your team" data-action="db-compose-field" data-field="body">' + escAttr(form.body || '') + '</textarea>';
+      out += '<textarea id="dbCampBody" style="width:100%;min-height:160px;background:var(--db-surface2);border:1.5px solid var(--db-line);border-radius:10px;padding:12px 14px;font-size:13px;font-family:var(--db-sans);color:var(--db-ink);resize:vertical;box-sizing:border-box;outline:none" placeholder="Привет, {{FirstName}},&#10;&#10;…ваше сообщение…&#10;&#10;С уважением,&#10;Ваша команда" data-action="db-compose-field" data-field="body">' + escAttr(form.body || '') + '</textarea>';
     } else {
       out += '<textarea id="dbCampHtml" style="width:100%;min-height:160px;background:var(--db-surface2);border:1.5px solid var(--db-blue);border-radius:10px;padding:12px 14px;font-size:12px;font-family:var(--db-mono);color:var(--db-ink);resize:vertical;box-sizing:border-box;outline:none" placeholder="&lt;p&gt;Hi {{FirstName}},&lt;/p&gt;&#10;&lt;p&gt;Your message here…&lt;/p&gt;" data-action="db-compose-field" data-field="htmlBody">' + escAttr(form.htmlBody || '') + '</textarea>';
-      out += '<div style="font-size:11px;color:var(--db-muted);margin-top:4px">' + dbIcon('info', 11) + ' HTML mode — use {{tokens}} for personalization, same as plain text.</div>';
+      out += '<div style="font-size:11px;color:var(--db-muted);margin-top:4px">' + dbIcon('info', 11) + ' Режим HTML — используйте {{токены}} для персонализации, как и в обычном тексте.</div>';
     }
     out += '</div>';
 
     // ── Attachments ───────────────────────────────────────────
     out += '<div>';
-    out += '<div class="db-field-label" style="margin-bottom:6px">Attachments</div>';
+    out += '<div class="db-field-label" style="margin-bottom:6px">Вложения</div>';
     out += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
     var attachList = form.attachments || [];
     attachList.forEach(function(att, ai) {
@@ -1312,7 +1312,7 @@ function dbComposeModal() {
       out += '</span>';
     });
     out += '<label style="cursor:pointer;display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:500;color:var(--db-green);padding:5px 10px;background:var(--db-green-tint);border:1px solid var(--db-green-soft);border-radius:7px">';
-    out += dbIcon('upload', 13) + ' Attach File';
+    out += dbIcon('upload', 13) + ' Прикрепить файл';
     out += '<input type="file" id="dbCampAttachInput" style="display:none" multiple data-action="db-compose-attach"/>';
     out += '</label>';
     out += '</div>';
@@ -1321,30 +1321,30 @@ function dbComposeModal() {
     // ── Delay between emails ──────────────────────────────────
     out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
     out += '<div>';
-    out += '<div class="db-field-label">Delay between emails (ms)</div>';
+    out += '<div class="db-field-label">Задержка между письмами (мс)</div>';
     out += '<div class="db-field">' + dbIcon('activity', 13) + '<input id="dbCampDelay" type="number" min="0" max="10000" step="100" placeholder="500" value="' + escAttr(String(form.delayMs != null ? form.delayMs : (S.delayMs || 500))) + '" data-action="db-compose-field" data-field="delayMs"/></div>';
     out += '</div>';
     out += '<div>';
-    out += '<div class="db-field-label">Test email address</div>';
+    out += '<div class="db-field-label">Тестовый email-адрес</div>';
     out += '<div class="db-field">' + dbIcon('mail', 13) + '<input id="dbCampTestEmail" type="email" placeholder="you@email.com" value="' + escAttr(form.testEmail || S.testEmail || '') + '" data-action="db-compose-field" data-field="testEmail"/></div>';
     out += '</div>';
     out += '</div>';
 
     // ── Premium features ──────────────────────────────────────
     out += '<div style="display:flex;flex-direction:column;gap:8px;background:var(--db-bg);border-radius:10px;padding:10px 14px">';
-    out += '<div style="font-size:11.5px;font-weight:600;color:var(--db-muted);margin-bottom:2px">Premium features</div>';
+    out += '<div style="font-size:11.5px;font-weight:600;color:var(--db-muted);margin-bottom:2px">Премиум-функции</div>';
 
     // Unsubscribe footer
     out += '<label style="display:flex;align-items:center;gap:8px;cursor:' + (isPremium ? 'pointer' : 'not-allowed') + '">';
     out += '<input type="checkbox" id="dbCampUnsub" ' + (form.unsubscribeEnabled ? 'checked' : '') + ' ' + (!isPremium ? 'disabled' : '') + ' data-action="db-compose-field" data-field="unsubscribeEnabled" style="accent-color:var(--db-green)">';
-    out += '<span style="font-size:12.5px;color:' + (isPremium ? 'var(--db-ink2)' : 'var(--db-muted)') + '">Auto-inject unsubscribe footer</span>';
+    out += '<span style="font-size:12.5px;color:' + (isPremium ? 'var(--db-ink2)' : 'var(--db-muted)') + '">Автоматически добавлять ссылку отписки</span>';
     if (!isPremium) out += ' <span class="db-pill gold" style="font-size:10px;padding:1px 6px">Premium</span>';
     out += '</label>';
 
     // Schedule send
     out += '<label style="display:flex;align-items:center;gap:8px;cursor:' + (isPremium ? 'pointer' : 'not-allowed') + '">';
     out += '<input type="checkbox" id="dbCampSchedule" ' + (form.scheduleEnabled ? 'checked' : '') + ' ' + (!isPremium ? 'disabled' : '') + ' data-action="db-compose-field" data-field="scheduleEnabled" style="accent-color:var(--db-green)">';
-    out += '<span style="font-size:12.5px;color:' + (isPremium ? 'var(--db-ink2)' : 'var(--db-muted)') + '">Schedule send</span>';
+    out += '<span style="font-size:12.5px;color:' + (isPremium ? 'var(--db-ink2)' : 'var(--db-muted)') + '">Отправить по расписанию</span>';
     if (!isPremium) out += ' <span class="db-pill gold" style="font-size:10px;padding:1px 6px">Premium</span>';
     out += '</label>';
     if (form.scheduleEnabled && isPremium) {
@@ -1354,7 +1354,7 @@ function dbComposeModal() {
     // Smart send window
     out += '<label style="display:flex;align-items:center;gap:8px;cursor:' + (isPremium ? 'pointer' : 'not-allowed') + '">';
     out += '<input type="checkbox" id="dbCampSmartSend" ' + (form.smartSendEnabled ? 'checked' : '') + ' ' + (!isPremium ? 'disabled' : '') + ' data-action="db-compose-field" data-field="smartSendEnabled" style="accent-color:var(--db-green)">';
-    out += '<span style="font-size:12.5px;color:' + (isPremium ? 'var(--db-ink2)' : 'var(--db-muted)') + '">Smart send window (stagger sends)</span>';
+    out += '<span style="font-size:12.5px;color:' + (isPremium ? 'var(--db-ink2)' : 'var(--db-muted)') + '">Умная отправка (равномерная рассылка)</span>';
     if (!isPremium) out += ' <span class="db-pill gold" style="font-size:10px;padding:1px 6px">Premium</span>';
     out += '</label>';
 
@@ -1372,11 +1372,11 @@ function dbComposeModal() {
   // ── Sending (modal closes automatically; banner shows instead) ──
   } else if (step === "sending") {
     // This state is transient — the modal will close and banner will appear
-    out += '<div class="db-modal-head"><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">Sending…</h3></div>';
+    out += '<div class="db-modal-head"><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">Отправка…</h3></div>';
     out += '<div class="db-modal-body" style="text-align:center;padding:40px 24px">';
     out += '<div style="font-size:36px;margin-bottom:16px;animation:spin 1s linear infinite">📤</div>';
-    out += '<div style="font-size:14px;font-weight:500;color:var(--db-ink);margin-bottom:6px">' + esc(DB.composeSendingProgress || 'Preparing…') + '</div>';
-    out += '<div style="font-size:12px;color:var(--db-muted)">You can keep using the dashboard while emails send</div>';
+    out += '<div style="font-size:14px;font-weight:500;color:var(--db-ink);margin-bottom:6px">' + esc(DB.composeSendingProgress || 'Подготовка…') + '</div>';
+    out += '<div style="font-size:12px;color:var(--db-muted)">Вы можете продолжать работать в панели, пока письма отправляются</div>';
     out += '</div>';
 
   // "done" step removed — results now shown via inline sending banner
@@ -1400,8 +1400,8 @@ function dbFollowUpModal() {
 
   if (step === "compose") {
     out += '<div class="db-modal-head">';
-    out += '<div><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">Follow-up Campaign</h3>';
-    out += '<p style="font-size:12.5px;color:var(--db-muted);margin:2px 0 0">Replying to: ' + esc(campName) + ' · ' + esc(camp.subject || '') + '</p></div>';
+    out += '<div><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">Дожимная кампания</h3>';
+    out += '<p style="font-size:12.5px;color:var(--db-muted);margin:2px 0 0">Ответ на: ' + esc(campName) + ' · ' + esc(camp.subject || '') + '</p></div>';
     out += '<button class="db-btn ghost sm" data-action="db-followup-close">' + dbIcon('x', 14) + '</button>';
     out += '</div>';
 
@@ -1409,20 +1409,20 @@ function dbFollowUpModal() {
 
     if (!isPremium) {
       out += '<div style="background:var(--db-gold-tint);border:1px solid var(--db-gold);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--db-ink)">';
-      out += dbIcon('star', 14) + ' <strong>Premium feature.</strong> Follow-up campaigns (threaded replies) require a Premium plan. <button class="db-btn primary sm" data-action="db-nav" data-tab="billing" style="margin-left:6px">Upgrade</button>';
+      out += dbIcon('star', 14) + ' <strong>Премиум-функция.</strong> Дожимные кампании (цепочки ответов) требуют премиум-план. <button class="db-btn primary sm" data-action="db-nav" data-tab="billing" style="margin-left:6px">Улучшить план</button>';
       out += '</div>';
     }
 
     // From Name + Reply-To
     out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
-    out += '<div><div class="db-field-label">From Name</div>';
-    out += '<div class="db-field">' + dbIcon('user', 13) + '<input id="fuFromName" placeholder="Your Name" value="' + escAttr(S.followUpFromName || '') + '"/></div></div>';
-    out += '<div><div class="db-field-label">Reply-To Email</div>';
+    out += '<div><div class="db-field-label">Имя отправителя</div>';
+    out += '<div class="db-field">' + dbIcon('user', 13) + '<input id="fuFromName" placeholder="Ваше имя" value="' + escAttr(S.followUpFromName || '') + '"/></div></div>';
+    out += '<div><div class="db-field-label">Email для ответа</div>';
     out += '<div class="db-field">' + dbIcon('reply', 13) + '<input id="fuReplyTo" type="email" placeholder="reply@yourdomain.com" value="' + escAttr(S.followUpReplyTo || '') + '"/></div></div>';
     out += '</div>';
 
     // Subject
-    out += '<div><div class="db-field-label">Subject</div>';
+    out += '<div><div class="db-field-label">Тема письма</div>';
     out += '<div class="db-field">' + dbIcon('type') + '<input id="fuSubject" placeholder="Re: ' + escAttr(camp.subject || 'your message') + '" value="' + escAttr(S.followUpSubject || ('Re: ' + (camp.subject || ''))) + '"/></div></div>';
 
     // ── Recipients (shown before body so user sees them immediately) ──
@@ -1440,25 +1440,25 @@ function dbFollowUpModal() {
     out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
     out += '<div class="db-field-label" style="margin:0">';
     if (!S.followUpRecipientsLoaded) {
-      out += dbIcon('users', 13) + ' Recipients <span style="color:var(--db-muted);font-weight:400;font-size:11px">— loading…</span>';
+      out += dbIcon('users', 13) + ' Получатели <span style="color:var(--db-muted);font-weight:400;font-size:11px">— загрузка…</span>';
     } else {
-      out += dbIcon('users', 13) + ' Recipients <span style="color:var(--db-muted);font-weight:400;font-size:11px">(' + selectedCount + ' of ' + allRecip.length + ' selected)</span>';
+      out += dbIcon('users', 13) + ' Получатели <span style="color:var(--db-muted);font-weight:400;font-size:11px">(' + selectedCount + ' из ' + allRecip.length + ' выбрано)</span>';
     }
     out += '</div>';
     out += '<div style="display:flex;gap:5px">';
-    out += '<button class="db-btn ghost sm" data-action="db-fu-select-all" style="font-size:11px">All</button>';
-    out += '<button class="db-btn ghost sm" data-action="db-fu-select-none" style="font-size:11px">None</button>';
+    out += '<button class="db-btn ghost sm" data-action="db-fu-select-all" style="font-size:11px">Все</button>';
+    out += '<button class="db-btn ghost sm" data-action="db-fu-select-none" style="font-size:11px">Нет</button>';
     out += '</div></div>';
     // Search box
-    out += '<div class="db-field" style="margin-bottom:8px">' + dbIcon('search', 13) + '<input id="fuRecipientSearch" placeholder="Search recipients…" value="' + escAttr(fuSearch) + '" style="font-size:12.5px"/></div>';
+    out += '<div class="db-field" style="margin-bottom:8px">' + dbIcon('search', 13) + '<input id="fuRecipientSearch" placeholder="Поиск получателей…" value="' + escAttr(fuSearch) + '" style="font-size:12.5px"/></div>';
     // List
     out += '<div style="max-height:130px;overflow-y:auto;display:flex;flex-direction:column;gap:3px">';
     if (!S.followUpRecipientsLoaded) {
-      out += '<div style="font-size:12px;color:var(--db-muted);padding:10px;text-align:center">Loading…</div>';
+      out += '<div style="font-size:12px;color:var(--db-muted);padding:10px;text-align:center">Загрузка…</div>';
     } else if (allRecip.length === 0) {
-      out += '<div style="font-size:12px;color:var(--db-muted);padding:10px;text-align:center">No recipients found for this campaign.</div>';
+      out += '<div style="font-size:12px;color:var(--db-muted);padding:10px;text-align:center">Для этой кампании получатели не найдены.</div>';
     } else if (visibleRecip.length === 0) {
-      out += '<div style="font-size:12px;color:var(--db-muted);padding:6px">No matches for "' + esc(fuSearch) + '"</div>';
+      out += '<div style="font-size:12px;color:var(--db-muted);padding:6px">Нет совпадений для «' + esc(fuSearch) + '»</div>';
     } else {
       visibleRecip.slice(0, 80).forEach(function(r) {
         var ri = allRecip.indexOf(r);
@@ -1469,59 +1469,59 @@ function dbFollowUpModal() {
         out += '</label>';
       });
       if (visibleRecip.length > 80) {
-        out += '<div style="font-size:11.5px;color:var(--db-muted);padding:4px 2px">+ ' + (visibleRecip.length - 80) + ' more — refine search to filter</div>';
+        out += '<div style="font-size:11.5px;color:var(--db-muted);padding:4px 2px">+ ' + (visibleRecip.length - 80) + ' ещё — уточните поиск</div>';
       }
     }
     out += '</div>';
     out += '</div>';
 
     // Body
-    out += '<div><div class="db-field-label">Message</div>';
-    out += '<textarea id="fuBody" style="width:100%;min-height:160px;background:var(--db-surface2);border:1.5px solid var(--db-line);border-radius:10px;padding:12px 14px;font-size:13px;font-family:var(--db-sans);color:var(--db-ink);resize:vertical;box-sizing:border-box;outline:none" placeholder="Hi {{FirstName}},&#10;&#10;Just wanted to follow up on my previous email…&#10;&#10;Best,&#10;Your team">' + escAttr(S.followUpBody || '') + '</textarea></div>';
+    out += '<div><div class="db-field-label">Сообщение</div>';
+    out += '<textarea id="fuBody" style="width:100%;min-height:160px;background:var(--db-surface2);border:1.5px solid var(--db-line);border-radius:10px;padding:12px 14px;font-size:13px;font-family:var(--db-sans);color:var(--db-ink);resize:vertical;box-sizing:border-box;outline:none" placeholder="Привет, {{FirstName}},&#10;&#10;Хочу вернуться к моему предыдущему письму…&#10;&#10;С уважением,&#10;Ваша команда">' + escAttr(S.followUpBody || '') + '</textarea></div>';
 
     // Test email + delay
     out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
-    out += '<div><div class="db-field-label">Test email address</div>';
+    out += '<div><div class="db-field-label">Тестовый email-адрес</div>';
     out += '<div class="db-field">' + dbIcon('mail', 13) + '<input id="fuTestEmail" type="email" placeholder="you@email.com" value="' + escAttr(S.followUpTestEmail || S.testEmail || '') + '"/></div></div>';
-    out += '<div><div class="db-field-label">Delay between sends (ms)</div>';
+    out += '<div><div class="db-field-label">Задержка между отправками (мс)</div>';
     out += '<div class="db-field">' + dbIcon('activity', 13) + '<input id="fuDelay" type="number" min="0" max="10000" step="100" placeholder="500" value="' + escAttr(String(S.followUpDelayMs || 500)) + '"/></div></div>';
     out += '</div>';
 
     out += '</div>'; // modal-body
 
     out += '<div class="db-modal-foot">';
-    out += '<button class="db-btn ghost" data-action="db-followup-close">' + dbIcon('arrowLeft', 13) + ' Cancel</button>';
+    out += '<button class="db-btn ghost" data-action="db-followup-close">' + dbIcon('arrowLeft', 13) + ' Отмена</button>';
     out += '<span style="flex:1"></span>';
-    out += '<button class="db-btn secondary" data-action="db-followup-test"' + (!isPremium ? ' disabled title="Premium required"' : '') + '>' + dbIcon('play') + ' Test Send</button>';
-    out += '<button class="db-btn primary" data-action="db-followup-send"' + (!isPremium ? ' disabled title="Premium required"' : '') + '>' + dbIcon('reply') + ' Send Follow-up</button>';
+    out += '<button class="db-btn secondary" data-action="db-followup-test"' + (!isPremium ? ' disabled title="Требуется Премиум"' : '') + '>' + dbIcon('play') + ' Тестовая отправка</button>';
+    out += '<button class="db-btn primary" data-action="db-followup-send"' + (!isPremium ? ' disabled title="Требуется Премиум"' : '') + '>' + dbIcon('reply') + ' Отправить дожим</button>';
     out += '</div>';
 
   } else if (step === "sending") {
-    out += '<div class="db-modal-head"><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">Sending follow-up…</h3></div>';
+    out += '<div class="db-modal-head"><h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">Отправка дожима…</h3></div>';
     out += '<div class="db-modal-body" style="text-align:center;padding:40px 24px">';
     out += '<div style="font-size:36px;margin-bottom:16px;animation:spin 1s linear infinite">↩</div>';
-    out += '<div style="font-size:14px;font-weight:500;color:var(--db-ink);margin-bottom:6px">Sending as threaded replies…</div>';
-    out += '<div style="font-size:12px;color:var(--db-muted)">Do not close this window</div>';
+    out += '<div style="font-size:14px;font-weight:500;color:var(--db-ink);margin-bottom:6px">Отправка цепочкой ответов…</div>';
+    out += '<div style="font-size:12px;color:var(--db-muted)">Не закрывайте это окно</div>';
     out += '</div>';
 
   } else if (step === "done") {
     var res = DB.followUpResult || {};
     var allOk = res.errors === 0;
     out += '<div class="db-modal-head">';
-    out += '<h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">' + (allOk ? 'Follow-up sent!' : 'Follow-up complete') + '</h3>';
+    out += '<h3 style="font-size:16px;font-weight:700;color:var(--db-ink);margin:0">' + (allOk ? 'Дожим отправлен!' : 'Дожим завершён') + '</h3>';
     out += '<button class="db-btn ghost sm" data-action="db-followup-close">' + dbIcon('x', 14) + '</button>';
     out += '</div>';
     out += '<div class="db-modal-body" style="text-align:center;padding:28px 24px">';
     out += '<div style="font-size:48px;margin-bottom:14px">' + (allOk ? '✅' : '⚠️') + '</div>';
     out += '<div style="font-size:26px;font-weight:800;color:var(--db-green);margin-bottom:4px">' + (res.sent || 0) + ' sent</div>';
-    if (res.threaded) out += '<div style="font-size:13px;color:var(--db-muted);margin-top:4px">' + res.threaded + ' sent as threaded replies</div>';
-    if (res.errors > 0) out += '<div style="font-size:13px;color:var(--db-red);margin-top:6px">' + res.errors + ' failed</div>';
-    out += '<div style="font-size:13px;color:var(--db-muted);margin-top:10px">Follow-up to: ' + esc(campName) + '</div>';
+    if (res.threaded) out += '<div style="font-size:13px;color:var(--db-muted);margin-top:4px">' + res.threaded + ' отправлено цепочкой ответов</div>';
+    if (res.errors > 0) out += '<div style="font-size:13px;color:var(--db-red);margin-top:6px">' + res.errors + ' ошибок</div>';
+    out += '<div style="font-size:13px;color:var(--db-muted);margin-top:10px">Дожим для: ' + esc(campName) + '</div>';
     out += '</div>';
     out += '<div class="db-modal-foot">';
-    out += '<button class="db-btn ghost" data-action="db-followup-close">Close</button>';
+    out += '<button class="db-btn ghost" data-action="db-followup-close">Закрыть</button>';
     out += '<span style="flex:1"></span>';
-    out += '<button class="db-btn secondary" data-action="db-open-compose">' + dbIcon('plus') + ' New campaign</button>';
+    out += '<button class="db-btn secondary" data-action="db-open-compose">' + dbIcon('plus') + ' Новая кампания</button>';
     out += '</div>';
   }
 
@@ -1578,10 +1578,10 @@ function dbResultsModal() {
     out += '<div>';
     out += '<div class="db-field-label" style="margin-bottom:8px">Per-recipient results</div>';
     out += '<div style="max-height:240px;overflow-y:auto;border-radius:10px;overflow:hidden">';
-    out += '<table class="db-table" style="margin:0"><thead><tr><th>Email</th><th>Status</th><th>Detail</th></tr></thead><tbody>';
+    out += '<table class="db-table" style="margin:0"><thead><tr><th>Email</th><th>Статус</th><th>Подробности</th></tr></thead><tbody>';
     results.forEach(function(r) {
       var statusColor = r.status === 'SENT' ? 'var(--db-green)' : r.status === 'TEST_SENT' ? 'var(--db-blue)' : 'var(--db-red)';
-      var statusLabel = r.status === 'SENT' ? 'Sent' : r.status === 'TEST_SENT' ? 'Test' : r.status === 'SKIPPED' ? 'Skipped' : 'Error';
+      var statusLabel = r.status === 'SENT' ? 'Отправлено' : r.status === 'TEST_SENT' ? 'Тест' : r.status === 'SKIPPED' ? 'Пропущено' : 'Ошибка';
       out += '<tr>';
       out += '<td style="font-family:var(--db-mono);font-size:12px">' + esc(r.email || '') + '</td>';
       out += '<td><span style="color:' + statusColor + ';font-weight:600;font-size:12px">' + statusLabel + '</span></td>';
@@ -1591,16 +1591,16 @@ function dbResultsModal() {
     out += '</tbody></table></div></div>';
   } else {
     out += '<div style="text-align:center;padding:20px;color:var(--db-muted);font-size:13px">';
-    out += dbIcon('info', 14) + ' No per-recipient data available for this campaign.';
+    out += dbIcon('info', 14) + ' Данные по каждому получателю для этой кампании недоступны.';
     out += '</div>';
   }
 
   out += '</div>'; // modal-body
 
   out += '<div class="db-modal-foot">';
-  out += '<button class="db-btn ghost" data-action="db-results-close">Close</button>';
+  out += '<button class="db-btn ghost" data-action="db-results-close">Закрыть</button>';
   out += '<span style="flex:1"></span>';
-  out += '<button class="db-btn secondary" data-action="db-followup-from-id" data-id="' + escAttr(camp.id || '') + '" data-prefetch-followup="' + escAttr(camp.id || '') + '">' + dbIcon('reply') + ' Follow-up</button>';
+  out += '<button class="db-btn secondary" data-action="db-followup-from-id" data-id="' + escAttr(camp.id || '') + '" data-prefetch-followup="' + escAttr(camp.id || '') + '">' + dbIcon('reply') + ' Дожим</button>';
   out += '</div>';
 
   out += '</div></div>';
@@ -2312,16 +2312,16 @@ function dbSidebar() {
   var collapsed = DB.sidebarCollapsed;
 
   var nav = [
-    { section: 'Main', items: [
+    { section: 'Основное', items: [
       { id:'overview',  label:t('db.nav.overview'),  icon:'grid' },
       { id:'campaigns', label:t('db.nav.campaigns'), icon:'mail' },
       { id:'analytics', label:t('db.nav.analytics'), icon:'chart' },
     ]},
-    { section: 'Features', items: [
+    { section: 'Функции', items: [
       { id:'contacts',  label:t('db.nav.contacts'), icon:'users', count: (S.contacts||[]).length },
       { id:'drips',     label:t('db.nav.drip'),     icon:'activity' },
     ]},
-    { section: 'Account', items: [
+    { section: 'Аккаунт', items: [
       { id:'billing',   label:t('db.nav.billing'),  icon:'card' },
       { id:'settings',  label:t('db.nav.settings'), icon:'settings' },
     ]},
@@ -2363,9 +2363,9 @@ function dbSidebar() {
   // Plan card
   if (!collapsed) {
     out += '<div class="db-plan-card">';
-    out += '<div class="db-plan-label">Current plan</div>';
+    out += '<div class="db-plan-label">Текущий план</div>';
     out += '<div class="db-plan-name">' + esc(planLabel) + '</div>';
-    out += '<div class="db-plan-usage"><span>' + sentToday + ' sent today</span><span style="color:var(--db-gold);font-weight:700">' + (isPremium ? '∞' : '') + '</span></div>';
+    out += '<div class="db-plan-usage"><span>' + sentToday + ' отправлено сегодня</span><span style="color:var(--db-gold);font-weight:700">' + (isPremium ? '∞' : '') + '</span></div>';
     out += '<button class="db-btn secondary sm" style="width:100%;margin-top:8px;justify-content:center" data-action="db-nav" data-tab="billing">' + t('db.nav.managePlan') + '</button>';
     out += '</div>';
   }
@@ -2381,15 +2381,15 @@ function dbTopbar() {
     overview:t('db.nav.overview'), campaigns:t('db.nav.campaigns'), analytics:t('db.nav.analytics'),
     contacts:t('db.nav.contacts'), drips:t('db.nav.drip'), billing:t('db.nav.billing'), settings:t('db.nav.settings')
   };
-  var current = labels[DB.tab] || 'Overview';
+  var current = labels[DB.tab] || 'Обзор';
   var out = '<div class="db-topbar">';
   out += '<div class="db-crumbs"><span>Madbear</span><span class="sep">/</span><span class="current">' + esc(current) + '</span></div>';
   out += '<div class="db-topbar-spacer"></div>';
-  out += '<div class="db-topbar-search">' + dbIcon('search', 14) + '<input placeholder="Search campaigns, contacts…" id="dbSearchInp" value="' + escAttr(DB.campaignSearch || '') + '"/><span class="db-kbd">⌘K</span></div>';
+  out += '<div class="db-topbar-search">' + dbIcon('search', 14) + '<input placeholder="Поиск кампаний, контактов…" id="dbSearchInp" value="' + escAttr(DB.campaignSearch || '') + '"/><span class="db-kbd">⌘K</span></div>';
   out += '<div class="db-topbar-actions">';
-  out += '<button class="db-icon-btn" title="Help" data-action="db-nav" data-tab="settings">' + dbIcon('info', 14) + '</button>';
-  out += '<button class="db-icon-btn" title="Notifications">' + dbIcon('bell', 14) + '<span class="db-notif-dot"></span></button>';
-  out += '<button class="db-icon-btn" title="Settings" data-action="db-nav" data-tab="settings">' + dbIcon('settings', 14) + '</button>';
+  out += '<button class="db-icon-btn" title="Помощь" data-action="db-nav" data-tab="settings">' + dbIcon('info', 14) + '</button>';
+  out += '<button class="db-icon-btn" title="Уведомления">' + dbIcon('bell', 14) + '<span class="db-notif-dot"></span></button>';
+  out += '<button class="db-icon-btn" title="Настройки" data-action="db-nav" data-tab="settings">' + dbIcon('settings', 14) + '</button>';
   out += '<div class="db-avatar" data-action="db-nav" data-tab="settings" style="cursor:pointer">MB</div>';
   out += '</div>';
   out += '</div>';
@@ -2413,7 +2413,7 @@ function dbOverviewPanel() {
 
   // Page head
   out += '<div class="db-page-head">';
-  out += '<div><h1 class="db-page-title">Good morning, Madbear</h1><p class="db-page-sub">Here\'s what\'s happening across your campaigns today.</p></div>';
+  out += '<div><h1 class="db-page-title">Доброе утро, Madbear</h1><p class="db-page-sub">Вот что происходит в ваших кампаниях сегодня.</p></div>';
   out += '<div class="db-page-actions">';
   out += '<button class="db-btn secondary" data-action="db-nav" data-tab="analytics">' + dbIcon('chart') + ' ' + t('db.overview.viewAnalytics') + '</button>';
   out += '<button class="db-btn primary" data-action="db-open-compose">' + dbIcon('plus') + ' ' + t('db.overview.newCampaign') + '</button>';
@@ -2421,11 +2421,11 @@ function dbOverviewPanel() {
 
   // Stat grid
   out += '<div class="db-stat-grid">';
-  out += dbStatCard('Emails sent', totalSent.toLocaleString(), 'send', '', '', [24,32,28,40,38,52,48,60,55,72]);
-  out += dbStatCard('Campaigns', campaigns.length, 'mail', '', 'total all time', [1,2,2,3,3,4,5,5,6,7]);
-  out += dbStatCard('Delivery rate', deliveryRate, 'check', '', deliveryRate !== '—' ? 'industry avg 95.1%' : '', [95,96,96,97,97,98,97,98,98,98], '%');
+  out += dbStatCard('Отправлено писем', totalSent.toLocaleString(), 'send', '', '', [24,32,28,40,38,52,48,60,55,72]);
+  out += dbStatCard('Кампании', campaigns.length, 'mail', '', 'всего за всё время', [1,2,2,3,3,4,5,5,6,7]);
+  out += dbStatCard('Доставляемость', deliveryRate, 'check', '', deliveryRate !== '—' ? 'среднее по отрасли 95.1%' : '', [95,96,96,97,97,98,97,98,98,98], '%');
   var isPremium = true;
-  out += dbStatCard('Remaining today', isPremium ? '∞' : String(Math.max(0,(S.billing.dailyLimit||500)-sentToday)), 'star', '', isPremium ? 'Premium · unlimited' : 'of ' + (S.billing.dailyLimit||500));
+  out += dbStatCard('Осталось сегодня', isPremium ? '∞' : String(Math.max(0,(S.billing.dailyLimit||500)-sentToday)), 'star', '', isPremium ? 'Премиум · безлимит' : 'из ' + (S.billing.dailyLimit||500));
   out += '</div>';
 
   // Chart + donut row
@@ -2433,21 +2433,21 @@ function dbOverviewPanel() {
 
   // Bar chart card
   out += '<div class="db-card elev">';
-  out += '<div class="db-card-head"><div><h3 class="db-card-title">Send activity</h3><p class="db-card-sub">' + weekTotal.toLocaleString() + ' emails delivered · last 7 days</p></div></div>';
+  out += '<div class="db-card-head"><div><h3 class="db-card-title">Активность отправки</h3><p class="db-card-sub">' + weekTotal.toLocaleString() + ' писем доставлено · за 7 дней</p></div></div>';
   out += dbBarChart(last7);
   out += '</div>';
 
   // Donut card
   out += '<div class="db-card elev">';
-  out += '<div class="db-card-head"><div><h3 class="db-card-title">Delivery breakdown</h3><p class="db-card-sub">All-time outcomes</p></div></div>';
+  out += '<div class="db-card-head"><div><h3 class="db-card-title">Статистика доставки</h3><p class="db-card-sub">Результаты за всё время</p></div></div>';
   out += '<div style="display:flex;gap:18px;align-items:center">';
   out += dbDonut(totalSent - totalErrors, totalErrors, totalSkipped);
   out += '<div style="flex:1;display:flex;flex-direction:column;gap:10px">';
   var total = totalSent || 1;
   [
-    {label:'Delivered', val: totalSent - totalErrors, color:'var(--db-green)'},
-    {label:'Errors',    val: totalErrors,             color:'var(--db-red)'},
-    {label:'Skipped',   val: totalSkipped,            color:'var(--db-amber)'},
+    {label:'Доставлено', val: totalSent - totalErrors, color:'var(--db-green)'},
+    {label:'Ошибки',    val: totalErrors,             color:'var(--db-red)'},
+    {label:'Пропущено',   val: totalSkipped,            color:'var(--db-amber)'},
   ].forEach(function(s){
     out += '<div style="display:flex;align-items:center;justify-content:space-between">';
     out += '<span style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--db-ink2)"><span style="width:8px;height:8px;border-radius:50%;background:' + s.color + '"></span>' + esc(s.label) + '</span>';
@@ -2455,7 +2455,7 @@ function dbOverviewPanel() {
     out += '</div>';
   });
   out += '<hr class="db-divider" style="margin:4px 0">';
-  out += '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--db-muted)"><span>Total</span><span style="font-family:var(--db-mono);font-weight:600;color:var(--db-ink)">' + totalSent.toLocaleString() + '</span></div>';
+  out += '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--db-muted)"><span>Всего</span><span style="font-family:var(--db-mono);font-weight:600;color:var(--db-ink)">' + totalSent.toLocaleString() + '</span></div>';
   out += '</div></div></div>';
 
   out += '</div>'; // grid-2
@@ -2466,11 +2466,11 @@ function dbOverviewPanel() {
   // Recent campaigns table
   out += '<div class="db-card elev">';
   out += '<div class="db-card-head"><div><h3 class="db-card-title">' + t('db.overview.recentTitle') + '</h3><p class="db-card-sub">' + t('db.overview.sub') + '</p></div>';
-  out += '<button class="db-btn ghost sm" data-action="db-nav" data-tab="campaigns">View all ' + dbIcon('arrow',12) + '</button></div>';
+  out += '<button class="db-btn ghost sm" data-action="db-nav" data-tab="campaigns">Все кампании ' + dbIcon('arrow',12) + '</button></div>';
   if (recentCamps.length === 0) {
-    out += '<div class="db-empty"><div style="font-size:28px;opacity:0.5;margin-bottom:8px">📭</div><div>No campaigns yet. Send your first one!</div></div>';
+    out += '<div class="db-empty"><div style="font-size:28px;opacity:0.5;margin-bottom:8px">📭</div><div>Кампаний пока нет. Отправьте первую!</div></div>';
   } else {
-    out += '<table class="db-table"><thead><tr><th>Campaign</th><th>Date</th><th style="text-align:right">Sent</th><th style="text-align:right">Rate</th><th></th></tr></thead><tbody>';
+    out += '<table class="db-table"><thead><tr><th>Кампания</th><th>Дата</th><th style="text-align:right">Отправлено</th><th style="text-align:right">Дост.</th><th></th></tr></thead><tbody>';
     recentCamps.forEach(function(c) {
       var rate = c.total > 0 ? (((c.total - (c.errors||0)) / c.total) * 100).toFixed(1) : '—';
       var rateColor = parseFloat(rate) >= 97 ? 'var(--db-green)' : parseFloat(rate) >= 93 ? 'var(--db-amber)' : 'var(--db-red)';
@@ -2479,7 +2479,7 @@ function dbOverviewPanel() {
       out += '<td class="mono" style="color:var(--db-muted)">' + esc(c.date || '') + '</td>';
       out += '<td class="mono" style="text-align:right">' + (c.total||0).toLocaleString() + '</td>';
       out += '<td class="mono" style="text-align:right;font-weight:600;color:' + rateColor + '">' + rate + '%</td>';
-      out += '<td><div class="db-row-actions"><button title="View" data-action="db-view-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('eye',14) + '</button></div></td>';
+      out += '<td><div class="db-row-actions"><button title="Просмотр" data-action="db-view-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('eye',14) + '</button></div></td>';
       out += '</tr>';
     });
     out += '</tbody></table>';
@@ -2491,7 +2491,7 @@ function dbOverviewPanel() {
 
   // Account status
   out += '<div class="db-card elev">';
-  out += '<div class="db-card-head"><div><h3 class="db-card-title">Account status</h3></div>';
+  out += '<div class="db-card-head"><div><h3 class="db-card-title">Статус аккаунта</h3></div>';
   var planLabel = S.billing.activePlan === 'premium' ? 'Premium' : S.billing.activePlan === 'pro' ? 'Pro' : 'Starter';
   var planVariant = S.billing.activePlan === 'premium' ? 'gold' : 'green';
   out += '<span class="db-pill ' + planVariant + '"><span class="dot"></span>' + esc(planLabel) + '</span>';
@@ -2499,29 +2499,29 @@ function dbOverviewPanel() {
   var limitNum = S.billing.dailyLimit === -1 ? null : (S.billing.dailyLimit || 500);
   var fillPct = limitNum ? Math.min(100, Math.round((sentToday / limitNum) * 100)) : 18;
   out += '<div style="display:flex;flex-direction:column;gap:14px">';
-  out += '<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;color:var(--db-muted)"><span>Today\'s sends</span><span style="font-family:var(--db-mono);color:var(--db-ink);font-weight:600">' + sentToday + ' / ' + (limitNum || '∞') + '</span></div><div class="db-progress"><div class="fill" style="width:' + fillPct + '%"></div></div></div>';
+  out += '<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;color:var(--db-muted)"><span>Отправка сегодня</span><span style="font-family:var(--db-mono);color:var(--db-ink);font-weight:600">' + sentToday + ' / ' + (limitNum || '∞') + '</span></div><div class="db-progress"><div class="fill" style="width:' + fillPct + '%"></div></div></div>';
   var backends = S.scriptUrls || [];
-  out += '<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;color:var(--db-muted)"><span>Active backends</span><span style="font-family:var(--db-mono);color:var(--db-ink);font-weight:600">' + backends.length + ' connected</span></div>';
+  out += '<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;color:var(--db-muted)"><span>Активные бэкенды</span><span style="font-family:var(--db-mono);color:var(--db-ink);font-weight:600">' + backends.length + ' подключено</span></div>';
   if (backends.length > 0) {
     out += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
     backends.slice(0,2).forEach(function(b) {
       var email = typeof b === 'object' ? (b.email || b.url) : b;
       out += '<span class="db-tag green">' + dbIcon('check',10) + ' ' + esc(email.substring(0,20)) + '</span>';
     });
-    if (backends.length > 2) out += '<span class="db-tag">+' + (backends.length-2) + ' more</span>';
+    if (backends.length > 2) out += '<span class="db-tag">+' + (backends.length-2) + ' ещё</span>';
     out += '</div>';
   }
   out += '</div></div></div>';
 
   // Quick actions
   out += '<div class="db-card elev">';
-  out += '<div class="db-card-head"><div><h3 class="db-card-title">Quick actions</h3></div></div>';
+  out += '<div class="db-card-head"><div><h3 class="db-card-title">Быстрые действия</h3></div></div>';
   out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
   var qa = [
-    {icon:'send',    label:'New campaign',   action:'db-open-compose', tab:''},
-    {icon:'users',   label:'Add contact',    action:'db-nav', tab:'contacts'},
-    {icon:'activity',label:'Edit drip flow', action:'db-nav', tab:'drips'},
-    {icon:'sliders', label:'Backends',       action:'db-nav', tab:'settings'},
+    {icon:'send',    label:'Новая кампания',   action:'db-open-compose', tab:''},
+    {icon:'users',   label:'Добавить контакт',    action:'db-nav', tab:'contacts'},
+    {icon:'activity',label:'Drip-последовательности', action:'db-nav', tab:'drips'},
+    {icon:'sliders', label:'Бэкенды',       action:'db-nav', tab:'settings'},
   ];
   qa.forEach(function(q){
     out += '<button class="db-btn secondary" style="justify-content:flex-start;height:48px;padding:0 12px" data-action="' + q.action + '"' + (q.tab ? ' data-tab="' + q.tab + '"' : '') + '>';
@@ -2637,7 +2637,7 @@ function dbCampaignsPanel() {
       out += '<td class="mono" style="text-align:right">' + sent.toLocaleString() + '</td>';
       out += '<td class="mono" style="text-align:right;color:' + (errors > 30 ? 'var(--db-red)' : 'var(--db-muted)') + '">' + errors + '</td>';
       out += '<td class="mono" style="text-align:right;font-weight:600;color:' + rateColor + '">' + rate + (rate !== '—' ? '%' : '') + '</td>';
-      out += '<td style="text-align:right;padding-right:20px"><div class="db-row-actions"><button title="View" data-action="db-view-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('eye',14) + '</button><button title="Duplicate" data-action="db-duplicate-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('copy',14) + '</button><button title="Follow-up" data-action="db-followup-from-id" data-id="' + escAttr(c.id||'') + '" data-prefetch-followup="' + escAttr(c.id||'') + '">' + dbIcon('reply',14) + '</button><button title="Delete" data-action="db-camp-delete-one" data-id="' + escAttr(c.id||'') + '" style="color:var(--db-red,#ef4444)">' + dbIcon('trash',14) + '</button></div></td>';
+      out += '<td style="text-align:right;padding-right:20px"><div class="db-row-actions"><button title="Просмотр" data-action="db-view-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('eye',14) + '</button><button title="Duplicate" data-action="db-duplicate-campaign" data-id="' + escAttr(c.id||'') + '">' + dbIcon('copy',14) + '</button><button title="Follow-up" data-action="db-followup-from-id" data-id="' + escAttr(c.id||'') + '" data-prefetch-followup="' + escAttr(c.id||'') + '">' + dbIcon('reply',14) + '</button><button title="Delete" data-action="db-camp-delete-one" data-id="' + escAttr(c.id||'') + '" style="color:var(--db-red,#ef4444)">' + dbIcon('trash',14) + '</button></div></td>';
       out += '</tr>';
     });
   }
@@ -2667,7 +2667,7 @@ function dbAnalyticsPanel() {
   out += '<div class="db-stat-grid">';
   out += dbStatCard('Total sent', totalSent.toLocaleString(), 'send', '', 'all time', [200,280,260,320,300,360,340,420,400,480]);
   out += dbStatCard('Total errors', totalErrors, 'x', '', (totalSent>0 ? ((totalErrors/totalSent)*100).toFixed(2)+'% error rate' : ''), [40,38,32,30,28,26,22,20,18,18]);
-  out += dbStatCard('Delivery rate', rate, 'check', '', 'industry avg 95.1%', [96,96,97,97,97,98,98,98,98,98], rate !== '—' ? '%' : '');
+  out += dbStatCard('Delivery rate', rate, 'check', '', 'среднее по отрасли 95.1%', [96,96,97,97,97,98,98,98,98,98], rate !== '—' ? '%' : '');
   out += dbStatCard('Avg / campaign', avgPerDay, 'activity', '', 'per campaign', [600,640,680,720,700,740,720,760,740,780]);
   out += '</div>';
 
