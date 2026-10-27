@@ -275,140 +275,84 @@
 
 // ── Self-contained translation function (no i18n.js needed) ─────────
 var MB_STRINGS = {
-  en: {
-    // Nav
-    'db.nav.overview':'Overview','db.nav.campaigns':'Campaigns','db.nav.analytics':'Analytics',
-    'db.nav.contacts':'Contacts','db.nav.drip':'Drip','db.nav.billing':'Billing',
-    'db.nav.settings':'Settings','db.nav.managePlan':'Manage plan',
-    // Overview
-    'db.overview.title':'Overview','db.overview.sub':'Your sending activity at a glance',
-    'db.overview.recentTitle':'Recent campaigns','db.overview.viewAnalytics':'View analytics',
+  ru: {
+    'db.nav.overview':'Overview',
+    'db.nav.campaigns':'Campaigns',
+    'db.nav.analytics':'Analytics',
+    'db.nav.contacts':'Contacts',
+    'db.nav.drip':'Drip',
+    'db.nav.billing':'Billing',
+    'db.nav.settings':'Settings',
+    'db.nav.managePlan':'Manage plan',
+    'db.overview.title':'Overview',
+    'db.overview.sub':'Your sending activity at a glance',
+    'db.overview.recentTitle':'Recent campaigns',
+    'db.overview.viewAnalytics':'View analytics',
     'db.overview.newCampaign':'New campaign',
-    // Campaigns
-    'db.campaigns.title':'Campaigns','db.campaigns.export':'Export','db.campaigns.new':'New campaign',
-    // Analytics
-    'db.analytics.title':'Analytics','db.analytics.sub':'Delivery stats across all campaigns',
-    // Contacts
-    'db.contacts.title':'Contacts','db.contacts.export':'Export CSV','db.contacts.import':'Import CSV',
-    'db.contacts.add':'Add contact','db.contacts.newCamp':'New campaign',
-    'db.contacts.formName':'Full name','db.contacts.formEmail':'Email address',
-    'db.contacts.formTags':'Tags (comma separated)','db.contacts.formGroup':'Group',
+    'db.campaigns.title':'Campaigns',
+    'db.campaigns.export':'Export',
+    'db.campaigns.new':'New campaign',
+    'db.analytics.title':'Analytics',
+    'db.analytics.sub':'Delivery stats across all campaigns',
+    'db.contacts.title':'Contacts',
+    'db.contacts.export':'Export CSV',
+    'db.contacts.import':'Import CSV',
+    'db.contacts.add':'Add contact',
+    'db.contacts.newCamp':'New campaign',
+    'db.contacts.formName':'Full name',
+    'db.contacts.formEmail':'Email address',
+    'db.contacts.formTags':'Tags (comma separated)',
+    'db.contacts.formGroup':'Group',
     'db.contacts.formGroupPlaceholder':'e.g. Leads, Customers…',
     'db.contacts.formCF':'Custom fields (key:value, one per line)',
-    'db.contacts.saveAdd':'Save contact','db.contacts.saveEdit':'Save changes',
-    'db.contacts.cancel':'Cancel','db.contacts.addTitle':'New contact','db.contacts.editTitle':'Edit contact',
-    // Drip
-    'db.drip.title':'Drip sequences','db.drip.sub':'Automated follow-up emails','db.drip.sendStep':'Send step',
-    // Billing
-    'db.billing.title':'Billing','db.billing.sub':'Plan and usage',
-    'db.billing.sync':'Sync','db.billing.manage':'Manage','db.billing.upgrade':'Upgrade',
-    // Settings
-    'db.settings.title':'Settings','db.settings.sub':'Account preferences, backends, and integrations',
-    'db.settings.dashTheme':'Dashboard theme','db.settings.dashHint':'Light or dark mode for the dashboard',
-    'db.settings.light':'Light','db.settings.dark':'Dark',
-    'db.settings.language':'Language','db.settings.langHint':'',
-    'db.settings.backends':'Backends','db.settings.guide':'Guide','db.settings.about':'About',
-    // Compose
-    'db.compose.title':'New campaign','db.compose.sub':'Connect your Google Sheet and write your message',
+    'db.contacts.saveAdd':'Save contact',
+    'db.contacts.saveEdit':'Save changes',
+    'db.contacts.cancel':'Cancel',
+    'db.contacts.addTitle':'New contact',
+    'db.contacts.editTitle':'Edit contact',
+    'db.drip.title':'Drip sequences',
+    'db.drip.sub':'Automated follow-up emails',
+    'db.drip.sendStep':'Send step',
+    'db.billing.title':'Billing',
+    'db.billing.sub':'Plan and usage',
+    'db.billing.sync':'Sync',
+    'db.billing.manage':'Manage',
+    'db.billing.upgrade':'Upgrade',
+    'db.settings.title':'Settings',
+    'db.settings.sub':'Account preferences, backends, and integrations',
+    'db.settings.dashTheme':'Dashboard theme',
+    'db.settings.dashHint':'Light or dark mode for the dashboard',
+    'db.settings.light':'Light',
+    'db.settings.dark':'Dark',
+    'db.settings.language':'Language',
+    'db.settings.langHint':'',
+    'db.settings.backends':'Backends',
+    'db.settings.guide':'Guide',
+    'db.settings.about':'About',
+    'db.compose.title':'New campaign',
+    'db.compose.sub':'Connect your Google Sheet and write your message',
     'db.compose.composeTitle':'Write your email',
-    'db.compose.campName':'Campaign name','db.compose.sheetUrl':'Google Sheet URL',
-    'db.compose.connect':'Connect sheet','db.compose.subject':'Subject line',
-    'db.compose.body':'Email body','db.compose.back':'Back',
-    'db.compose.test':'Send test','db.compose.save':'Save draft','db.compose.send':'Start sending',
-  },
-  es: {
-    // Nav
-    'db.nav.overview':'Resumen','db.nav.campaigns':'Campañas','db.nav.analytics':'Analíticas',
-    'db.nav.contacts':'Contactos','db.nav.drip':'Drip','db.nav.billing':'Facturación',
-    'db.nav.settings':'Configuración','db.nav.managePlan':'Gestionar plan',
-    // Overview
-    'db.overview.title':'Resumen','db.overview.sub':'Tu actividad de envío de un vistazo',
-    'db.overview.recentTitle':'Campañas recientes','db.overview.viewAnalytics':'Ver analíticas',
-    'db.overview.newCampaign':'Nueva campaña',
-    // Campaigns
-    'db.campaigns.title':'Campañas','db.campaigns.export':'Exportar','db.campaigns.new':'Nueva campaña',
-    // Analytics
-    'db.analytics.title':'Analíticas','db.analytics.sub':'Estadísticas de entrega',
-    // Contacts
-    'db.contacts.title':'Contactos','db.contacts.export':'Exportar CSV','db.contacts.import':'Importar CSV',
-    'db.contacts.add':'Agregar contacto','db.contacts.newCamp':'Nueva campaña',
-    'db.contacts.formName':'Nombre completo','db.contacts.formEmail':'Correo electrónico',
-    'db.contacts.formTags':'Etiquetas (separadas por coma)','db.contacts.formGroup':'Grupo',
-    'db.contacts.formGroupPlaceholder':'p.ej. Leads, Clientes…',
-    'db.contacts.formCF':'Campos personalizados (clave:valor, uno por línea)',
-    'db.contacts.saveAdd':'Guardar contacto','db.contacts.saveEdit':'Guardar cambios',
-    'db.contacts.cancel':'Cancelar','db.contacts.addTitle':'Nuevo contacto','db.contacts.editTitle':'Editar contacto',
-    // Drip
-    'db.drip.title':'Secuencias drip','db.drip.sub':'Correos de seguimiento automatizados','db.drip.sendStep':'Enviar paso',
-    // Billing
-    'db.billing.title':'Facturación','db.billing.sub':'Plan y uso',
-    'db.billing.sync':'Sincronizar','db.billing.manage':'Gestionar','db.billing.upgrade':'Actualizar',
-    // Settings
-    'db.settings.title':'Configuración','db.settings.sub':'Preferencias, backends e integraciones',
-    'db.settings.dashTheme':'Tema del panel','db.settings.dashHint':'Modo claro u oscuro para el panel',
-    'db.settings.light':'Claro','db.settings.dark':'Oscuro',
-    'db.settings.language':'Idioma','db.settings.langHint':'',
-    'db.settings.backends':'Backends','db.settings.guide':'Guía','db.settings.about':'Acerca de',
-    // Compose
-    'db.compose.title':'Nueva campaña','db.compose.sub':'Conecta tu hoja de Google y escribe tu mensaje',
-    'db.compose.composeTitle':'Escribe tu correo',
-    'db.compose.campName':'Nombre de la campaña','db.compose.sheetUrl':'URL de Google Sheets',
-    'db.compose.connect':'Conectar hoja','db.compose.subject':'Asunto',
-    'db.compose.body':'Cuerpo del correo','db.compose.back':'Atrás',
-    'db.compose.test':'Enviar prueba','db.compose.save':'Guardar borrador','db.compose.send':'Comenzar envío',
-  },
-  fr: {
-    // Nav
-    'db.nav.overview':'Vue d\'ensemble','db.nav.campaigns':'Campagnes','db.nav.analytics':'Analytiques',
-    'db.nav.contacts':'Contacts','db.nav.drip':'Drip','db.nav.billing':'Facturation',
-    'db.nav.settings':'Paramètres','db.nav.managePlan':'Gérer le plan',
-    // Overview
-    'db.overview.title':'Vue d\'ensemble','db.overview.sub':'Votre activité d\'envoi en un coup d\'œil',
-    'db.overview.recentTitle':'Campagnes récentes','db.overview.viewAnalytics':'Voir les analytiques',
-    'db.overview.newCampaign':'Nouvelle campagne',
-    // Campaigns
-    'db.campaigns.title':'Campagnes','db.campaigns.export':'Exporter','db.campaigns.new':'Nouvelle campagne',
-    // Analytics
-    'db.analytics.title':'Analytiques','db.analytics.sub':'Statistiques de livraison',
-    // Contacts
-    'db.contacts.title':'Contacts','db.contacts.export':'Exporter CSV','db.contacts.import':'Importer CSV',
-    'db.contacts.add':'Ajouter un contact','db.contacts.newCamp':'Nouvelle campagne',
-    'db.contacts.formName':'Nom complet','db.contacts.formEmail':'Adresse e-mail',
-    'db.contacts.formTags':'Étiquettes (séparées par des virgules)','db.contacts.formGroup':'Groupe',
-    'db.contacts.formGroupPlaceholder':'ex. Leads, Clients…',
-    'db.contacts.formCF':'Champs personnalisés (clé:valeur, un par ligne)',
-    'db.contacts.saveAdd':'Enregistrer le contact','db.contacts.saveEdit':'Enregistrer les modifications',
-    'db.contacts.cancel':'Annuler','db.contacts.addTitle':'Nouveau contact','db.contacts.editTitle':'Modifier le contact',
-    // Drip
-    'db.drip.title':'Séquences drip','db.drip.sub':'E-mails de suivi automatisés','db.drip.sendStep':'Envoyer l\'étape',
-    // Billing
-    'db.billing.title':'Facturation','db.billing.sub':'Plan et utilisation',
-    'db.billing.sync':'Synchroniser','db.billing.manage':'Gérer','db.billing.upgrade':'Mettre à niveau',
-    // Settings
-    'db.settings.title':'Paramètres','db.settings.sub':'Préférences, backends et intégrations',
-    'db.settings.dashTheme':'Thème du tableau de bord','db.settings.dashHint':'Mode clair ou sombre pour le tableau',
-    'db.settings.light':'Clair','db.settings.dark':'Sombre',
-    'db.settings.language':'Langue','db.settings.langHint':'',
-    'db.settings.backends':'Backends','db.settings.guide':'Guide','db.settings.about':'À propos',
-    // Compose
-    'db.compose.title':'Nouvelle campagne','db.compose.sub':'Connectez votre feuille Google et rédigez votre message',
-    'db.compose.composeTitle':'Rédigez votre e-mail',
-    'db.compose.campName':'Nom de la campagne','db.compose.sheetUrl':'URL Google Sheets',
-    'db.compose.connect':'Connecter la feuille','db.compose.subject':'Objet',
-    'db.compose.body':'Corps de l\'e-mail','db.compose.back':'Retour',
-    'db.compose.test':'Envoyer un test','db.compose.save':'Enregistrer le brouillon','db.compose.send':'Commencer l\'envoi',
+    'db.compose.campName':'Campaign name',
+    'db.compose.sheetUrl':'Google Sheet URL',
+    'db.compose.connect':'Connect sheet',
+    'db.compose.subject':'Subject line',
+    'db.compose.body':'Email body',
+    'db.compose.back':'Back',
+    'db.compose.test':'Send test',
+    'db.compose.save':'Save draft',
+    'db.compose.send':'Start sending',
   }
 };
 function t(key) {
-  var lang = (typeof S !== 'undefined' && S.lang) ? S.lang : 'en';
-  var dict = MB_STRINGS[lang] || MB_STRINGS.en;
+  var lang = (typeof S !== 'undefined' && S.lang) ? S.lang : 'ru';
+  var dict = MB_STRINGS[lang] || MB_STRINGS.ru;
   if (dict[key] !== undefined) return dict[key];
-  if (MB_STRINGS.en[key] !== undefined) return MB_STRINGS.en[key];
+  if (MB_STRINGS.ru[key] !== undefined) return MB_STRINGS.ru[key];
   // Fall back to i18n.js TRANSLATIONS if available
   if (typeof TRANSLATIONS !== 'undefined') {
-    var i18nDict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+    var i18nDict = TRANSLATIONS[lang] || TRANSLATIONS['ru'];
     if (i18nDict && i18nDict[key] !== undefined) return i18nDict[key];
-    if (TRANSLATIONS['en'] && TRANSLATIONS['en'][key] !== undefined) return TRANSLATIONS['en'][key];
+    if (TRANSLATIONS['ru'] && TRANSLATIONS['ru'][key] !== undefined) return TRANSLATIONS['ru'][key];
   }
   return key;
 }
@@ -451,7 +395,7 @@ const S = {
   view: "home",
   theme: "dark",
   font: "system",
-  lang: "en",
+  lang: "ru",
   scriptUrl: "",
   scriptUrls: [],
   sheets: [],
@@ -699,7 +643,7 @@ function init() {
       if (data.mb_font) {
         S.font = data.mb_font;
       }
-      if (data.mb_lang) {
+      if (data.mb_lang && TRANSLATIONS[data.mb_lang]) {
         S.lang = data.mb_lang;
         setLang(data.mb_lang);
       }
@@ -3397,8 +3341,8 @@ function dbSettingsPanel() {
   out += '<div style="font-size:11px;font-weight:700;color:var(--db-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">' + t('db.settings.language') + '</div>';
   out += '<div style="font-size:12.5px;color:var(--db-muted);margin-bottom:10px">' + t('db.settings.langHint') + '</div>';
   out += '<div class="db-seg">';
-  var langLabels = { en: '🇺🇸 EN', es: '🇪🇸 ES', fr: '🇫🇷 FR' };
-  ['en','es','fr'].forEach(function(l){
+  var langLabels = { ru: '🇷🇺 RU' };
+  ['ru'].forEach(function(l){
     out += '<button class="' + (S.lang===l?'active':'') + '" data-action="set-lang" data-lang="' + l + '">' + (langLabels[l]||l.toUpperCase()) + '</button>';
   });
   out += '</div></div></div></div>';
@@ -4757,16 +4701,8 @@ function vSettings() {
   const aaActive = S.settingsShowFonts;
   out += '<button class="hdr-btn" data-action="toggle-fonts" title="Font" style="width:32px;height:32px;border-radius:8px;border:1px solid ' + (aaActive ? 'var(--acc)' : 'var(--bd)') + ';background:' + (aaActive ? 'var(--acc-soft)' : 'var(--bg3)') + ';font-size:13px;font-weight:700;letter-spacing:-0.02em;color:' + (aaActive ? 'var(--acc)' : 'var(--tx2)') + '">Aa</button>';
 
-  // Language select (inline, compact)
-  out += '<div style="position:relative;display:flex;align-items:center">';
-  out += '<select id="settingsLangSelect" style="appearance:none;-webkit-appearance:none;height:32px;padding:0 22px 0 9px;border-radius:8px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx2);font-size:11px;font-weight:700;letter-spacing:0.04em;font-family:var(--font-mono);cursor:pointer;outline:none">';
-  for (let i = 0; i < LANGUAGES.length; i++) {
-    const l = LANGUAGES[i];
-    out += '<option value="' + l.code + '"' + (S.lang === l.code ? " selected" : "") + '>' + l.label + '</option>';
-  }
-  out += '</select>';
-  out += '<span style="position:absolute;right:7px;top:50%;transform:translateY(-50%);pointer-events:none;width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:4px solid var(--tx3)"></span>';
-  out += '</div>';
+  // Language badge (only Russian is available)
+  out += '<div style="display:flex;align-items:center;height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx2);font-size:11px;font-weight:700;letter-spacing:0.04em;font-family:var(--font-mono)">' + esc(LANGUAGES[0].label) + '</div>';
 
   out += '</div>';
 
@@ -4855,23 +4791,6 @@ function setFont(key) {
   render();
 }
 
-function settingsLanguagePanel() {
-  let out = '<div class="panel">';
-  out += '<div class="panel-title">' + t("language.title") + '</div>';
-  out += '<div class="panel-sub">' + t("language.sub") + '</div>';
-  out += '<div class="font-grid">';
-  for (let i = 0; i < LANGUAGES.length; i++) {
-    const lang = LANGUAGES[i];
-    const isActive = S.lang === lang.code;
-    out += '<button class="font-card' + (isActive ? " active" : "") + '" data-action="set-lang" data-lang="' + lang.code + '">';
-    out += '<span class="font-card-name">' + esc(lang.label) + '</span>';
-    out += '<span class="font-card-preview">' + esc(lang.name) + '</span>';
-    out += '</button>';
-  }
-  out += '</div>';
-  out += '</div>';
-  return out;
-}
 
 function settingsGuidePanel() {
   let out = "";
@@ -7114,7 +7033,7 @@ function handleActionClick(event) {
     return;
   }
   if (action === "set-lang") {
-    const langCode = actionEl.getAttribute("data-lang") || "en";
+    const langCode = actionEl.getAttribute("data-lang") || "ru";
     S.lang = langCode;
     setLang(langCode);
     chrome.storage.local.set({ mb_lang: langCode });
@@ -8320,15 +8239,6 @@ function handleChange(event) {
   }
   if (event.target.id === "attachFileInput") {
     handleFileAttach(event.target.files);
-  }
-  // Settings page language select
-  if (event.target.id === "settingsLangSelect") {
-    const code = event.target.value;
-    S.lang = code;
-    setLang(code);
-    chrome.storage.local.set({ mb_lang: code });
-    render();
-    return;
   }
   // Contacts sort select
   if (event.target.id === "contactSortSel") {
