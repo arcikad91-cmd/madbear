@@ -1,0 +1,162 @@
+# -*- coding: utf-8 -*-
+import io
+
+path = '/workspace/popup.js'
+src = io.open(path, encoding='utf-8').read()
+
+LIT = [
+# Sidebar sections & plan card
+("{ section: 'Main', items: [", "{ section: 'Основное', items: ["),
+("{ section: 'Features', items: [", "{ section: 'Функции', items: ["),
+("{ section: 'Account', items: [", "{ section: 'Аккаунт', items: ["),
+('<div class="db-plan-label">Current plan</div>', '<div class="db-plan-label">Текущий план</div>'),
+("' + sentToday + ' sent today</span>", "' + sentToday + ' отправлено сегодня</span>"),
+# Topbar
+("var current = labels[DB.tab] || 'Overview';", "var current = labels[DB.tab] || 'Обзор';"),
+('<input placeholder="Search campaigns, contacts…"', '<input placeholder="Поиск кампаний, контактов…"'),
+('title="Help"', 'title="Помощь"'),
+('title="Notifications"', 'title="Уведомления"'),
+('title="Settings"', 'title="Настройки"'),
+# Overview greeting
+('>Good morning, Madbear</h1>', '>Доброе утро, Madbear</h1>'),
+("Here\\'s what\\'s happening across your campaigns today.", "Вот что происходит в ваших кампаниях сегодня."),
+# Stat cards overview
+("dbStatCard('Emails sent', ", "dbStatCard('Отправлено писем', "),
+("dbStatCard('Campaigns', ", "dbStatCard('Кампании', "),
+("'total all time'", "'всего за всё время'"),
+("dbStatCard('Delivery rate', deliveryRate, ", "dbStatCard('Доставляемость', deliveryRate, "),
+("'industry avg 95.1%'", "'среднее по отрасли 95.1%'"),
+("dbStatCard('Remaining today', ", "dbStatCard('Осталось сегодня', "),
+("'Premium · unlimited'", "'Премиум · безлимит'"),
+("isPremium ? '∞' : String(Math.max(0,(S.billing.dailyLimit||500)-sentToday)), 'star', '', isPremium ? 'Премиум · безлимит' : 'of ' + (S.billing.dailyLimit||500));",
+ "isPremium ? '∞' : String(Math.max(0,(S.billing.dailyLimit||500)-sentToday)), 'star', '', isPremium ? 'Премиум · безлимит' : 'из ' + (S.billing.dailyLimit||500));"),
+# Overview cards
+('<h3 class="db-card-title">Send activity</h3>', '<h3 class="db-card-title">Активность отправки</h3>'),
+("' emails delivered · last 7 days</p>", "' писем доставлено · за 7 дней</p>"),
+('<h3 class="db-card-title">Delivery breakdown</h3><p class="db-card-sub">All-time outcomes</p>',
+ '<h3 class="db-card-title">Статистика доставки</h3><p class="db-card-sub">Результаты за всё время</p>'),
+("{label:'Delivered', val: totalSent - totalErrors,", "{label:'Доставлено', val: totalSent - totalErrors,"),
+("{label:'Errors',    val: totalErrors,", "{label:'Ошибки',    val: totalErrors,"),
+("{label:'Skipped',   val: totalSkipped,", "{label:'Пропущено',   val: totalSkipped,"),
+('<span>Total</span>', '<span>Всего</span>'),
+('data-tab="campaigns">View all ', 'data-tab="campaigns">Все кампании '),
+('<div>No campaigns yet. Send your first one!</div>', '<div>Кампаний пока нет. Отправьте первую!</div>'),
+('<h3 class="db-card-title">Account status</h3>', '<h3 class="db-card-title">Статус аккаунта</h3>'),
+("<span>Today\\'s sends</span>", "<span>Отправка сегодня</span>"),
+("<span>Active backends</span>", "<span>Активные бэкенды</span>"),
+("' + backends.length + ' connected</span>", "' + backends.length + ' подключено</span>"),
+("+ (backends.length-2) + ' more</span>", "+ (backends.length-2) + ' ещё</span>"),
+('<h3 class="db-card-title">Quick actions</h3>', '<h3 class="db-card-title">Быстрые действия</h3>'),
+("label:'New campaign',   action:'db-open-compose'", "label:'Новая кампания',   action:'db-open-compose'"),
+("label:'Add contact',    action:'db-nav'", "label:'Добавить контакт',    action:'db-nav'"),
+("label:'Edit drip flow', action:'db-nav'", "label:'Drip-последовательности', action:'db-nav'"),
+("label:'Backends',       action:'db-nav'", "label:'Бэкенды',       action:'db-nav'"),
+# Overview recent table headers
+("<thead><tr><th>Campaign</th><th>Date</th><th style=\"text-align:right\">Sent</th><th style=\"text-align:right\">Rate</th><th></th></tr></thead>",
+ "<thead><tr><th>Кампания</th><th>Дата</th><th style=\"text-align:right\">Отправлено</th><th style=\"text-align:right\">Дост.</th><th></th></tr></thead>"),
+('title="View"', 'title="Просмотр"'),
+# Banner
+("b.label || 'Sending campaign…'", "b.label || 'Отправка кампании…'"),
+("b.label || 'Send failed'", "b.label || 'Ошибка отправки'"),
+("title=\"Dismiss\"", "title=\"Закрыть\""),
+# Compose modal step 1
+("<strong>No backend set.</strong> Go to <button", "<strong>Бэкенд не настроен.</strong> Перейдите в <button"),
+(">Settings → Backends</button> and add your Google Apps Script URL first.", ">Настройки → Бэкенды</button> и сначала добавьте URL вашего Google Apps Script."),
+('<input id="dbCampName" placeholder="May Newsletter"', '<input id="dbCampName" placeholder="Июньская рассылка"'),
+('<div class="db-field-label">Recent spreadsheets</div>', '<div class="db-field-label">Недавние таблицы</div>'),
+("'Sheet · '", "'Таблица · '"),
+("Or send directly to your contacts ", "Или отправьте напрямую вашим контактам "),
+('>No Sheet needed</span>', '>Таблица не нужна</span>'),
+('color:var(--db-ink)">All contacts</span>', 'color:var(--db-ink)">Все контакты</span>'),
+("' recipient' + (modalContacts.length !== 1 ? 's' : '')", "' получатель' + (modalContacts.length > 1 ? 'ев' : (modalContacts.length === 1 ? '' : 'ев'))"),
+("' recipient' + (cnt !== 1 ? 's' : '')", "' получатель' + (cnt > 1 ? 'ев' : (cnt === 1 ? '' : 'ев'))"),
+("No contacts yet — <button", "Контактов пока нет — <button"),
+(">add contacts</button> to send without a Google Sheet.", ">добавьте контакты</button>, чтобы отправлять без Google Таблицы."),
+('<button class="db-btn ghost" data-action="db-compose-close">Cancel</button>', '<button class="db-btn ghost" data-action="db-compose-close">Отмена</button>'),
+# Compose modal step 2
+("form.contactGroup ? '\"' + form.contactGroup + '\" group' : form.contactTag ? '\"' + form.contactTag + '\" contacts' : 'All contacts')\n      : (form.sheetName || form.sheetUrl || \"Spreadsheet\")",
+ "form.contactGroup ? 'группа \"' + form.contactGroup + '\"' : form.contactTag ? 'контакты \"' + form.contactTag + '\"' : 'Все контакты')\n      : (form.sheetName || form.sheetUrl || \"Таблица\")"),
+("' contacts · no sheet needed · from '", "' контактов · таблица не нужна · от "),
+("' recipients · from '", "' получателей · от "),
+("' in group <strong>'", "' из группы <strong>'"),
+("? ' tagged <strong>\"'", "? ' с тегом <strong>\"'"),
+("<strong>Contacts campaign</strong> — sending to <strong>'", "<strong>Кампания по контактам</strong> — отправка на <strong>'"),
+("recipientCount !== 1 ? 's' : '') + recipientDesc + '. No Google Sheet required.'", "recipientCount === 1 ? '' : 'ов') + recipientDesc + '. Google Таблица не требуется.'"),
+('<div class="db-field-label">From Name</div>', '<div class="db-field-label">Имя отправителя</div>'),
+('<input id="dbCampFromName" placeholder="Your Name"', '<input id="dbCampFromName" placeholder="Ваше имя"'),
+('<div class="db-field-label">Reply-To Email</div>', '<div class="db-field-label">Email для ответа</div>'),
+('(supports {{tokens}})', '(поддерживает {{токены}})'),
+('<div class="db-field-label">Merge fields <span style="color:var(--db-muted);font-size:11px">— click to insert at cursor</span></div>',
+ '<div class="db-field-label">Поля слияния <span style="color:var(--db-muted);font-size:11px">— нажмите, чтобы вставить в курсор</span></div>'),
+('>Plain Text</button>', '>Обычный текст</button>'),
+('placeholder="Hi {{FirstName}},&#10;&#10;…your message…&#10;&#10;Best,&#10;Your team"',
+ 'placeholder="Привет, {{FirstName}},&#10;&#10;…ваше сообщение…&#10;&#10;С уважением,&#10;Ваша команда"'),
+("' HTML mode — use {{tokens}} for personalization, same as plain text.</div>",
+ "' Режим HTML — используйте {{токены}} для персонализации, как и в обычном тексте.</div>"),
+('<div class="db-field-label" style="margin-bottom:6px">Attachments</div>', '<div class="db-field-label" style="margin-bottom:6px">Вложения</div>'),
+("+ ' Attach File';", "+ ' Прикрепить файл';"),
+('<div class="db-field-label">Delay between emails (ms)</div>', '<div class="db-field-label">Задержка между письмами (мс)</div>'),
+('<div class="db-field-label">Test email address</div>', '<div class="db-field-label">Тестовый email-адрес</div>'),
+('>Premium features</div>', '>Премиум-функции</div>'),
+('>Auto-inject unsubscribe footer</span>', '>Автоматически добавлять ссылку отписки</span>'),
+('>Schedule send</span>', '>Отправить по расписанию</span>'),
+('>Smart send window (stagger sends)</span>', '>Умная отправка (равномерная рассылка)</span>'),
+('>Sending…</h3>', '>Отправка…</h3>'),
+("DB.composeSendingProgress || 'Preparing…'", "DB.composeSendingProgress || 'Подготовка…'"),
+('>You can keep using the dashboard while emails send</div>', '>Вы можете продолжать работать в панели, пока письма отправляются</div>'),
+# Follow-up modal
+('>Follow-up Campaign</h3>', '>Дожимная кампания</h3>'),
+('>Replying to: ', '>Ответ на: '),
+("<strong>Premium feature.</strong> Follow-up campaigns (threaded replies) require a Premium plan. ",
+ "<strong>Премиум-функция.</strong> Дожимные кампании (цепочки ответов) требуют премиум-план. "),
+('>Upgrade</button>', '>Улучшить план</button>'),
+('<input id="fuFromName" placeholder="Your Name"', '<input id="fuFromName" placeholder="Ваше имя"'),
+('<div class="db-field-label">Subject</div>', '<div class="db-field-label">Тема письма</div>'),
+("' Recipients <span style=\"color:var(--db-muted);font-weight:400;font-size:11px\">— loading…</span>",
+ "' Получатели <span style=\"color:var(--db-muted);font-weight:400;font-size:11px\">— загрузка…</span>"),
+("' Recipients <span style=\"color:var(--db-muted);font-weight:400;font-size:11px\">(' + selectedCount + ' of ' + allRecip.length + ' selected)</span>",
+ "' Получатели <span style=\"color:var(--db-muted);font-weight:400;font-size:11px\">(' + selectedCount + ' из ' + allRecip.length + ' выбрано)</span>"),
+('data-action="db-fu-select-all" style="font-size:11px">All</button>', 'data-action="db-fu-select-all" style="font-size:11px">Все</button>'),
+('data-action="db-fu-select-none" style="font-size:11px">None</button>', 'data-action="db-fu-select-none" style="font-size:11px">Нет</button>'),
+('<input id="fuRecipientSearch" placeholder="Search recipients…"', '<input id="fuRecipientSearch" placeholder="Поиск получателей…"'),
+('>Loading…</div>', '>Загрузка…</div>'),
+('>No recipients found for this campaign.</div>', '>Для этой кампании получатели не найдены.</div>'),
+(">No matches for \"' + esc(fuSearch) + '\"</div>", ">Нет совпадений для «' + esc(fuSearch) + '»</div>"),
+("' more — refine search to filter</div>", "' ещё — уточните поиск</div>"),
+('<div class="db-field-label">Message</div>', '<div class="db-field-label">Сообщение</div>'),
+('placeholder="Hi {{FirstName}},&#10;&#10;Just wanted to follow up on my previous email…&#10;&#10;Best,&#10;Your team"',
+ 'placeholder="Привет, {{FirstName}},&#10;&#10;Хочу вернуться к моему предыдущему письму…&#10;&#10;С уважением,&#10;Ваша команда"'),
+('<div class="db-field-label">Delay between sends (ms)</div>', '<div class="db-field-label">Задержка между отправками (мс)</div>'),
+("dbIcon('arrowLeft', 13) + ' Cancel</button>'", "dbIcon('arrowLeft', 13) + ' Отмена</button>'"),
+('disabled title="Premium required"', 'disabled title="Требуется Премиум"'),
+("dbIcon('play') + ' Test Send</button>", "dbIcon('play') + ' Тестовая отправка</button>"),
+("dbIcon('reply') + ' Send Follow-up</button>", "dbIcon('reply') + ' Отправить дожим</button>"),
+('>Sending follow-up…</h3>', '>Отправка дожима…</h3>'),
+('>Sending as threaded replies…</div>', '>Отправка цепочкой ответов…</div>'),
+('>Do not close this window</div>', '>Не закрывайте это окно</div>'),
+("(allOk ? 'Follow-up sent!' : 'Follow-up complete')", "(allOk ? 'Дожим отправлен!' : 'Дожим завершён')"),
+("' sent as threaded replies</div>", "' отправлено цепочкой ответов</div>"),
+("' failed</div>", "' ошибок</div>"),
+('>Follow-up to: ', '>Дожим для: '),
+('<button class="db-btn ghost" data-action="db-followup-close">Close</button>', '<button class="db-btn ghost" data-action="db-followup-close">Закрыть</button>'),
+("dbIcon('plus') + ' New campaign</button>", "dbIcon('plus') + ' Новая кампания</button>"),
+# Results modal
+("<th>Email</th><th>Status</th><th>Detail</th>", "<th>Email</th><th>Статус</th><th>Подробности</th>"),
+("r.status === 'SENT' ? 'Sent' : r.status === 'TEST_SENT' ? 'Test' : r.status === 'SKIPPED' ? 'Skipped' : 'Error'",
+ "r.status === 'SENT' ? 'Отправлено' : r.status === 'TEST_SENT' ? 'Тест' : r.status === 'SKIPPED' ? 'Пропущено' : 'Ошибка'"),
+("' No per-recipient data available for this campaign.'", "' Данные по каждому получателю для этой кампании недоступны.'"),
+('<button class="db-btn ghost" data-action="db-results-close">Close</button>', '<button class="db-btn ghost" data-action="db-results-close">Закрыть</button>'),
+("dbIcon('reply') + ' Follow-up</button>", "dbIcon('reply') + ' Дожим</button>"),
+]
+
+missing = []
+for old, new in LIT:
+    if src.count(old) == 0:
+        missing.append(old[:80])
+    else:
+        src = src.replace(old, new)
+
+io.open(path, 'w', encoding='utf-8').write(src)
+print("NOT FOUND:", len(missing))
+for m in missing:
+    print("  -", m.encode('unicode_escape').decode()[:100])
